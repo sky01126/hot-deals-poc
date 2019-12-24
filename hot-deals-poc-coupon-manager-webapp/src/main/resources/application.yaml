@@ -1,0 +1,150 @@
+# -----------------------------------------------------------------------------------------------------------------------------------------------
+# | Spring Boot DOC                      | http://docs.spring.io/spring-boot/docs/current/reference/html/index.html                             |
+# | Spring Boot Property DOC             | http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html     |
+# | Monitoring and management over HTTP  | http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html       |
+# -----------------------------------------------------------------------------------------------------------------------------------------------
+
+# Spring Proifle Active 설정.
+# -Dspring.profiles.active=dev
+
+# How to display auto-configuration report when running a Spring Boot application
+#debug: true
+
+# ----------------------------------------
+# Spring info
+# ----------------------------------------
+spring:
+  application:
+    name: '@artifactId@'
+
+  devtools:
+    restart:
+      enabled: true
+      exclude: '**/*.sql,META-INF/maven/**,META-INF/resources/**,resources/**,static/**,public/**,templates/**,**/*Test.class,**/*Tests.class,git.properties,META-INF/build-info.properties'
+
+  # Expose management beans to the JMX domain.
+  jmx:
+    enabled: false
+
+  main:
+    allow-bean-definition-overriding: true
+
+  messages:
+    # Whether to always apply the MessageFormat rules, parsing even messages without arguments.
+    always-use-message-format: false
+
+    # Comma-separated list of basenames (essentially a fully-qualified classpath location), each following the ResourceBundle convention with relaxed support for slash based locations.
+    basename: classpath:messages/response
+
+    # Message bundles encoding.
+    encoding: UTF-8
+
+  # Spring MVC
+  mvc:
+    favicon:
+      enabled: false
+
+    # 404 에러를 ControllerAdvice에서 처리할 수 있도록 설정
+    throw-exception-if-no-handler-found: true
+
+    view:
+      prefix: /WEB-INF/v/
+      suffix: .jsp
+
+  # Spring Profiles, 리스트로 등록
+  profiles:
+    include:
+    - config
+
+  resources:
+    # 정적 리소스 사용하지 않음으로 설정.
+    add-mappings: false
+
+    static-locations:
+    - classpath:/resources/
+    - classpath:/static/
+
+# ----------------------------------------
+# Application info
+# ----------------------------------------
+info:
+  application:
+    env: '${spring.profiles.active:@env@}'
+    group: '@groupId@'
+    artifact: '@artifactId@'
+    version: '@version@'
+    name: '@name@'
+    description: '@description@'
+
+# ----------------------------------------
+# Logging config file
+# ----------------------------------------
+logging:
+  config: classpath:logback-spring.xml
+
+# ----------------------------------------
+# Actuator properties
+# ----------------------------------------
+management:
+  endpoints:
+    web:
+      base-path : /actuator
+      exposure:
+        include:
+          - health
+          - info
+
+# ----------------------------------------
+# Server info
+# ----------------------------------------
+server:
+  compression:
+    enabled: false
+  error:
+    whitelabel:
+      enabled: false
+  port: ${PORT:8080}
+  servlet:
+    context-path: '/'
+
+---
+# 개발 배포
+spring:
+  profiles: dev
+
+logging:
+  config: classpath:logback-spring-dev.xml
+
+server:
+  # "-Dserver.logs.home=/home/server/logs" Java 옵션으로 로그 기록 디렉토리 변경.
+  logs:
+    home: ${catalina.base}
+
+  # Tomcat access logs
+#  tomcat:
+#    accesslog:
+#      enabled: true
+#      directory: ${server.logs.home}
+#      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
+#      prefix: access
+
+---
+# 상용 배포
+spring:
+  profiles: prod
+
+logging:
+  config: classpath:logback-spring-prod.xml
+
+server:
+  # "-Dserver.logs.home=/home/server/logs" Java 옵션으로 로그 기록 디렉토리 변경.
+  logs:
+    home: ${catalina.base}
+
+  # Tomcat access logs
+#  tomcat:
+#    accesslog:
+#      enabled: true
+#      directory: ${server.logs.home}
+#      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
+#      prefix: access

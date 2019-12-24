@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.11.RELEASE</version>
+    </parent>
+    <groupId>com.kt</groupId>
+    <artifactId>hot-deals-poc</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <packaging>pom</packaging>
+    <name>hot-deals-poc Project</name>
+    <description>Hot Deals POC 프로젝트</description>
+    <url>https://www.kt.com</url>
+    <organization>
+        <name>Copyright(C) KT Hitel Co., Ltd. all rights reserved.</name>
+        <url>https://www.kt.com</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://stash.kt.com/scm/project/project.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>developer</id>
+            <name>Developer</name>
+            <email>developer@kt.com</email>
+            <url>https://www.kt.com</url>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>GMT+9</timezone>
+        </developer>
+    </developers>
+    <properties>
+        <java.version>1.8</java.version>
+        <source.encoding>UTF-8</source.encoding>
+        <resource.delimiter>@</resource.delimiter>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <main.basedir>${basedir}</main.basedir>
+
+        <!-- 배포 서버 환경 - local, dev, prod -->
+        <env>local</env>
+
+        <!-- 빌드 테스트 설정 -->
+        <maven.test.skip>true</maven.test.skip>
+
+        <!-- ==================== SonarQube에서 분석 제외 파일 설정 ==================== -->
+        <sonar.exclusions>pom.xml</sonar.exclusions>
+
+        <!-- ==================== Docker image prefix ==================== -->
+        <docker.image.prefix>kthcorp</docker.image.prefix>
+
+        <!-- ==================== KTHCorp Commons Library Project ==================== -->
+        <kthcorp.version>2.1.2</kthcorp.version>
+
+        <!-- ==================== Spring Boot Cloud ==================== -->
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+
+        <!-- ==================== Third Party versions ==================== -->
+        <!-- Json Web Token -->
+        <jjwt.version>0.10.7</jjwt.version>
+
+        <!-- ==================== Web Jars versions ==================== -->
+        <animate.css.version>3.5.2</animate.css.version>
+        <bootstrap.version>4.3.1</bootstrap.version>
+        <datatables.version>1.10.20</datatables.version>
+        <fastclick.version>1.0.6</fastclick.version>
+        <flot.version>0.8.3</flot.version>
+        <flot-spline.version>0.8.2</flot-spline.version>
+        <fontawesome.version>4.7.0</fontawesome.version>
+        <font-awesome.version>4.7.0</font-awesome.version>
+        <iCheck.version>1.0.2</iCheck.version>
+        <jQuery-slimScroll.version>1.3.8</jQuery-slimScroll.version>
+        <jquery.sparkline.version>2.1.2</jquery.sparkline.version>
+        <nprogress.version>0.2.0</nprogress.version>
+        <metismenu.version>2.7.0</metismenu.version>
+        <peity.version>3.2.0</peity.version>
+
+        <!-- ==================== Plugin versions ==================== -->
+        <asciidoctor-maven-plugin.version>1.6.0</asciidoctor-maven-plugin.version>
+        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
+        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+    </properties>
+    <!-- Library Repository -->
+    <repositories>
+        <!-- Repository in project's lib dir -->
+        <repository>
+            <id>local-repository</id>
+            <name>Repository in project's lib dir</name>
+            <layout>default</layout>
+            <url>file:///${main.basedir}/lib</url>
+        </repository>
+    </repositories>
+    <dependencyManagement>
+        <dependencies>
+            <!-- ==================== Internal Library ==================== -->
+            <dependency>
+                <groupId>com.kt</groupId>
+                <artifactId>hot-deals-poc-commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== KTHCorp Commons Library Project ==================== -->
+            <dependency>
+                <groupId>com.kthcorp</groupId>
+                <artifactId>kthcorp-dependencies</artifactId>
+                <version>${kthcorp.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ==================== Spring Boot Cloud ==================== -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ==================== Third Party ==================== -->
+            <!-- Json Web Token -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- ==================== Web Jars ==================== -->
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>animate.css</artifactId>
+                <version>${animate.css.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>datatables</artifactId>
+                <version>${datatables.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>fastclick</artifactId>
+                <version>${fastclick.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>font-awesome</artifactId>
+                <version>${font-awesome.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>metisMenu</artifactId>
+                <version>${metismenu.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bower</groupId>
+                <artifactId>flot</artifactId>
+                <version>${flot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bower</groupId>
+                <artifactId>flot-spline</artifactId>
+                <version>${flot-spline.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bower</groupId>
+                <artifactId>fontawesome</artifactId>
+                <version>${fontawesome.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bower</groupId>
+                <artifactId>iCheck</artifactId>
+                <version>${iCheck.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jQuery-slimScroll</artifactId>
+                <version>${jQuery-slimScroll.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery.sparkline</artifactId>
+                <version>${jquery.sparkline.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bower</groupId>
+                <artifactId>nprogress</artifactId>
+                <version>${nprogress.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.npm</groupId>
+                <artifactId>peity</artifactId>
+                <version>${peity.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>1.0b3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ant</groupId>
+                    <artifactId>ant</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Maven 빌드 시 Ant를 이용해서 env값으로 설정 정보 변경. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <tasks>
+                                    <taskdef classpathref="maven.plugin.classpath" resource="net/sf/antcontrib/antcontrib.properties" />
+                                    <property name="basedir" value="${basedir}" />
+                                    <property name="projectName" value="${project.name}" />
+                                    <property name="sourceDirectory" value="${project.build.sourceDirectory}" />
+                                    <property name="resourcesDirectory" value="${basedir}/src/main/resources" />
+                                    <property name="outputDirectory" value="${project.build.outputDirectory}" />
+                                    <property name="pluginClasspath" refid="maven.plugin.classpath" />
+                                    <property name="compileClasspath" refid="maven.compile.classpath" />
+                                    <property name="runtimeClasspath" refid="maven.runtime.classpath" />
+                                    <ant antfile="${basedir}/deploy.xml">
+                                        <target name="${env}" />
+                                    </ant>
+                                </tasks>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${source.encoding}</encoding>
+                        <showWarnings>true</showWarnings>
+                        <showDeprecation>true</showDeprecation>
+                        <compilerArgument>-Xlint:all</compilerArgument>
+                    </configuration>
+                </plugin>
+                <!-- Javadoc 생성. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                        <source>8</source>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <!-- add this to disable checking -->
+                                <doclint>none</doclint>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <delimiters>
+                            <delimiter>@</delimiter>
+                        </delimiters>
+                        <useDefaultDelimiters>false</useDefaultDelimiters>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>copy-resources</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <overwrite>true</overwrite>
+                                <outputDirectory>${basedir}/target/classes/</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${basedir}/src/main/resources-${env}/</directory>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Source 생성. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Maven 빌드 시 테스트코드의 컴파일 및 실행 안함. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <skip>${maven.test.skip}</skip>
+                    </configuration>
+                </plugin>
+                <!-- Spring Boot REST Docs Plugin -->
+                <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <version>${asciidoctor-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-docs</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>process-asciidoc</goal>
+                            </goals>
+                            <configuration>
+                                <backend>html</backend>
+                                <doctype>book</doctype>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.springframework.restdocs</groupId>
+                            <artifactId>spring-restdocs-asciidoctor</artifactId>
+                            <version>${spring-restdocs.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <!-- Docker 빌드 -->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>${dockerfile-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <!-- Maven Multi-Module Project -->
+    <modules>
+        <module>hot-deals-poc-commons</module>
+        <!-- <module>hot-deals-poc-webapp</module> -->
+        <module>hot-deals-poc-process-manager-webapp</module>
+    </modules>
+</project>

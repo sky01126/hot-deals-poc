@@ -1,0 +1,15 @@
+# 샘플.
+config:
+  sample:
+    yaml: 테스트 YAML
+
+---
+# 개발 배포
+spring:
+  profiles: dev
+
+---
+# 상용 배포
+spring:
+  profiles: prod
+    
