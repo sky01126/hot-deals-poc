@@ -30,6 +30,7 @@ import com.kt.commons.web.controller.AbstractController;
 import com.kt.commons.web.util.ResponseUtils;
 import com.kt.dto.request.TestRequest;
 import com.kt.service.TestService;
+import com.kthcorp.commons.lang.DateUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,11 +65,12 @@ public class TestController extends AbstractController {
 	@GetMapping(path = "redis")
 	public ResponseEntity<Object> get(HttpServletRequest request, HttpServletResponse response) {
 		double dValue = Math.random();
+		String nowDate = DateUtils.toDateString("yyyyMMdd");
 		String key = "test" + (int) (dValue * 10 + 1);
 		System.out.println("KYE=" + key + ", VALUE=" + "test - " + dValue);
 
-		boolean isInsert = hashOperations.putIfAbsent("20191220:HASH", key, "test - " + dValue);
-		Long count = listOperations.leftPush("20191220:PUSH", "test - " + dValue);
+		boolean isInsert = hashOperations.putIfAbsent("HASH:" + nowDate, key, "test - " + dValue);
+		Long count = listOperations.leftPush("PUSH:" + nowDate, "test - " + dValue);
 		System.out.println("COUNT=" + count);
 
 		Map<String, Object> result = new HashMap<>();
@@ -77,12 +79,13 @@ public class TestController extends AbstractController {
 		result.put("count", count);
 		result.put("is_insert", isInsert);
 		result.put("key", key);
-		result.put("value", hashOperations.get("20191220:HASH", key));
+		result.put("value", hashOperations.get("HASH:" + nowDate, key));
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 		return new ResponseEntity<>(result, headers, HttpStatus.OK);
 	}
+
 	/**
 	 * GET
 	 *

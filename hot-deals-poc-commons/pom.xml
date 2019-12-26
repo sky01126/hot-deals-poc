@@ -48,48 +48,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- Spring Boot Jdbc -->
-        <!-- <dependency> -->
-        <!-- <groupId>org.springframework.boot</groupId> -->
-        <!-- <artifactId>spring-boot-starter-jdbc</artifactId> -->
-        <!-- <exclusions> -->
-        <!-- <exclusion> -->
-        <!-- <artifactId>tomcat-jdbc</artifactId> -->
-        <!-- <groupId>org.apache.tomcat</groupId> -->
-        <!-- </exclusion> -->
-        <!-- </exclusions> -->
-        <!-- </dependency> -->
-
-        <!-- Spring Tomcat -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>tomcat-jdbc</artifactId>
-                    <groupId>org.apache.tomcat</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Spring Boot Processor -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.vaadin.external.google</groupId>
-                    <artifactId>android-json</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Spring Boot Test -->
@@ -144,6 +108,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- Tomcat Jasper (JSP) -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
         <!-- Jsoup -->
