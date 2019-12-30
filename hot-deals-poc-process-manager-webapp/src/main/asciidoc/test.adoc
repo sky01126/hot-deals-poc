@@ -70,7 +70,7 @@ include::{snippets}/test-controller-test/test-do-delete/http-response.adoc[]
 // -------------------------------------------- 응답 코드 --------------------------------------------
 [[result-code]]
 == 응답 코드
-API 호출의 result, result_msg 응답값
+API 호출의 result_code, result_msg 응답값
 
 [[result-code-success]]
 === 성공

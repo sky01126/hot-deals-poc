@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kt.commons.dto.response.DefaultResponse;
 import com.kt.commons.web.controller.AbstractController;
 import com.kt.commons.web.util.ResponseUtils;
 import com.kt.dto.request.TestRequest;
@@ -49,19 +49,6 @@ public class TestController extends AbstractController {
 	@Autowired
 	private TestService testService;
 
-	/**
-	 * GET Locale
-	 *
-	 * @param request the http servlet request
-	 * @param response the http servlet response
-	 * @return Response DTO(Data Transfer Object)
-	 */
-	@GetMapping(path = "locale")
-	public ResponseEntity<Object> localeTest(HttpServletRequest request, HttpServletResponse response) {
-		DefaultResponse res = new DefaultResponse(200, getResponseMessage(200));
-		return ResponseUtils.resultJson(request, res);
-	}
-
 	@GetMapping(path = "redis")
 	public ResponseEntity<Object> get(HttpServletRequest request, HttpServletResponse response) {
 		double dValue = Math.random();
@@ -70,6 +57,8 @@ public class TestController extends AbstractController {
 		System.out.println("KYE=" + key + ", VALUE=" + "test - " + dValue);
 
 		boolean isInsert = hashOperations.putIfAbsent("HASH:" + nowDate, key, "test - " + dValue);
+
+		// isInsert가 true인 경우에만 push한다.
 		Long count = listOperations.leftPush("PUSH:" + nowDate, "test - " + dValue);
 		System.out.println("COUNT=" + count);
 
@@ -95,27 +84,26 @@ public class TestController extends AbstractController {
 	 * @param name2 the name2 parameter
 	 * @return Response DTO(Data Transfer Object)
 	 */
-	// @GetMapping(path = "get")
-	// public ResponseEntity<Object> doGet(HttpServletRequest request, HttpServletResponse response,
-	// @RequestParam(value = "id") String id,
-	// @RequestParam(value = "name", required = false) String name) {
-	// if (log.isDebugEnabled()) {
-	// log.debug("ID: {}, Name: {}", id, name);
-	// }
-	// return ResponseUtils.resultJson(request, testService.getTest());
-	// }
 	@GetMapping(path = "get")
 	public ResponseEntity<Object> doGet(HttpServletRequest request, HttpServletResponse response,
-			@Valid TestRequest params, BindingResult result) {
+			@RequestParam(value = "id") String id, @RequestParam(value = "name", required = false) String name) {
 		if (log.isDebugEnabled()) {
-			log.debug("{}", params.toJsonLog());
-		}
-		checkForErrors(result); // 필수 파라미터 체크.
-		if (log.isDebugEnabled()) {
-			log.debug("ID: {}, Name: {}", params.getId(), params.getName());
+			log.debug("ID: {}, Name: {}", id, name);
 		}
 		return ResponseUtils.resultJson(request, testService.getTest());
 	}
+	// @GetMapping(path = "get")
+	// public ResponseEntity<Object> doGet(HttpServletRequest request, HttpServletResponse response,
+	// @Valid TestRequest params, BindingResult result) {
+	// if (log.isDebugEnabled()) {
+	// log.debug("{}", params.toJsonLog());
+	// }
+	// checkForErrors(result); // 필수 파라미터 체크.
+	// if (log.isDebugEnabled()) {
+	// log.debug("ID: {}, Name: {}", params.getId(), params.getName());
+	// }
+	// return ResponseUtils.resultJson(request, testService.getTest());
+	// }
 
 	/**
 	 * POST

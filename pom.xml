@@ -369,7 +369,7 @@
                         </dependency>
                     </dependencies>
                 </plugin>
-                <!-- Docker 빌드 -->
+                <!-- Docker Build -->
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>dockerfile-maven-plugin</artifactId>
@@ -384,4 +384,27 @@
         <!-- <module>hot-deals-poc-webapp</module> -->
         <module>hot-deals-poc-process-manager-webapp</module>
     </modules>
+    <!-- Build Option - Profile(-P) -->
+    <profiles>
+        <!-- All Build. -->
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>hot-deals-poc-process-manager-webapp</module>
+            </modules>
+        </profile>
+        <!-- Process Manager Build. -->
+        <profile>
+            <id>process</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <modules>
+                <module>hot-deals-poc-process-manager-webapp</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>

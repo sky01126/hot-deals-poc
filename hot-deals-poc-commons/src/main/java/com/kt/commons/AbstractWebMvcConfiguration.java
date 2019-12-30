@@ -12,16 +12,11 @@ package com.kt.commons;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -54,24 +49,6 @@ public abstract class AbstractWebMvcConfiguration implements WebMvcConfigurer {
 	public HttpMessageConverter<String> responseBodyConverter() {
 		log.debug("Response Body Converter 등록...");
 		return new StringHttpMessageConverter(StandardCharsets.UTF_8);
-	}
-
-	/**
-	 * POST 요청시에 한글이 깨지는 문제 보완
-	 *
-	 * @return FilterRegistrationBean
-	 */
-	@Bean
-	public FilterRegistrationBean<Filter> characterEncodingFilter() {
-		log.debug("Character Encoding Filter 등록...");
-		final CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-		characterEncodingFilter.setEncoding(StandardCharsets.UTF_8.name());
-		characterEncodingFilter.setForceEncoding(true);
-
-		final FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>(characterEncodingFilter);
-		registration.setDispatcherTypes(DispatcherType.REQUEST);
-		registration.setOrder(Integer.MIN_VALUE);
-		return registration;
 	}
 
 }
