@@ -6,7 +6,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>[%date{ISO8601}] [TraceID:%X{X-B3-TraceId:-}] [SpanID:%X{X-B3-SpanId:-}] [%thread] %-5level: %logger.%M\(%line\) - %msg%n</pattern>
+            <pattern>[%date{ISO8601}] [%thread] %-5level: %logger.%M\(%line\) - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -17,7 +17,7 @@
             <maxHistory>${max.history}</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>[%date{ISO8601}] [PID:${PID:-}] [TID:%X{Transaction-ID}] [%thread] %-5level: %logger{36}\(%M:%line\) - %msg%n</pattern>
+            <pattern>[%date{ISO8601}] [%thread] %-5level: %logger{36}\(%M:%line\) - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -28,7 +28,7 @@
             <maxHistory>${max.history}</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>[%date{ISO8601}] [PID:${PID:-}] [TID:%X{Transaction-ID}] [%thread] %-5level: %logger{36}\(%M:%line\) - %msg%n</pattern>
+            <pattern>[%date{ISO8601}] [%thread] %-5level: %logger{36}\(%M:%line\) - %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
@@ -46,7 +46,7 @@
             <maxFileSize>20MB</maxFileSize>
         </triggeringPolicy>
         <encoder>
-            <pattern>[PID:${PID:-}] [TID:%X{Transaction-ID}] %msg%n</pattern>
+            <pattern>%msg%n</pattern>
         </encoder>
     </appender>
 
