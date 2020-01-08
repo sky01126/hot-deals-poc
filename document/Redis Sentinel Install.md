@@ -3,13 +3,13 @@
 ### 메모리를 다 사용해도 충분한 메모리가 있는 것처럼 처리
  
 ```
-[root@localhost ~]# sudo echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
+$ sudo echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
 ```
  
 - 적용 및 확인
 
 ```
-[root@localhost ~]# sudo sysctl -p && sysctl vm.overcommit_memory
+$ sudo sysctl -p && sysctl vm.overcommit_memory
 ```
 
 ```
@@ -21,20 +21,20 @@
 ### 네트워크 연결 개수 설정
 
 ```
-[root@localhost ~]# sudo echo "net.core.somaxconn = 20480" | sudo tee -a /etc/sysctl.conf
+$ sudo echo "net.core.somaxconn = 20480" | sudo tee -a /etc/sysctl.conf
 ```
 
  
 - 적용 및 확인.
 
 ```
-[root@localhost ~]# sudo sysctl -p && sysctl net.core.somaxconn
+$ sudo sysctl -p && sysctl net.core.somaxconn
 ```
 
 ### ulimit 수정
 
 ```
-[root@localhost ~]# sudo vi /etc/security/limits.conf
+$ sudo vi /etc/security/limits.conf
 ```
 
 ```
@@ -47,19 +47,19 @@
 위의 옵션 설정 후 터미널 재접속 후 확인
 
 ```
-[root@localhost ~]# ulimit -a
+$ ulimit -a
 ```
 
 ### System Hang 을 막기 위해 THP 사용 안하도록 설정 (옵션)
 
 ```
-[root@localhost ~]# sudo sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
+$ sudo sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
 ```
 
 - 그리고 재 부팅시 재설정을 변경하기 위해 /etc/rc.local 에 위의 명령어를 넣어 주도록한다.
 
 ```
-[root@localhost ~]# sudo vi /etc/rc.local
+$ sudo vi /etc/rc.local
 ```
 
 - touch 밑 설정한다.
@@ -116,7 +116,7 @@ quorum 은 의사결정에 필요한 최소 Sentinel 노드 수라고 생각하�
 
 ```
 # sentinel monitor mymaster <redis master host> <redis master port> <quorum>
-sentinel monitor mymaster 10.211.55.4 7001 1
+$ sentinel monitor mymaster 10.211.55.4 7001 1
 ```
 
 - SDOWN vs ODOWN
@@ -139,7 +139,7 @@ sentinel down-after-milliseconds mymaster 3000
 ## Sentinel 접속 후 확인
 
 ```
-[redis@localhost ~]$ redis-cli -a qwer1234 -h 10.211.55.4 -p 26379
+$ redis-cli -a qwer1234 -h 10.211.55.4 -p 26379
 
 10.211.55.4:26379> info sentinel
 ```
