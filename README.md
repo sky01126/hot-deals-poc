@@ -1,1 +1,1 @@
-> #### [Redis Sentinel Install](./document/Redis Sentinel Install.md)
+> #### [Redis Sentinel Install](./document/redis_sentinel_install.md)
