@@ -381,7 +381,8 @@
     <!-- Maven Multi-Module Project -->
     <modules>
         <module>hot-deals-poc-commons</module>
-        <!-- <module>hot-deals-poc-webapp</module> -->
+        <module>hot-deals-poc-commons-manager-webapp</module>
+        <module>hot-deals-poc-coupon-manager-webapp</module>
         <module>hot-deals-poc-process-manager-webapp</module>
     </modules>
     <!-- Build Option - Profile(-P) -->
@@ -394,6 +395,26 @@
             </activation>
             <modules>
                 <module>hot-deals-poc-process-manager-webapp</module>
+            </modules>
+        </profile>
+        <!-- Commons Manager Build. -->
+        <profile>
+            <id>commons</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <modules>
+                <module>hot-deals-poc-commons-manager-webapp</module>
+            </modules>
+        </profile>
+        <!-- Coupon Manager Build. -->
+        <profile>
+            <id>coupon</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <modules>
+                <module>hot-deals-poc-coupon-manager-webapp</module>
             </modules>
         </profile>
         <!-- Process Manager Build. -->
