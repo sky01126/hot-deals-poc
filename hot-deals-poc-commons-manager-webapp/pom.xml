@@ -190,17 +190,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <!-- 빌드 시 Spring Boot Package 추가하지 않도록 설정. -->
-                <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </execution>
-                </executions>
+                <!-- <executions> -->
+                <!-- <execution> -->
+                <!-- <id>repackage</id> -->
+                <!-- <goals> -->
+                <!-- <goal>repackage</goal> -->
+                <!-- </goals> -->
+                <!-- <configuration> -->
+                <!-- <skip>true</skip> -->
+                <!-- </configuration> -->
+                <!-- </execution> -->
+                <!-- </executions> -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
