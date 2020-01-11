@@ -31,7 +31,6 @@ public class Application extends SpringBootServletInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-
 	/**
 	 * Spring boot application main method.
 	 *

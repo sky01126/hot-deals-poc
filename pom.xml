@@ -381,9 +381,9 @@
     <!-- Maven Multi-Module Project -->
     <modules>
         <module>hot-deals-poc-commons</module>
-        <module>hot-deals-poc-commons-manager-webapp</module>
-        <module>hot-deals-poc-coupon-manager-webapp</module>
-        <module>hot-deals-poc-process-manager-webapp</module>
+        <!-- <module>hot-deals-poc-commons-manager-webapp</module> -->
+        <!-- <module>hot-deals-poc-coupon-manager-webapp</module> -->
+        <!-- <module>hot-deals-poc-process-manager-webapp</module> -->
     </modules>
     <!-- Build Option - Profile(-P) -->
     <profiles>
@@ -394,6 +394,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>hot-deals-poc-commons-manager-webapp</module>
+                <module>hot-deals-poc-coupon-manager-webapp</module>
                 <module>hot-deals-poc-process-manager-webapp</module>
             </modules>
         </profile>

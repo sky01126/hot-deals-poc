@@ -21,7 +21,8 @@
         <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 
         <!-- ==================== SonarQube에서 분석 제외 파일 설정 ==================== -->
-        <sonar.exclusions>pom.xml
+        <sonar.exclusions>
+            pom.xml
             , **/*.css
             , **/*.js
             , **/*.jsp
@@ -32,7 +33,8 @@
             , **/Application.java
             , **/Property.java
             , **/CustomModelAttributeArgumentResolver.java
-            , **/GlobalControllerExceptionHandler.java</sonar.exclusions>
+            , **/GlobalControllerExceptionHandler.java
+        </sonar.exclusions>
         <sonar.test.exclusions>**/*</sonar.test.exclusions>
     </properties>
     <dependencies>
@@ -118,6 +120,12 @@
             <artifactId>jstl</artifactId>
         </dependency>
 
+        <!-- Commons Pool2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
         <!-- AspectJ - Configuration 설정 시 EnableAspectJAutoProxy 사용 시 필요. -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -133,6 +141,7 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator-annotation-processor</artifactId>
         </dependency>
+
 
         <!-- Lombok -->
         <dependency>

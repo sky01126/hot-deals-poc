@@ -1,7 +1,7 @@
 # Docker 빌드 : mvn dockerfile:build
 # Docker RUN : docker run -e JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8 -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dspring.profiles.active=dev -Dserver.logs.home=/home/server/logs" -p 8080:8080 -i -t -d hot-deals-poc-process-manager-webapp:1.0.0.RELEASE
 
-FROM openjdk:8-stretch
+FROM sky01126/openjdk:1.8.0_232
 
 RUN set -eux && mkdir -p /home/server
 

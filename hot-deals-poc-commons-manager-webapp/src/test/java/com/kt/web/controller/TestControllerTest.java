@@ -13,6 +13,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,7 @@ public class TestControllerTest extends AbstractControllerTest {
 
 	@Test
 	@Order(1)
+	@Ignore
 	// @formatter:off
 	public void testDoGet() throws Exception {
 		mockMvc.perform(get("/test/get")
@@ -58,6 +60,7 @@ public class TestControllerTest extends AbstractControllerTest {
 
 	@Test
 	@Order(2)
+	@Ignore
 	// @formatter:off
 	public void testDoPost() throws Exception {
 		mockMvc.perform(post("/test/post")
@@ -85,6 +88,7 @@ public class TestControllerTest extends AbstractControllerTest {
 
 	@Test
 	@Order(3)
+	@Ignore
 	// @formatter:off
 	public void testDoPut() throws Exception {
 		TestRequest req = new TestRequest();
@@ -115,6 +119,7 @@ public class TestControllerTest extends AbstractControllerTest {
 
 	@Test
 	@Order(4)
+	@Ignore
 	// @formatter:off
 	public void testDoDelete() throws Exception {
 		mockMvc.perform(delete("/test/delete/{id}", 1)

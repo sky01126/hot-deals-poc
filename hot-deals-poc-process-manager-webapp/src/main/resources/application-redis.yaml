@@ -1,22 +1,37 @@
+# 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
 spring:
   redis:
-    #host: localhost
-    jedis:
+    host: 192.168.219.161
+    lettuce:
       pool:
         min-idle: 1
         max-idle: 8
         max-active: 8
-    password: "qwer1234"
-    sentinel:
-      master: mymaster
-      nodes: 10.211.55.4:26379
+    port: 6379
 
 ---
 # 개발 배포
 spring:
   profiles: dev
+  redis:
+    host: redis
+    lettuce:
+      pool:
+        min-idle: 100
+        max-idle: 200
+        max-active: 200
+    port: 6379
 
 ---
 # 상용 배포
 spring:
   profiles: prod
+  redis:
+    lettuce:
+      pool:
+        min-idle: 100
+        max-idle: 200
+        max-active: 200
+    sentinel:
+      master: mymaster
+      nodes: 10.211.55.4:26379
