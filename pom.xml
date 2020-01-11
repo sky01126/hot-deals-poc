@@ -58,9 +58,6 @@
         <!-- ==================== SonarQube에서 분석 제외 파일 설정 ==================== -->
         <sonar.exclusions>pom.xml</sonar.exclusions>
 
-        <!-- ==================== Docker image prefix ==================== -->
-        <docker.image.prefix>kthcorp</docker.image.prefix>
-
         <!-- ==================== KTHCorp Commons Library Project ==================== -->
         <kthcorp.version>2.1.2</kthcorp.version>
 

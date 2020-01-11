@@ -235,7 +235,7 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <repository>${project.artifactId}</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_PATH>target</JAR_PATH>
