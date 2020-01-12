@@ -1,12 +1,13 @@
 # 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
 spring:
   redis:
-    host: 192.168.219.161
+    host: 192.168.219.151
     lettuce:
       pool:
         min-idle: 1
         max-idle: 8
         max-active: 8
+    password: qwer1234
     port: 6379
 
 ---

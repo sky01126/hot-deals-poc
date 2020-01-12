@@ -1,3 +1,6 @@
+- Swagger 테이스 페이지
+  http://hot-deals-process.169.56.115.147.nip.io/swagger-ui.html
+
 - Kubernetes에 Redis Single로 배포
 
   1. "hot-deals" Namespace 생성

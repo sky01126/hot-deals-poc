@@ -33,7 +33,9 @@ import com.kt.service.TestService;
 import com.kthcorp.commons.lang.DateUtils;
 
 import lombok.extern.slf4j.Slf4j;
+import springfox.documentation.annotations.ApiIgnore;
 
+@ApiIgnore
 @Slf4j
 @RequestMapping(path = { "test" }, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController

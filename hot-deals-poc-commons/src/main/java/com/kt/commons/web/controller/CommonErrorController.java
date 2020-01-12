@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kt.commons.web.util.ResponseUtils;
 import com.kthcorp.commons.lang.StringUtils;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * CommonErrorController.java
  *
@@ -29,6 +31,7 @@ import com.kthcorp.commons.lang.StringUtils;
  * @version 1.0.0
  * @since 8.0
  */
+@ApiIgnore
 @Controller
 @SuppressWarnings("all")
 public class CommonErrorController {
