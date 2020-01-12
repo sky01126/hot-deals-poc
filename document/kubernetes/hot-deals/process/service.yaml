@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hot-deals-poc-process-manager
+  namespace: hot-deals
+spec:
+  selector:
+    app: hot-deals-poc-process-manager
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080

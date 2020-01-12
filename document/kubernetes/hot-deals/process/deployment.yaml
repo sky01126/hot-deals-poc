@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hot-deals-poc-process-manager
+  namespace: hot-deals
+spec:
+  replicas: 2
+  minReadySeconds: 20
+  selector:
+    matchLabels:
+      app: hot-deals-poc-process-manager
+  template:
+    metadata:
+      labels:
+        app: hot-deals-poc-process-manager
+    spec:
+      containers:
+      - name: hot-deals-poc-process-manager
+        image: sky01126/hot-deals-poc-process-manager-webapp:1.0.0.RELEASE
+        env:
+        - name: http
+          value: "8080"
+        - name: JAVA_OPTS
+          value: "-Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8 -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dspring.profiles.active=dev"
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+        imagePullPolicy: Always # IfNotPresent
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hot-deals-poc-process-manager-ingress
+  namespace: hot-deals
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: hot-deals-process.169.56.115.147.nip.io
+    http:
+      paths:
+      - backend:
+          serviceName: hot-deals-poc-process-manager
+          servicePort: 8080
