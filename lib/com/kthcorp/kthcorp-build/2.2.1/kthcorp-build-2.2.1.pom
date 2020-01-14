@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.kthcorp</groupId>
+    <artifactId>kthcorp-build</artifactId>
+    <version>2.2.1</version>
+    <packaging>pom</packaging>
+    <name>KTHCorp Commons Library Project</name>
+    <description>KTHCorp Commons Library Project</description>
+    <url>http://www.kthcorp.com</url>
+    <organization>
+        <name>KT Hitel Co., Ltd.</name>
+        <url>http://www.kthcorp.com</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://stash.kthcorp.com/scm/maven/kthcorp.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>ky.son@kt.com</id>
+            <name>손근양</name>
+            <email>ky.son@kt.com</email>
+            <url>https://www.kthcorp.com</url>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>GMT+9</timezone>
+        </developer>
+    </developers>
+    <prerequisites>
+        <maven>3.2.5</maven>
+    </prerequisites>
+    <properties>
+        <java.version>1.8</java.version>
+        <source.encoding>UTF-8</source.encoding>
+        <resource.delimiter>@</resource.delimiter>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- ==================== SonarQube에서 분석 제외 파일 설정 ==================== -->
+        <sonar.exclusions>
+            pom.xml
+        </sonar.exclusions>
+    </properties>
+    <modules>
+        <module>kthcorp-dependencies</module>
+        <module>kthcorp-parent</module>
+        <module>kthcorp-starters</module>
+        <module>kthcorp-commons-lang</module>
+        <module>kthcorp-commons-web-util</module>
+    </modules>
+</project>

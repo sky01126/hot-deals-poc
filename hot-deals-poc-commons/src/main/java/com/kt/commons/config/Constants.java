@@ -19,6 +19,31 @@ package com.kt.commons.config;
  */
 public class Constants {
 
+	/**
+	 * 선착순 Consumer Group ID
+	 */
+	public static final String KAFKA_CONSUMER_FCFS_GROUP_ID = "HOTDEAL_FCFS_GROUP";
+
+	/**
+	 * 응모형 Consumer Group ID
+	 */
+	public static final String KAFKA_CONSUMER_PICK_GROUP_ID = "HOTDEAL_PICK_GROUP";
+
+	/**
+	 * 선착순 Topic
+	 */
+	public static final String KAFKA_TOPIC_HOTDEAL = "HOTDEAL";
+
+	/**
+	 * 선착순 Topic
+	 */
+	public static final String KAFKA_TOPIC_HOTDEAL_FCFS = KAFKA_TOPIC_HOTDEAL + ".FCFS";
+
+	/**
+	 * 응모형 Topic
+	 */
+	public static final String KAFKA_TOPIC_HOTDEAL_PICK = KAFKA_TOPIC_HOTDEAL + ".PICK";
+
 	private Constants() throws IllegalAccessException {
 		throw new IllegalAccessException("access to class not allowed.");
 	}

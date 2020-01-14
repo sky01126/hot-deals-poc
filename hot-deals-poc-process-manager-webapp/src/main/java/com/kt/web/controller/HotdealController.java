@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kt.commons.dto.request.HotdealRequest;
 import com.kt.commons.web.controller.AbstractController;
 import com.kt.commons.web.util.ResponseUtils;
-import com.kt.dto.request.HotdealRequest;
 import com.kt.service.HotdealService;
 
 import io.swagger.annotations.Api;

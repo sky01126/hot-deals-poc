@@ -1,0 +1,24 @@
+# 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: HOT-DEAL
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+---
+# 개발 배포
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: HOT-DEAL
+
+---
+# 상용 배포
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: HOT-DEAL

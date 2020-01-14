@@ -1,0 +1,142 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+= API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+// -------------------------------------------- 소개 --------------------------------------------
+[[introduction]]
+== 소개
+
+API 소개글
+
+// -------------------------------------------- 공통 사항 --------------------------------------------
+[[common]]
+== 공통 사항
+
+API에 관계없이 아래 사항을 지켜주셔야 합니다.
+
+// -------------------------------------------- 서버 정보 --------------------------------------------
+=== 서버 정보
+[cols="2,8"]
+|===
+| 환경 | URL
+
+| 개발서버
+| `http://www.kthcorp.com:8080`
+
+| 운영서버
+| `https://www.kthcorp.com`
+|===
+
+[[test-api]]
+== Test API
+Test API
+
+// -------------------------------------------- API --------------------------------------------
+[[get-test]]
+=== GET Test
+include::{snippets}/test-controller-test/test-do-get/http-request.adoc[]
+include::{snippets}/test-controller-test/test-do-get/request-parameters.adoc[]
+include::{snippets}/test-controller-test/test-do-get/response-fields.adoc[]
+include::{snippets}/test-controller-test/test-do-get/http-response.adoc[]
+
+[[post-test]]
+=== POST Test
+include::{snippets}/test-controller-test/test-do-post/http-request.adoc[]
+include::{snippets}/test-controller-test/test-do-post/request-parameters.adoc[]
+include::{snippets}/test-controller-test/test-do-post/response-fields.adoc[]
+include::{snippets}/test-controller-test/test-do-post/http-response.adoc[]
+
+[[put-test]]
+=== PUT Test
+include::{snippets}/test-controller-test/test-do-put/http-request.adoc[]
+include::{snippets}/test-controller-test/test-do-put/request-fields.adoc[]
+include::{snippets}/test-controller-test/test-do-put/response-fields.adoc[]
+include::{snippets}/test-controller-test/test-do-put/http-response.adoc[]
+
+[[delete-test]]
+=== DELETE Test
+include::{snippets}/test-controller-test/test-do-delete/http-request.adoc[]
+include::{snippets}/test-controller-test/test-do-delete/path-parameters.adoc[]
+include::{snippets}/test-controller-test/test-do-delete/response-fields.adoc[]
+include::{snippets}/test-controller-test/test-do-delete/http-response.adoc[]
+
+// -------------------------------------------- 응답 코드 --------------------------------------------
+[[result-code]]
+== 응답 코드
+API 호출의 result_code, result_msg 응답값
+
+[[result-code-success]]
+=== 성공
+[cols="2,8"]
+|===
+| 응답코드 | 메시지
+
+| 200
+| 성공
+
+| 201
+| 생성 성공
+
+| 202
+| 처리 중
+
+| 204
+| 데이터가 없습니다.
+|===
+
+[[result-code-client-error]]
+=== 클라이언트 에러
+[cols="2,8"]
+|===
+| 응답코드 | 메시지
+
+| 400
+| 요청한 페이지를 찾을 수 없습니다.
+
+| 401
+| 로그인 후 다시 시도해주세요.
+
+| 402
+| 결제 후 다시 시도해 주세요.
+
+| 403
+| 접근 권한이 없습니다.
+
+| 404
+| 죄송합니다. 해당 페이지를 찾을 수 없습니다.
+
+| 405
+| 요청 내용에 명시된 메소드를 수행하기 위해 해당 자원의 이용이 허용되지 않습니다.
+
+| 406
+| 지원하지 않는 미디어 타입 입니다.
+
+| 409
+| 리소스 상태에 의하여 요청을 수행할 수 없습니다.
+
+| 412
+| 파라미터를 확인 후 다시 시도해주세요.
+|===
+
+[[result-code-server-error]]
+=== 서버 에러
+[cols="2,8"]
+|===
+| 응답코드 | 메시지
+
+| 500
+| 시스템 에러가 발생했습니다. 잠시 후 다시 시도해주세요.
+
+| 503
+| 서버에 부하가 많아서 잠시 접근이 거부 되었습니다.
+
+| 504
+| 게이트웨이나 프록시 타임아웃이 발생했습니다. 잠시 후 다시 시도 해 주세요.
+|===

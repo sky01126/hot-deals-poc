@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kt.commons.dto.request.HotdealRequest;
 import com.kt.commons.dto.response.DefaultResponse;
+import com.kt.commons.persistence.model.HotdealEvent;
 import com.kt.commons.service.AbstractService;
-import com.kt.dto.request.HotdealRequest;
 import com.kt.persistence.dao.HotdealDao;
-import com.kt.persistence.model.HotdealEvent;
 import com.kthcorp.commons.lang.BooleanUtils;
 import com.kthcorp.commons.lang.StringUtils;
 

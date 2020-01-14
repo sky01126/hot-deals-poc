@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Repository;
 
-import com.kt.dto.request.HotdealRequest;
+import com.kt.commons.dto.request.HotdealRequest;
 
 @Repository
 public class HotdealDao {

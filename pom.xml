@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.11.RELEASE</version>
+        <version>2.2.2.RELEASE</version>
     </parent>
     <groupId>com.kt</groupId>
     <artifactId>hot-deals-poc</artifactId>
@@ -59,7 +59,7 @@
         <sonar.exclusions>pom.xml</sonar.exclusions>
 
         <!-- ==================== KTHCorp Commons Library Project ==================== -->
-        <kthcorp.version>2.1.2</kthcorp.version>
+        <kthcorp.version>2.2.1</kthcorp.version>
 
         <!-- ==================== Spring Boot Cloud ==================== -->
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
@@ -115,6 +115,12 @@
                 <version>${kthcorp.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-parent</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- ==================== Spring Boot Cloud ==================== -->
@@ -394,6 +400,7 @@
                 <module>hot-deals-poc-commons-manager-webapp</module>
                 <module>hot-deals-poc-coupon-manager-webapp</module>
                 <module>hot-deals-poc-process-manager-webapp</module>
+                <module>hot-deals-poc-broker-manager-webapp</module>
             </modules>
         </profile>
         <!-- Commons Manager Build. -->
@@ -424,6 +431,16 @@
             </properties>
             <modules>
                 <module>hot-deals-poc-process-manager-webapp</module>
+            </modules>
+        </profile>
+        <!-- Broker Manager Build. -->
+        <profile>
+            <id>broker</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <modules>
+                <module>hot-deals-poc-broker-manager-webapp</module>
             </modules>
         </profile>
     </profiles>
