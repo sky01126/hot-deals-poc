@@ -1,4 +1,4 @@
 #!/bin/bash
 
-../mvnw dockerfile:build
+mvn dockerfile:build
 docker images
