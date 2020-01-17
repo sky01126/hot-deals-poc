@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.kt</groupId>
-        <artifactId>hot-deals-poc</artifactId>
+        <artifactId>hotdeals</artifactId>
         <version>1.0.0.RELEASE</version>
         <relativePath>../</relativePath>
     </parent>
-    <artifactId>hot-deals-commons</artifactId>
+    <artifactId>hotdeals-commons</artifactId>
     <packaging>jar</packaging>
-    <name>Hot Deals Commons Library Project</name>
-    <description>Hot Deals 공통 Library 프로젝트</description>
+    <name>Hotdeals Commons Library Project</name>
+    <description>Hotdeals 공통 Library 프로젝트</description>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
 

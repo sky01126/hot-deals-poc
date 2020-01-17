@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.kt</groupId>
-        <artifactId>hot-deals-poc</artifactId>
+        <artifactId>hotdeals</artifactId>
         <version>1.0.0.RELEASE</version>
         <relativePath>../</relativePath>
     </parent>
-    <artifactId>hot-deals-coupon-managerement</artifactId>
+    <artifactId>hotdeals-event-managerement</artifactId>
     <packaging>jar</packaging>
-    <name>Hot Deal Coupon Managerement MSA Project</name>
-    <description>Hot Deal Coupon Managerement MSA 프로젝트</description>
+    <name>Hotdeals Event Managerement MSA Project</name>
+    <description>Hotdeals Event Managerement MSA 프로젝트</description>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
 
@@ -41,7 +41,7 @@
         <!-- ==================== Internal Library ==================== -->
         <dependency>
             <groupId>com.kt</groupId>
-            <artifactId>hot-deals-commons</artifactId>
+            <artifactId>hotdeals-commons</artifactId>
         </dependency>
 
         <!-- ==================== Spring Boot ==================== -->
@@ -49,7 +49,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>provided</scope>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- Spring Boot Actuator -->
@@ -65,10 +66,10 @@
         <!-- </dependency> -->
 
         <!-- SPring Boot Redis -->
-        <!-- <dependency> -->
-        <!-- <groupId>org.springframework.boot</groupId> -->
-        <!-- <artifactId>spring-boot-starter-data-redis</artifactId> -->
-        <!-- </dependency> -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 
         <!-- Spring Boot Security -->
         <!-- <dependency> -->
@@ -80,6 +81,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-test</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -141,6 +153,7 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator-annotation-processor</artifactId>
         </dependency>
+
 
         <!-- Lombok -->
         <dependency>

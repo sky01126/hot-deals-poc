@@ -7,11 +7,11 @@
         <version>2.2.2.RELEASE</version>
     </parent>
     <groupId>com.kt</groupId>
-    <artifactId>hot-deals-poc</artifactId>
+    <artifactId>hotdeals</artifactId>
     <version>1.0.0.RELEASE</version>
     <packaging>pom</packaging>
-    <name>Hot Deals Project</name>
-    <description>Hot Deals POC 프로젝트</description>
+    <name>Hotdeals POC Project</name>
+    <description>Hodeals POC 프로젝트</description>
     <url>https://www.kt.com</url>
     <organization>
         <name>Copyright(C) KT Hitel Co., Ltd. all rights reserved.</name>
@@ -104,7 +104,7 @@
             <!-- ==================== Internal Library ==================== -->
             <dependency>
                 <groupId>com.kt</groupId>
-                <artifactId>hot-deals-commons</artifactId>
+                <artifactId>hotdeals-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -383,7 +383,7 @@
     </build>
     <!-- Maven Multi-Module Project -->
     <modules>
-        <module>hot-deals-commons</module>
+        <module>hotdeals-commons</module>
     </modules>
     <!-- Build Option - Profile(-P) -->
     <profiles>
@@ -394,9 +394,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>hot-deals-broker-managerement</module>
-                <module>hot-deals-coupon-managerement</module>
-                <module>hot-deals-event-managerement</module>
+                <module>hotdeals-broker-managerement</module>
+                <module>hotdeals-coupon-managerement</module>
+                <module>hotdeals-event-managerement</module>
             </modules>
         </profile>
         <!-- Broker Manager Build. -->
@@ -406,7 +406,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>hot-deals-broker-managerement</module>
+                <module>hotdeals-broker-managerement</module>
             </modules>
         </profile>
         <!-- Coupon Manager Build. -->
@@ -416,7 +416,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>hot-deals-coupon-managerement</module>
+                <module>hotdeals-coupon-managerement</module>
             </modules>
         </profile>
         <!-- Process Manager Build. -->
@@ -426,7 +426,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>hot-deals-event-managerement</module>
+                <module>hotdeals-event-managerement</module>
             </modules>
         </profile>
     </profiles>

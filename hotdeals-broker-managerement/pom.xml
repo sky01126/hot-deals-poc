@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.kt</groupId>
-        <artifactId>hot-deals-poc</artifactId>
+        <artifactId>hotdeals</artifactId>
         <version>1.0.0.RELEASE</version>
         <relativePath>../</relativePath>
     </parent>
-    <artifactId>hot-deals-poc-webapp</artifactId>
+    <artifactId>hotdeals-broker-managerement</artifactId>
     <packaging>jar</packaging>
-    <name>Hot Deal RESTFul Project</name>
-    <description>Hot Deal RESTFul 프로젝트</description>
+    <name>Hotdeals Broker Managerement Project</name>
+    <description>Hotdeals Broker Managerement 프로젝트</description>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
 
@@ -39,7 +39,7 @@
         <!-- ==================== Internal Library ==================== -->
         <dependency>
             <groupId>com.kt</groupId>
-            <artifactId>hot-deals-poc-commons</artifactId>
+            <artifactId>hotdeals-commons</artifactId>
         </dependency>
 
         <!-- ==================== Spring Boot ==================== -->
@@ -62,18 +62,6 @@
         <!-- <artifactId>spring-boot-starter-data-cassandra</artifactId> -->
         <!-- </dependency> -->
 
-        <!-- SPring Boot Redis -->
-        <!-- <dependency> -->
-        <!-- <groupId>org.springframework.boot</groupId> -->
-        <!-- <artifactId>spring-boot-starter-data-redis</artifactId> -->
-        <!-- </dependency> -->
-
-        <!-- Spring Boot Security -->
-        <!-- <dependency> -->
-        <!-- <groupId>org.springframework.boot</groupId> -->
-        <!-- <artifactId>spring-boot-starter-security</artifactId> -->
-        <!-- </dependency> -->
-
         <!-- Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -93,11 +81,15 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
         </dependency>
-
-        <!-- <dependency> -->
-        <!-- <groupId>org.springframework.kafka</groupId> -->
-        <!-- <artifactId>spring-kafka</artifactId> -->
-        <!-- </dependency> -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- ==================== Third Party ==================== -->
         <!-- CG Lib -->
