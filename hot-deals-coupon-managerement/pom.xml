@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kt</groupId>
+        <artifactId>hot-deals-poc</artifactId>
+        <version>1.0.0.RELEASE</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <artifactId>hot-deals-coupon-managerement</artifactId>
+    <packaging>jar</packaging>
+    <name>Hot Deal Coupon Managerement MSA Project</name>
+    <description>Hot Deal Coupon Managerement MSA 프로젝트</description>
+    <properties>
+        <main.basedir>${basedir}/..</main.basedir>
+
+        <!-- 빌프 Final 프로젝트명 -->
+        <finalName>ROOT</finalName>
+
+        <!-- Context Root Setting - ROOT는 "/"로 설정 -->
+        <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
+
+        <!-- ==================== SonarQube에서 분석 제외 파일 설정 ==================== -->
+        <sonar.exclusions>
+            pom.xml
+            , **/*.css
+            , **/*.js
+            , **/*.jsp
+            , **/*.html
+            , **/*Validation*.java
+            , **/*Configuration.java
+            , **/package-info.java
+            , **/Application.java
+            , **/Property.java
+            , **/CustomModelAttributeArgumentResolver.java
+            , **/GlobalControllerExceptionHandler.java
+        </sonar.exclusions>
+        <sonar.test.exclusions>**/*</sonar.test.exclusions>
+    </properties>
+    <dependencies>
+        <!-- ==================== Internal Library ==================== -->
+        <dependency>
+            <groupId>com.kt</groupId>
+            <artifactId>hot-deals-commons</artifactId>
+        </dependency>
+
+        <!-- ==================== Spring Boot ==================== -->
+        <!-- Spring Boot Dev Tools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring Boot Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- SPring Boot Cassandra -->
+        <!-- <dependency> -->
+        <!-- <groupId>org.springframework.boot</groupId> -->
+        <!-- <artifactId>spring-boot-starter-data-cassandra</artifactId> -->
+        <!-- </dependency> -->
+
+        <!-- SPring Boot Redis -->
+        <!-- <dependency> -->
+        <!-- <groupId>org.springframework.boot</groupId> -->
+        <!-- <artifactId>spring-boot-starter-data-redis</artifactId> -->
+        <!-- </dependency> -->
+
+        <!-- Spring Boot Security -->
+        <!-- <dependency> -->
+        <!-- <groupId>org.springframework.boot</groupId> -->
+        <!-- <artifactId>spring-boot-starter-security</artifactId> -->
+        <!-- </dependency> -->
+
+        <!-- Spring Boot Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring boot REST Docs Test -->
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ==================== Spring Framework ==================== -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+
+        <!-- <dependency> -->
+        <!-- <groupId>org.springframework.kafka</groupId> -->
+        <!-- <artifactId>spring-kafka</artifactId> -->
+        <!-- </dependency> -->
+
+        <!-- ==================== Third Party ==================== -->
+        <!-- CG Lib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+        </dependency>
+
+        <!-- @inject -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+
+        <!-- JSTL -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+        <!-- Commons Pool2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!-- AspectJ - Configuration 설정 시 EnableAspectJAutoProxy 사용 시 필요. -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <!-- Spring MVC 에 JSR 303 Bean Validator 적용 시 Hibernate Validator가 없으면 에러 발생. -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator-annotation-processor</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ==================== Web Jars ==================== -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+        <!-- JBoss에서 webjars-locator 동작하도록 아래 라이브러리 추가 -->
+        <!-- <dependency> -->
+        <!-- <groupId>org.webjars</groupId> -->
+        <!-- <artifactId>webjars-locator-jboss-vfs</artifactId> -->
+        <!-- <version>0.1.0</version> -->
+        <!-- </dependency> -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>${finalName}</finalName>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 빌드 시 Spring Boot Package 추가하지 않도록 설정. -->
+                <!-- <executions> -->
+                <!-- <execution> -->
+                <!-- <id>repackage</id> -->
+                <!-- <goals> -->
+                <!-- <goal>repackage</goal> -->
+                <!-- </goals> -->
+                <!-- <configuration> -->
+                <!-- <skip>true</skip> -->
+                <!-- </configuration> -->
+                <!-- </execution> -->
+                <!-- </executions> -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <!-- Javadoc 생성. -->
+            <!-- <plugin> -->
+            <!-- <groupId>org.apache.maven.plugins</groupId> -->
+            <!-- <artifactId>maven-javadoc-plugin</artifactId> -->
+            <!-- </plugin> -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <!-- Source 생성. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <!-- Maven 빌드 시 테스트코드의 컴파일 및 실행 안함. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <!-- Spring Boot REST Docs Plugin -->
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+            </plugin>
+            <!-- Docker 빌드 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <configuration>
+                    <repository>${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_PATH>target</JAR_PATH>
+                        <JAR_FILE>${project.build.finalName}.${project.packaging}</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>local</env>
+            </properties>
+            <!-- <dependencies> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.springframework.boot</groupId> -->
+            <!-- <artifactId>spring-boot-starter-tomcat</artifactId> -->
+            <!-- <scope>provided</scope> -->
+            <!-- </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.tomcat.embed</groupId> -->
+            <!-- <artifactId>tomcat-embed-jasper</artifactId> -->
+            <!-- <scope>provided</scope> -->
+            <!-- </dependency> -->
+            <!-- </dependencies> -->
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <!-- <dependencies> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.springframework.boot</groupId> -->
+            <!-- <artifactId>spring-boot-starter-tomcat</artifactId> -->
+            <!-- <scope>provided</scope> -->
+            <!-- </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.tomcat.embed</groupId> -->
+            <!-- <artifactId>tomcat-embed-jasper</artifactId> -->
+            <!-- <scope>provided</scope> -->
+            <!-- </dependency> -->
+            <!-- </dependencies> -->
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+            <!-- <dependencies> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.springframework.boot</groupId> -->
+            <!-- <artifactId>spring-boot-starter-tomcat</artifactId> -->
+            <!-- <scope>provided</scope> -->
+            <!-- </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.tomcat.embed</groupId> -->
+            <!-- <artifactId>tomcat-embed-jasper</artifactId> -->
+            <!-- <scope>provided</scope> -->
+            <!-- </dependency> -->
+            <!-- </dependencies> -->
+        </profile>
+    </profiles>
+</project>

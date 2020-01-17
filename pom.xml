@@ -10,7 +10,7 @@
     <artifactId>hot-deals-poc</artifactId>
     <version>1.0.0.RELEASE</version>
     <packaging>pom</packaging>
-    <name>hot-deals-poc Project</name>
+    <name>Hot Deals Project</name>
     <description>Hot Deals POC 프로젝트</description>
     <url>https://www.kt.com</url>
     <organization>
@@ -104,7 +104,7 @@
             <!-- ==================== Internal Library ==================== -->
             <dependency>
                 <groupId>com.kt</groupId>
-                <artifactId>hot-deals-poc-commons</artifactId>
+                <artifactId>hot-deals-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -383,10 +383,7 @@
     </build>
     <!-- Maven Multi-Module Project -->
     <modules>
-        <module>hot-deals-poc-commons</module>
-        <!-- <module>hot-deals-poc-commons-manager-webapp</module> -->
-        <!-- <module>hot-deals-poc-coupon-manager-webapp</module> -->
-        <!-- <module>hot-deals-poc-process-manager-webapp</module> -->
+        <module>hot-deals-commons</module>
     </modules>
     <!-- Build Option - Profile(-P) -->
     <profiles>
@@ -397,40 +394,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>hot-deals-poc-commons-manager-webapp</module>
-                <module>hot-deals-poc-coupon-manager-webapp</module>
-                <module>hot-deals-poc-process-manager-webapp</module>
-                <module>hot-deals-poc-broker-manager-webapp</module>
-            </modules>
-        </profile>
-        <!-- Commons Manager Build. -->
-        <profile>
-            <id>commons</id>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
-            <modules>
-                <module>hot-deals-poc-commons-manager-webapp</module>
-            </modules>
-        </profile>
-        <!-- Coupon Manager Build. -->
-        <profile>
-            <id>coupon</id>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
-            <modules>
-                <module>hot-deals-poc-coupon-manager-webapp</module>
-            </modules>
-        </profile>
-        <!-- Process Manager Build. -->
-        <profile>
-            <id>process</id>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
-            <modules>
-                <module>hot-deals-poc-process-manager-webapp</module>
+                <module>hot-deals-broker-managerement</module>
+                <module>hot-deals-coupon-managerement</module>
+                <module>hot-deals-event-managerement</module>
             </modules>
         </profile>
         <!-- Broker Manager Build. -->
@@ -440,7 +406,27 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>hot-deals-poc-broker-manager-webapp</module>
+                <module>hot-deals-broker-managerement</module>
+            </modules>
+        </profile>
+        <!-- Coupon Manager Build. -->
+        <profile>
+            <id>coupon</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <modules>
+                <module>hot-deals-coupon-managerement</module>
+            </modules>
+        </profile>
+        <!-- Process Manager Build. -->
+        <profile>
+            <id>event</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <modules>
+                <module>hot-deals-event-managerement</module>
             </modules>
         </profile>
     </profiles>
