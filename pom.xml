@@ -394,9 +394,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>hotdeals-broker-managerement</module>
-                <module>hotdeals-coupon-managerement</module>
-                <module>hotdeals-event-managerement</module>
+                <module>hotdeals-broker-management</module>
+                <module>hotdeals-coupon-management</module>
+                <module>hotdeals-event-management</module>
             </modules>
         </profile>
         <!-- Broker Manager Build. -->
@@ -406,7 +406,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>hotdeals-broker-managerement</module>
+                <module>hotdeals-broker-management</module>
             </modules>
         </profile>
         <!-- Coupon Manager Build. -->
@@ -416,7 +416,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>hotdeals-coupon-managerement</module>
+                <module>hotdeals-coupon-management</module>
             </modules>
         </profile>
         <!-- Process Manager Build. -->
@@ -426,7 +426,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>hotdeals-event-managerement</module>
+                <module>hotdeals-event-management</module>
             </modules>
         </profile>
     </profiles>

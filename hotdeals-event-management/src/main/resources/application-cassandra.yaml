@@ -3,11 +3,11 @@ spring:
   data:
     cassandra:
       contact-points: localhost
-      username: username
-      password: password
+      # username: username
+      # password: password
       port: 9042
       schema-action: none
-
+      keyspace-name: hotdeals
       pool:
         max-queue-size: 256
         pool-timeout: 5000ms
