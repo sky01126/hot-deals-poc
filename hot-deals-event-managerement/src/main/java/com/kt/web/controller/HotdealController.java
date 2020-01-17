@@ -44,17 +44,17 @@ public class HotdealController extends AbstractController {
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param eventId the event id parameter
-	 * @param phoneNum the phone number parameter
+	 * @param phoneNo the phone number parameter
 	 * @return Response DTO(Data Transfer Object)
 	 */
-	@GetMapping(path = "event/id/{EVENT_ID}/phone_num/{PHONE_NUM}")
+	@GetMapping(path = "event/id/{EVENT_ID}/phone_no/{PHONE_NO}")
 	public ResponseEntity<Object> getEventInfo(HttpServletRequest request //
 			, HttpServletResponse response //
 			, @ApiParam(value = "이벤트 ID", defaultValue = "2020011301") @PathVariable(name = "EVENT_ID") String eventId //
 			,
-			@ApiParam(value = "핸드폰번호", defaultValue = "01012345678") @PathVariable(name = "PHONE_NUM") String phoneNum) {
-		log.debug("Event ID: {}, Phone Number: {}", eventId, phoneNum);
-		return ResponseUtils.resultJson(request, hotdealService.getHotdealEvent(eventId, phoneNum));
+			@ApiParam(value = "핸드폰번호", defaultValue = "01012345678") @PathVariable(name = "PHONE_NO") String phoneNo) {
+		log.debug("Event ID: {}, Phone Number: {}", eventId, phoneNo);
+		return ResponseUtils.resultJson(request, hotdealService.getHotdealEvent(eventId, phoneNo));
 	}
 
 	/**

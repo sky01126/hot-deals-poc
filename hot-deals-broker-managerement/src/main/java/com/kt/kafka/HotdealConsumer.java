@@ -20,10 +20,10 @@ public class HotdealConsumer {
 		log.debug("[ {} ] Topic: {}, Partition: {}, Offset: {}, Payload: {}", Constants.KAFKA_TOPIC_HOTDEAL, topic,
 				partition, offset, event.toJson());
 	}
-//
-//	@KafkaListener(id = Constants.KAFKA_CONSUMER_PICK_GROUP_ID, topics = Constants.KAFKA_TOPIC_HOTDEAL_PICK)
-//	public void pickListen(HotdealEvent event) {
-//		log.debug(">>> {}", event.toJson());
-//	}
+	//
+	// @KafkaListener(id = Constants.KAFKA_CONSUMER_PICK_GROUP_ID, topics = Constants.KAFKA_TOPIC_HOTDEAL_PICK)
+	// public void pickListen(HotdealEvent event) {
+	// log.debug(">>> {}", event.toJson());
+	// }
 
 }
