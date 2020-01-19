@@ -55,15 +55,24 @@ public abstract class AbstractExceptionHandler extends AbstractObject {
 
 		public static final String ERROR = "error";
 
-		public static final String ERROR_400 = "error/400";
+		// public static final String ERROR_400 = "error/400";
+		//
+		// public static final String ERROR_401 = "error/401";
+		//
+		// public static final String ERROR_403 = "error/403";
+		//
+		// public static final String ERROR_404 = "error/404";
+		//
+		// public static final String ERROR_405 = "error/405";
+		public static final String ERROR_400 = ERROR;
 
-		public static final String ERROR_401 = "error/401";
+		public static final String ERROR_401 = ERROR;
 
-		public static final String ERROR_403 = "error/403";
+		public static final String ERROR_403 = ERROR;
 
-		public static final String ERROR_404 = "error/404";
+		public static final String ERROR_404 = ERROR;
 
-		public static final String ERROR_405 = "error/405";
+		public static final String ERROR_405 = ERROR;
 
 		private ViewPage() {
 			// ignore...

@@ -35,23 +35,20 @@ spring:
     # 404 에러를 ControllerAdvice에서 처리할 수 있도록 설정
     throw-exception-if-no-handler-found: true
 
-    view:
-      prefix: /WEB-INF/v/
-      suffix: .jsp
-
   # Spring Profiles, 리스트로 등록
   profiles:
     include:
     - config
     - redis
 
-  resources:
-    # 정적 리소스 사용하지 않음으로 설정.
-    add-mappings: false
+  # thymeleaf
+  thymeleaf:
+    cache: false    check-template-location: true
+    mode: HTML5
+    encoding: UTF-8
+    prefix: classpath:templates/
+    suffix: .html
 
-    static-locations:
-    - classpath:/resources/
-    - classpath:/static/
 
 # ----------------------------------------
 # Application info
