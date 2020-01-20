@@ -10,11 +10,15 @@
 
 package com.kt;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -39,5 +43,30 @@ public class Application extends SpringBootServletInitializer {
 		log.info("Application start...");
 		SpringApplication.run(Application.class, args);
 	}
+
+	/**
+	 * Scheduler Executor
+	 *
+	 * @return Executor
+	 */
+	@Bean
+	public Executor schedulerExecutor() {
+		log.debug("Scheduled Thread Pool Executor...");
+		return new ScheduledThreadPoolExecutor(1);
+	}
+
+	// /**
+	// * Thread Pool Task Executor
+	// *
+	// * @return ThreadPoolTaskExecutor
+	// */
+	// @Bean
+	// public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+	// log.debug("Thread Pool Task Executor...");
+	// final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+	// executor.setCorePoolSize(1);
+	// executor.setMaxPoolSize(1);
+	// return executor;
+	// }
 
 }
