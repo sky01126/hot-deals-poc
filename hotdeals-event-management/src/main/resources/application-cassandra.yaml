@@ -2,12 +2,39 @@
 spring:
   data:
     cassandra:
+      cluster-name: kt-data-garage
       contact-points: localhost
       # username: username
       # password: password
-      port: 9042
-      schema-action: none
       keyspace-name: hotdeals
+      port: 9042
       pool:
         max-queue-size: 256
         pool-timeout: 5000ms
+      schema-action: none
+
+---
+# 개발 배포
+spring:
+  profiles: dev
+  data:
+    cassandra:
+      cluster-name: kt-data-garage
+      contact-points:
+      - cassandra-0
+      - cassandra-1
+      - cassandra-2
+      # username: username
+      # password: password
+      keyspace-name: hotdeals
+      port: 9042
+      pool:
+        max-queue-size: 256
+        pool-timeout: 5000ms
+      schema-action: none
+
+
+---
+# 상용 배포
+spring:
+  profiles: prod
