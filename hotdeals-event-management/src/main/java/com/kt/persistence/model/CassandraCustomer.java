@@ -15,17 +15,32 @@ public class CassandraCustomer {
 	@Column("name")
 	private String name;
 	
-	@Column("refresh_time")
-	private LocalDateTime refreshTime;
+	@Column("agreement")
+	private boolean agreement;
+	
+	@Column("timestamp")
+	private LocalDateTime timestamp;
+	
+	@Column("fcfs_no")
+	private int fcfsNo;
+	
+	@Column("pick_yn")
+	private boolean pickYn;
 
-	public CassandraCustomer(CassandraCustomerKey key, String name, LocalDateTime refreshTime) {
+	public CassandraCustomer(CassandraCustomerKey key, String name, 
+			boolean agreement, LocalDateTime timestamp, int fcfsNo, boolean pickYn) {
 		this.key = key;
 		this.name = name;
-		this.refreshTime = refreshTime;
+		this.agreement = agreement;
+		this.timestamp = timestamp;
+		this.fcfsNo = fcfsNo;
+		this.pickYn = pickYn;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer{" + "key=" + key + ", name=" + name + ", refreshTime=" + refreshTime + '}';
+		return "Customer{" + "key=" + key + ", name=" + name + ", agreement=" + agreement 
+				+ ", timestamp=" + timestamp + ", fcfsNo=" + fcfsNo + ", pickYn=" + pickYn 
+				+ '}';
 	}
 }
