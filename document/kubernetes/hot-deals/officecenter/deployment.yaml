@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dse-opscenter
+  namespace: hotdeals
+spec:
+  replicas: 1
+  minReadySeconds: 20
+  selector:
+    matchLabels:
+      app: dse-opscenter
+  template:
+    metadata:
+      labels:
+        app: dse-opscenter
+    spec:
+      containers:
+      - name: dse-opscenter
+        image: datastax/dse-opscenter
+        imagePullPolicy: Always # IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+        ports:
+        - name: dse-opscenter-port
+          containerPort: 8888

@@ -32,17 +32,17 @@ public class Constants {
 	/**
 	 * 선착순 Topic
 	 */
-	public static final String KAFKA_TOPIC_HOTDEAL = "HOTDEAL";
+	public static final String KAFKA_TOPIC_HOTDEALS = "HOTDEALS";
 
 	/**
 	 * 선착순 Topic
 	 */
-	public static final String KAFKA_TOPIC_HOTDEAL_FCFS = KAFKA_TOPIC_HOTDEAL + ".FCFS";
+	public static final String KAFKA_TOPIC_HOTDEAL_FCFS = KAFKA_TOPIC_HOTDEALS + ".FCFS";
 
 	/**
 	 * 응모형 Topic
 	 */
-	public static final String KAFKA_TOPIC_HOTDEAL_PICK = KAFKA_TOPIC_HOTDEAL + ".PICK";
+	public static final String KAFKA_TOPIC_HOTDEAL_PICK = KAFKA_TOPIC_HOTDEALS + ".PICK";
 
 	private Constants() throws IllegalAccessException {
 		throw new IllegalAccessException("access to class not allowed.");

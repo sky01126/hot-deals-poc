@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Api(value = "HOT Deals 이벤트 신청 / 조회 테스트 API")
 @Slf4j
-@RequestMapping(path = { "v1" }, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = { "api/v1" }, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class HotdealController extends AbstractController {
 
@@ -62,7 +62,7 @@ public class HotdealController extends AbstractController {
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
-	 * @param eventType the event type request parameter (1:선착순, 2:응모형: 3:선착순+이벤트)
+	 * @param eventType the event type request parameter (1:선착순, 2:응모형: 3:선착순+응모형)
 	 * @param params the validation request parameter
 	 * @param result the binding result
 	 * @return Response DTO(Data Transfer Object)

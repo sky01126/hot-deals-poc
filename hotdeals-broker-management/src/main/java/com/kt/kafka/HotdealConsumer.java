@@ -14,14 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class HotdealConsumer {
 
-	@KafkaListener(id = Constants.KAFKA_CONSUMER_FCFS_GROUP_ID, topicPattern = Constants.KAFKA_TOPIC_HOTDEAL + ".*")
+	@KafkaListener(groupId = Constants.KAFKA_TOPIC_HOTDEALS, topicPattern = Constants.KAFKA_TOPIC_HOTDEALS + ".*")
 	public void onReceiving(@Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) Long offset,
 			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition, HotdealEvent event) {
-		log.debug("[ {} ] Topic: {}, Partition: {}, Offset: {}, Payload: {}", Constants.KAFKA_TOPIC_HOTDEAL, topic,
+		log.debug("[ {} ] Topic: {}, Partition: {}, Offset: {}, Payload: {}", Constants.KAFKA_TOPIC_HOTDEALS, topic,
 				partition, offset, event.toJson());
 	}
-	//
-	// @KafkaListener(id = Constants.KAFKA_CONSUMER_PICK_GROUP_ID, topics = Constants.KAFKA_TOPIC_HOTDEAL_PICK)
+
+	// @KafkaListener(topics = Constants.KAFKA_TOPIC_HOTDEAL_PICK)
 	// public void pickListen(HotdealEvent event) {
 	// log.debug(">>> {}", event.toJson());
 	// }
