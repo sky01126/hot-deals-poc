@@ -5,6 +5,7 @@ spring:
 #    consumer:
 #      group-id: HOTDEALS
     producer:
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 ---
@@ -15,6 +16,7 @@ spring:
 #    consumer:
 #      group-id: HOTDEALS
     producer:
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 ---
@@ -25,4 +27,5 @@ spring:
 #    consumer:
 #      group-id: HOTDEALS
     producer:
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
