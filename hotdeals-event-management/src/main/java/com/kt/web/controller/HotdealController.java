@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kt.commons.dto.request.HotdealRequest;
+import com.kt.commons.dto.response.DefaultResponse;
 import com.kt.commons.web.controller.AbstractController;
 import com.kt.commons.web.util.ResponseUtils;
 import com.kt.service.HotdealService;
@@ -37,6 +38,21 @@ public class HotdealController extends AbstractController {
 
 	@Autowired
 	private HotdealService hotdealService;
+
+	/**
+	 * 웹페이지 접속 시 처음으로 호출하는 API
+	 *
+	 * @param request the http servlet request
+	 * @param response the http servlet response
+	 * @param eventId the event id parameter
+	 * @return Response DTO(Data Transfer Object)
+	 */
+	@GetMapping(path = "event/id/{EVENT_ID}")
+	public ResponseEntity<Object> getInitEvent(HttpServletRequest request, HttpServletResponse response,
+			@ApiParam(value = "이벤트 ID", defaultValue = "2020011301") @PathVariable(name = "EVENT_ID") String eventId) {
+		DefaultResponse res = new DefaultResponse();
+		return ResponseUtils.resultJson(request, res);
+	}
 
 	/**
 	 * GET
