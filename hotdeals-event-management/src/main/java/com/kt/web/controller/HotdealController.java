@@ -50,7 +50,7 @@ public class HotdealController extends AbstractController {
 	 * @return Response DTO(Data Transfer Object)
 	 */
 	@GetMapping(path = "/event/init")
-	public ResponseEntity<Object> getInitEvent(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Object> initEventInfo(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> data = Maps.newLinkedHashMap();
 		data.put("event_id", "2020010101"); // 이벤트 번호
 		data.put("event_type", 3); // 이벤트 타입 - 2 : 응모형 이벤트, 3 : 선착순+응모형 이벤트
@@ -74,9 +74,10 @@ public class HotdealController extends AbstractController {
 	@GetMapping(path = "event/id/{EVENT_ID}/phone_no/{PHONE_NO}")
 	public ResponseEntity<Object> getEventInfo(HttpServletRequest request //
 			, HttpServletResponse response //
-			, @ApiParam(value = "이벤트 ID", defaultValue = "2020011301") @PathVariable(name = "EVENT_ID") String eventId //
-			,
-			@ApiParam(value = "핸드폰번호", defaultValue = "01012345678") @PathVariable(name = "PHONE_NO") String phoneNo) {
+			, @ApiParam(value = "이벤트 ID", defaultValue = "2020011301") //
+			@PathVariable(name = "EVENT_ID") String eventId //
+			, @ApiParam(value = "핸드폰번호", defaultValue = "01012345678") //
+			@PathVariable(name = "PHONE_NO") String phoneNo) {
 		log.debug("Event ID: {}, Phone Number: {}", eventId, phoneNo);
 		return ResponseUtils.resultJson(request, hotdealService.getHotdealEvent(eventId, phoneNo));
 	}
@@ -95,15 +96,24 @@ public class HotdealController extends AbstractController {
 	public ResponseEntity<Object> putEventInfo( //
 			HttpServletRequest request //
 			, HttpServletResponse response //
-			,
-			@ApiParam(value = "이벤트 TYPE (1:선착순, 2:응모형: 3:선착순+이벤트)", example = "3") @PathVariable(name = "EVENT_TYPE") Integer eventType //
+			, @ApiParam(value = "이벤트 TYPE (1:선착순, 2:응모형: 3:선착순+이벤트)", example = "3") //
+			@PathVariable(name = "EVENT_TYPE") Integer eventType //
 			, @Valid @RequestBody HotdealRequest params //
 			, BindingResult result) {
-		// 필수 파라미터가 없는 경우의 에러 처리.
-		checkForErrors(result);
-		log.debug(params.toJson());
+//		// 필수 파라미터가 없는 경우의 에러 처리.
+//		checkForErrors(result);
+//		log.debug(params.toJson());
+//		return resultJson(request, hotdealService.setHotdealEvent(eventType, params));
 
-		return resultJson(request, hotdealService.setHotdealEvent(eventType, params));
+		Map<String, Object> data = Maps.newLinkedHashMap();
+		data.put("event_id", "2020010101"); // 이벤트 번호
+		data.put("event_type", 3); // 이벤트 타입 - 2 : 응모형 이벤트, 3 : 선착순+응모형 이벤트
+		data.put("duplicate_yn", false); // 이벤트 중복 등록 여부 (true: 중복 등록, false : 최초 등록)
+
+		DefaultResponse res = new DefaultResponse();
+		res.setResultData(data);
+
+		return ResponseUtils.resultJson(request, res);
 	}
 
 }

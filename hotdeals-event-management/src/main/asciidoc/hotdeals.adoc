@@ -39,11 +39,19 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 Test API
 
 // -------------------------------------------- API --------------------------------------------
-[[get-test]]
+[[init-event-info]]
 === 이벤트 페이지 생성 시 최초로 호출되는 API
-include::{snippets}/hotdeals-controller-test/test-get-init-event/http-request.adoc[]
-include::{snippets}/hotdeals-controller-test/test-get-init-event/response-fields.adoc[]
-include::{snippets}/hotdeals-controller-test/test-get-init-event/http-response.adoc[]
+include::{snippets}/hotdeals-controller-test/test-init-event-info/http-request.adoc[]
+include::{snippets}/hotdeals-controller-test/test-init-event-info/response-fields.adoc[]
+include::{snippets}/hotdeals-controller-test/test-init-event-info/http-response.adoc[]
+
+[[put-event-info]]
+=== 이벤트 등록 API
+include::{snippets}/hotdeals-controller-test/test-put-event-info/http-request.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/path-parameters.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/request-fields.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/response-fields.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/http-response.adoc[]
 
 // -------------------------------------------- 응답 코드 --------------------------------------------
 [[result-code]]
