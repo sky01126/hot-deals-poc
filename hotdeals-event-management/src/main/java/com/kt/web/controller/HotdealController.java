@@ -1,5 +1,7 @@
 package com.kt.web.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.Maps;
 import com.kt.commons.dto.request.HotdealRequest;
 import com.kt.commons.dto.response.DefaultResponse;
 import com.kt.commons.web.controller.AbstractController;
@@ -44,13 +47,18 @@ public class HotdealController extends AbstractController {
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
-	 * @param eventId the event id parameter
 	 * @return Response DTO(Data Transfer Object)
 	 */
-	@GetMapping(path = "event/id/{EVENT_ID}")
-	public ResponseEntity<Object> getInitEvent(HttpServletRequest request, HttpServletResponse response,
-			@ApiParam(value = "이벤트 ID", defaultValue = "2020011301") @PathVariable(name = "EVENT_ID") String eventId) {
+	@GetMapping(path = "/event/init")
+	public ResponseEntity<Object> getInitEvent(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> data = Maps.newLinkedHashMap();
+		data.put("event_id", "2020010101"); // 이벤트 번호
+		data.put("event_type", 3); // 이벤트 타입 - 2 : 응모형 이벤트, 3 : 선착순+응모형 이벤트
+		data.put("close_yn", false); // 선착순+응모형 이벤트에서 선착순 마감 여부 (true : 선착순 마감, false : 선착순 진행중)
+
 		DefaultResponse res = new DefaultResponse();
+		res.setResultData(data);
+
 		return ResponseUtils.resultJson(request, res);
 	}
 

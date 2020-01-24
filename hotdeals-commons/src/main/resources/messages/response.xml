@@ -30,5 +30,8 @@
     <entry key="message.response.500">시스템 에러가 발생했습니다. 잠시 후 다시 시도해주세요.</entry>
     <entry key="message.response.503">서버에 부하가 많아서 잠시 접근이 거부 되었습니다.</entry>
     <entry key="message.response.504">게이트웨이나 프록시 타임아웃이 발생했습니다. 잠시 후 다시 시도 해 주세요.</entry>
+    <entry key="message.response.511">이벤트 준비 중입니다. 잠시 후 다시 접속해주세요.</entry>
+    <entry key="message.response.512">이벤트가 완료되었습니다.</entry>
+    <entry key="message.response.513">이벤트 중복 참여입니다.</entry>
 
 </properties>
