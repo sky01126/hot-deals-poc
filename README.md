@@ -28,4 +28,4 @@
 > -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
 > ```
 > 
-> #### [연동규격서](./hotdeals.html)
+> #### [연동규격서](./document/hotdeals.html)
