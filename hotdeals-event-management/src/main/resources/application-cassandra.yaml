@@ -1,9 +1,9 @@
 # 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
+# datastax Could not load JNR C Library 방지 : -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
 spring:
   data:
     cassandra:
-      cluster-name: kt-data-garage
-      contact-points: localhost
+      contact-points: 192.168.219.132
       # username: username
       # password: password
       keyspace-name: hotdeals

@@ -53,7 +53,7 @@
         <env>local</env>
 
         <!-- 빌드 테스트 설정 -->
-        <maven.test.skip>true</maven.test.skip>
+        <maven.test.skip>false</maven.test.skip>
 
         <!-- ==================== SonarQube에서 분석 제외 파일 설정 ==================== -->
         <sonar.exclusions>pom.xml</sonar.exclusions>
@@ -67,6 +67,9 @@
         <!-- ==================== Third Party versions ==================== -->
         <!-- Json Web Token -->
         <jjwt.version>0.10.7</jjwt.version>
+
+        <!-- Cassandra metrices -->
+        <metrics-core.version>3.0.2</metrics-core.version>
 
         <!-- ==================== Web Jars versions ==================== -->
         <animate.css.version>3.5.2</animate.css.version>
@@ -344,7 +347,15 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <skip>${maven.test.skip}</skip>
+                        <!-- <excludedGroups>slow</excludedGroups> -->
                     </configuration>
+                    <!-- <configuration> -->
+                    <!-- <groups>fast</groups> -->
+                    <!-- <excludedGroups>slow</excludedGroups> -->
+                    <!-- <properties> -->
+                    <!-- <configurationParameters> junit.jupiter.conditions.deactivate = * </configurationParameters> -->
+                    <!-- </properties> -->
+                    <!-- </configuration> -->
                 </plugin>
                 <!-- Spring Boot REST Docs Plugin -->
                 <plugin>

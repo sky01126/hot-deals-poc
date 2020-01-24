@@ -39,33 +39,19 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 Test API
 
 // -------------------------------------------- API --------------------------------------------
-[[get-test]]
-=== GET Test
-include::{snippets}/test-controller-test/test-do-get/http-request.adoc[]
-include::{snippets}/test-controller-test/test-do-get/request-parameters.adoc[]
-include::{snippets}/test-controller-test/test-do-get/response-fields.adoc[]
-include::{snippets}/test-controller-test/test-do-get/http-response.adoc[]
+[[init-event-info]]
+=== 이벤트 페이지 생성 시 최초로 호출되는 API
+include::{snippets}/hotdeals-controller-test/test-init-event-info/http-request.adoc[]
+include::{snippets}/hotdeals-controller-test/test-init-event-info/response-fields.adoc[]
+include::{snippets}/hotdeals-controller-test/test-init-event-info/http-response.adoc[]
 
-[[post-test]]
-=== POST Test
-include::{snippets}/test-controller-test/test-do-post/http-request.adoc[]
-include::{snippets}/test-controller-test/test-do-post/request-parameters.adoc[]
-include::{snippets}/test-controller-test/test-do-post/response-fields.adoc[]
-include::{snippets}/test-controller-test/test-do-post/http-response.adoc[]
-
-[[put-test]]
-=== PUT Test
-include::{snippets}/test-controller-test/test-do-put/http-request.adoc[]
-include::{snippets}/test-controller-test/test-do-put/request-fields.adoc[]
-include::{snippets}/test-controller-test/test-do-put/response-fields.adoc[]
-include::{snippets}/test-controller-test/test-do-put/http-response.adoc[]
-
-[[delete-test]]
-=== DELETE Test
-include::{snippets}/test-controller-test/test-do-delete/http-request.adoc[]
-include::{snippets}/test-controller-test/test-do-delete/path-parameters.adoc[]
-include::{snippets}/test-controller-test/test-do-delete/response-fields.adoc[]
-include::{snippets}/test-controller-test/test-do-delete/http-response.adoc[]
+[[put-event-info]]
+=== 이벤트 등록 API
+include::{snippets}/hotdeals-controller-test/test-put-event-info/http-request.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/path-parameters.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/request-fields.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/response-fields.adoc[]
+include::{snippets}/hotdeals-controller-test/test-put-event-info/http-response.adoc[]
 
 // -------------------------------------------- 응답 코드 --------------------------------------------
 [[result-code]]
@@ -139,4 +125,13 @@ API 호출의 result_code, result_msg 응답값
 
 | 504
 | 게이트웨이나 프록시 타임아웃이 발생했습니다. 잠시 후 다시 시도 해 주세요.
+
+| 511
+| 이벤트 준비 중입니다. 잠시 후 다시 접속해주세요.
+
+| 512
+| 이벤트가 완료되었습니다.
+
+| 513
+| 이벤트 중복 참여입니다.
 |===

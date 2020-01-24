@@ -59,11 +59,16 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
- <!--        SPring Boot Cassandra -->
+        <!-- Spring Boot Cassandra -->
         <dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-data-cassandra</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-cassandra</artifactId>
         </dependency>
+        <!-- <dependency> -->
+        <!-- <groupId>com.codahale.metrics</groupId> -->
+        <!-- <artifactId>metrics-core</artifactId> -->
+        <!-- <version>${metrics-core.version}</version> -->
+        <!-- </dependency> -->
 
         <!-- SPring Boot Redis -->
         <dependency>
@@ -88,17 +93,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-test</artifactId>
-            <scope>test</scope>
+            <!-- <exclusions> -->
+            <!-- <exclusion> -->
+            <!-- <groupId>org.junit.vintage</groupId> -->
+            <!-- <artifactId>junit-vintage-engine</artifactId> -->
+            <!-- </exclusion> -->
+            <!-- </exclusions> -->
         </dependency>
 
         <!-- Spring boot REST Docs Test -->
