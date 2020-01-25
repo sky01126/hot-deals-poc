@@ -53,7 +53,7 @@
         <env>local</env>
 
         <!-- 빌드 테스트 설정 -->
-        <maven.test.skip>false</maven.test.skip>
+        <maven.test.skip>true</maven.test.skip>
 
         <!-- ==================== SonarQube에서 분석 제외 파일 설정 ==================== -->
         <sonar.exclusions>pom.xml</sonar.exclusions>
@@ -364,13 +364,24 @@
                     <version>${asciidoctor-maven-plugin.version}</version>
                     <executions>
                         <execution>
-                            <id>generate-docs</id>
+                            <id>output-html</id>
                             <phase>prepare-package</phase>
                             <goals>
                                 <goal>process-asciidoc</goal>
                             </goals>
                             <configuration>
                                 <backend>html</backend>
+                                <doctype>book</doctype>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>output-docbook</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>process-asciidoc</goal>
+                            </goals>
+                            <configuration>
+                                <backend>docbook</backend>
                                 <doctype>book</doctype>
                             </configuration>
                         </execution>
@@ -413,9 +424,9 @@
         <!-- Broker Manager Build. -->
         <profile>
             <id>broker</id>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
+            <!-- <properties> -->
+            <!-- <skipTests>true</skipTests> -->
+            <!-- </properties> -->
             <modules>
                 <module>hotdeals-broker-management</module>
             </modules>
@@ -423,9 +434,9 @@
         <!-- Coupon Manager Build. -->
         <profile>
             <id>coupon</id>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
+            <!-- <properties> -->
+            <!-- <skipTests>true</skipTests> -->
+            <!-- </properties> -->
             <modules>
                 <module>hotdeals-coupon-management</module>
             </modules>
@@ -433,9 +444,9 @@
         <!-- Process Manager Build. -->
         <profile>
             <id>event</id>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
+            <!-- <properties> -->
+            <!-- <skipTests>true</skipTests> -->
+            <!-- </properties> -->
             <modules>
                 <module>hotdeals-event-management</module>
             </modules>
