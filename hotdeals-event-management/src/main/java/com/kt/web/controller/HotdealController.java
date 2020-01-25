@@ -100,10 +100,10 @@ public class HotdealController extends AbstractController {
 			@PathVariable(name = "EVENT_TYPE") Integer eventType //
 			, @Valid @RequestBody HotdealRequest params //
 			, BindingResult result) {
-//		// 필수 파라미터가 없는 경우의 에러 처리.
-//		checkForErrors(result);
-//		log.debug(params.toJson());
-//		return resultJson(request, hotdealService.setHotdealEvent(eventType, params));
+		// // 필수 파라미터가 없는 경우의 에러 처리.
+		// checkForErrors(result);
+		// log.debug(params.toJson());
+		// return resultJson(request, hotdealService.setHotdealEvent(eventType, params));
 
 		Map<String, Object> data = Maps.newLinkedHashMap();
 		data.put("event_id", "2020010101"); // 이벤트 번호

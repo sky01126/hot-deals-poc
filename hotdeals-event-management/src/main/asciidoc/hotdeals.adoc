@@ -19,7 +19,7 @@ API 소개글
 [[common]]
 == 공통 사항
 
-API에 관계없이 아래 사항을 지켜주셔야 합니다.
+핫딜 이벤트 연동 규격서입니다.
 
 // -------------------------------------------- 서버 정보 --------------------------------------------
 === 서버 정보
@@ -46,7 +46,7 @@ include::{snippets}/hotdeals-controller-test/test-init-event-info/response-field
 include::{snippets}/hotdeals-controller-test/test-init-event-info/http-response.adoc[]
 
 [[put-event-info]]
-=== 이벤트 등록 API
+=== 이벤트 참여 API
 include::{snippets}/hotdeals-controller-test/test-put-event-info/http-request.adoc[]
 include::{snippets}/hotdeals-controller-test/test-put-event-info/path-parameters.adoc[]
 include::{snippets}/hotdeals-controller-test/test-put-event-info/request-fields.adoc[]

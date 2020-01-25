@@ -1,12 +1,11 @@
 package com.kt.persistence.model;
 
-import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
-import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import static org.springframework.data.cassandra.core.cql.PrimaryKeyType.PARTITIONED;
 
 import java.io.Serializable;
 
-import static org.springframework.data.cassandra.core.cql.Ordering.DESCENDING;
-import static org.springframework.data.cassandra.core.cql.PrimaryKeyType.PARTITIONED;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 
 @PrimaryKeyClass
 public class CassandraCustomerKey implements Serializable {
