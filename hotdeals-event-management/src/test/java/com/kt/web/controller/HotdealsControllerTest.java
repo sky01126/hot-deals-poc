@@ -60,7 +60,7 @@ public class HotdealsControllerTest extends AbstractControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(JsonUtils.getJson(req)))
 				.andDo(MockMvcResultHandlers.print())
-				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.status().isCreated())
 				.andDo(document.document(
 						RequestDocumentation.pathParameters(
 								RequestDocumentation.parameterWithName("EVENT_TYPE").description("이벤트 타입 - 2 : 응모형 이벤트, - 3 : 선착순+응모형 이벤트")

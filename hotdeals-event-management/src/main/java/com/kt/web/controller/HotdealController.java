@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -110,10 +111,10 @@ public class HotdealController extends AbstractController {
 		data.put("event_type", 3); // 이벤트 타입 - 2 : 응모형 이벤트, 3 : 선착순+응모형 이벤트
 		data.put("duplicate_yn", false); // 이벤트 중복 등록 여부 (true: 중복 등록, false : 최초 등록)
 
-		DefaultResponse res = new DefaultResponse();
+		DefaultResponse res = new DefaultResponse(201, getResponseMessage(201));
 		res.setResultData(data);
 
-		return ResponseUtils.resultJson(request, res);
+		return ResponseUtils.resultJson(request, res, HttpStatus.CREATED);
 	}
 
 }
