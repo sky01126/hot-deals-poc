@@ -9,17 +9,20 @@ endif::[]
 :toclevels: 3
 :sectlinks:
 
+
 // -------------------------------------------- 소개 --------------------------------------------
 [[introduction]]
 == 소개
 
-API 소개글
+핫딜 이벤트 연동 규격서입니다.
+
 
 // -------------------------------------------- 공통 사항 --------------------------------------------
 [[common]]
 == 공통 사항
 
 핫딜 이벤트 연동 규격서입니다.
+
 
 // -------------------------------------------- 서버 정보 --------------------------------------------
 === 서버 정보
@@ -28,30 +31,65 @@ API 소개글
 | 환경 | URL
 
 | 개발서버
-| `http://www.kthcorp.com:8080`
+| `http://hotdeals-event-dummy-api.169.56.115.147.nip.io`
 
 | 운영서버
-| `https://www.kthcorp.com`
+| `http://hotdeals-event.169.56.115.147.nip.io`
 |===
 
-[[test-api]]
-== Test API
+[[hotdeals-api]]
+== Hot Deals 연동 API
 Test API
+
 
 // -------------------------------------------- API --------------------------------------------
 [[init-event-info]]
 === 이벤트 페이지 생성 시 최초로 호출되는 API
+
 include::{snippets}/hotdeals-controller-test/test-init-event-info/http-request.adoc[]
 include::{snippets}/hotdeals-controller-test/test-init-event-info/response-fields.adoc[]
 include::{snippets}/hotdeals-controller-test/test-init-event-info/http-response.adoc[]
 
+[cols="2,4,4"]
+|===
+| Result Code | Result Msg | Comment
+
+| 200
+| 성공
+| 이벤트가 진행중.
+
+| 511
+| 이벤트 준비 중입니다. 잠시 후 다시 접속해주세요.
+| 이벤트 시간이 아직 되지 않은 경우.
+
+| 512
+| 이벤트가 완료되었습니다.
+| 이벤트 시간이 종료한 경우.
+|===
+
+
 [[put-event-info]]
 === 이벤트 참여 API
+
 include::{snippets}/hotdeals-controller-test/test-put-event-info/http-request.adoc[]
 include::{snippets}/hotdeals-controller-test/test-put-event-info/path-parameters.adoc[]
 include::{snippets}/hotdeals-controller-test/test-put-event-info/request-fields.adoc[]
 include::{snippets}/hotdeals-controller-test/test-put-event-info/response-fields.adoc[]
 include::{snippets}/hotdeals-controller-test/test-put-event-info/http-response.adoc[]
+
+[cols="2,4,4"]
+|===
+| Result Code | Result Msg | Comment
+
+| 201
+| 생성 성공
+| 이벤트 참여 성공
+
+| 513
+| 이벤트 중복 참여입니다.
+| 이벤트를 중복으로 참여한 경우의 Result Code
+|===
+
 
 // -------------------------------------------- 응답 코드 --------------------------------------------
 [[result-code]]
