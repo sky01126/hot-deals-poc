@@ -17,6 +17,7 @@ var eventMessageNo = 1;
 var eventStatus = 0;	// 0: 준비중 , 1: 진행중	, 2: 종료
 
 var eventImage = document.getElementById("id-event-image");
+var eventId = document.getElementById("id-event-id");
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
@@ -193,6 +194,7 @@ function CheckEventStatus() {
 							alert(obj.result_msg);
 							eventMessageNo = 0;
 							showEventButton(true);
+							eventId = obj.data.event_id;
 							eventStatus = 1;
 							break;
 						case 511:
