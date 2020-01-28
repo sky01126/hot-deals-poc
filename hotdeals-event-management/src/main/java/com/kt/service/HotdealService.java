@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.kt.commons.dto.request.HotdealRequest;
 import com.kt.commons.dto.response.DefaultResponse;
-import com.kt.commons.persistence.model.HotdealEventPick;
+import com.kt.commons.persistence.model.Hotdeals;
 import com.kt.commons.service.AbstractService;
 import com.kt.persistence.model.HotdealsEvent;
 import com.kt.persistence.repositories.HotdealDao;
-import com.kt.persistence.repositories.HotdealsEventCassandraRepository;
+import com.kt.persistence.repositories.HotdealsEventRepository;
 import com.kthcorp.commons.lang.BooleanUtils;
 import com.kthcorp.commons.lang.StringUtils;
 
@@ -25,18 +25,26 @@ public class HotdealService extends AbstractService {
 	private HotdealDao hotdealDao;
 
 	@Autowired
-	private HotdealsEventCassandraRepository hotdealsEventCassandraRepository;
+	private HotdealsEventRepository hotdealsEventRepository;
 
 	/**
 	 * 이벤트 기본 정보 조회.
 	 */
-	public void getEventInfo() {
-		List<HotdealsEvent> list = hotdealsEventCassandraRepository.findAll();
+	public DefaultResponse getEventInfo() {
+		List<HotdealsEvent> list = hotdealsEventRepository.findAll();
 
 		// Sort.by("date_from").descending()
-		for (HotdealsEvent event : list) {
-			log.debug(event.toJson());
+		if (!list.isEmpty()) {
+			for (HotdealsEvent event : list) {
+				log.debug(event.toJsonLog());
+				Hotdeals hotdeals = new Hotdeals();
+				hotdeals.setEventId(event.getEventId());
+				hotdeals.setEventType(String.valueOf(event.getEventType()));
+				hotdeals.setClose(false);
+				return new DefaultResponse(hotdeals);
+			}
 		}
+		return new DefaultResponse(511, getResponseMessage(511));
 	}
 
 	/**
@@ -49,7 +57,7 @@ public class HotdealService extends AbstractService {
 	public DefaultResponse getHotdealEvent(String eventId, String phoneNo) {
 		String name = hotdealDao.getEventFcfs(eventId, phoneNo);
 		if (StringUtils.isNotBlank(name)) {
-			HotdealEventPick event = new HotdealEventPick();
+			Hotdeals event = new Hotdeals();
 			event.setEventId(eventId);
 			event.setPhoneNo(phoneNo);
 			event.setName(name);
@@ -66,7 +74,7 @@ public class HotdealService extends AbstractService {
 	 * @return the default response
 	 */
 	public DefaultResponse setHotdealEvent(Integer eventType, HotdealRequest params) {
-		HotdealEventPick event = new HotdealEventPick();
+		Hotdeals event = new Hotdeals();
 
 		boolean isCreate = hotdealDao.putEventFcfs(params);
 		event.setDuplicate(BooleanUtils.isFalse(isCreate));

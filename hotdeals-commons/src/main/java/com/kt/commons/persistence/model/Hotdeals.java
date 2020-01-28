@@ -20,7 +20,7 @@ import lombok.Setter;
 		, "duplicate" // 중복여부 (true:중복등록, false:신규등록)
 		, "timestamp" // 등록일
 }, alphabetic = true)
-public class HotdealEventPick extends AbstractModel {
+public class Hotdeals extends AbstractModel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +28,11 @@ public class HotdealEventPick extends AbstractModel {
 	@Setter
 	@JsonProperty("event_id")
 	private String eventId;
+
+	@Getter
+	@Setter
+	@JsonProperty("event_type")
+	private String eventType;
 
 	@Getter
 	@Setter
@@ -44,7 +49,23 @@ public class HotdealEventPick extends AbstractModel {
 
 	@Getter
 	@Setter
+	@JsonProperty("duplicate_yn")
 	private Boolean duplicate;
+
+	@Getter
+	@Setter
+	@JsonProperty("close_yn")
+	private Boolean close;
+
+	@Getter
+	@Setter
+	@JsonProperty("date_from")
+	private LocalDateTime dateFrom;
+
+	@Getter
+	@Setter
+	@JsonProperty("date_to")
+	private LocalDateTime dateTo;
 
 	@Getter
 	@Setter

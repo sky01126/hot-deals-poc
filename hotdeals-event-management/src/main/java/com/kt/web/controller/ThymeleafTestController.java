@@ -9,7 +9,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 public class ThymeleafTestController {
 
-	@GetMapping({ "/",  "/index", "/index.htm", "/index.html" })
+	@GetMapping({ "/", "/index", "/index.htm", "/index.html" })
 	public String getIndex() {
 		return "index";
 	}
