@@ -22,10 +22,10 @@
 > ```
 > $ datastax Could not load JNR C Library
 > ```
-> 
+>
 > #### Cassandra 접속 Spring Boot Project 실행 시 JAVA_OTP 설정 (datastax Could not load JNR C Library 방지)
 > ```
 > -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
 > ```
-> 
+>
 > #### [연동규격서](./document/hotdeals.html)
