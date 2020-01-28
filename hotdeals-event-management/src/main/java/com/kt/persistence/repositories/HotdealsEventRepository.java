@@ -7,5 +7,5 @@ import com.kt.persistence.model.HotdealsEvent;
 import com.kt.persistence.model.HotdealsEventKey;
 
 @Repository
-public interface HotdealsEventCassandraRepository extends CassandraRepository<HotdealsEvent, HotdealsEventKey> {
+public interface HotdealsEventRepository extends CassandraRepository<HotdealsEvent, HotdealsEventKey> {
 }

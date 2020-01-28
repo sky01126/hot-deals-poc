@@ -51,17 +51,7 @@ public class HotdealController extends AbstractController {
 	 */
 	@GetMapping(path = "/event/init")
 	public ResponseEntity<Object> initEventInfo(HttpServletRequest request, HttpServletResponse response) {
-		hotdealService.getEventInfo();
-
-		Map<String, Object> data = Maps.newLinkedHashMap();
-		data.put("event_id", "2020010101"); // 이벤트 번호
-		data.put("event_type", 3); // 이벤트 타입 - 2 : 응모형 이벤트, 3 : 선착순+응모형 이벤트
-		data.put("close_yn", false); // 선착순+응모형 이벤트에서 선착순 마감 여부 (true : 선착순 마감, false : 선착순 진행중)
-
-		DefaultResponse res = new DefaultResponse();
-		res.setResultData(data);
-
-		return ResponseUtils.resultJson(request, res);
+		return ResponseUtils.resultJson(request, hotdealService.getEventInfo());
 	}
 
 	/**
