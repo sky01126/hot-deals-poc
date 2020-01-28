@@ -229,7 +229,7 @@ function CheckEventStatus() {
 */
 	    // Set up our request
 	    XHR.open( "GET", "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/init" );
-
+	    XHR.setRequestHeader("Accept", "application/json");
 	    // The data sent is what the user provided in the form
 	    XHR.send(  );
 	  }
