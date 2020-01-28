@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kt.commons.config.Constants;
 import com.kt.commons.dto.request.HotdealRequest;
 import com.kt.commons.dto.response.DefaultResponse;
-import com.kt.commons.persistence.model.HotdealEvent;
+import com.kt.commons.persistence.model.HotdealEventPick;
 import com.kt.commons.web.controller.AbstractController;
 import com.kt.commons.web.util.ResponseUtils;
 
@@ -42,7 +42,7 @@ public class KafkaController extends AbstractController {
 		checkForErrors(result);
 		log.debug(params.toJson());
 
-		HotdealEvent event = new HotdealEvent();
+		HotdealEventPick event = new HotdealEventPick();
 		event.setEventId(params.getEventId());
 		event.setPhoneNo(params.getPhoneNo());
 		event.setName(params.getName());
@@ -61,7 +61,7 @@ public class KafkaController extends AbstractController {
 		checkForErrors(result);
 		log.debug(params.toJson());
 
-		HotdealEvent event = new HotdealEvent();
+		HotdealEventPick event = new HotdealEventPick();
 		event.setEventId(params.getEventId());
 		event.setPhoneNo(params.getPhoneNo());
 		event.setName(params.getName());

@@ -47,4 +47,4 @@
  * @version 1.0.0
  * @since 8.0
  */
-package com.kt.persistence.dao;
+package com.kt.persistence.repositories;

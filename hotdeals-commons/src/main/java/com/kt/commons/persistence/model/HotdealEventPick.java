@@ -20,7 +20,7 @@ import lombok.Setter;
 		, "duplicate" // 중복여부 (true:중복등록, false:신규등록)
 		, "timestamp" // 등록일
 }, alphabetic = true)
-public class HotdealEvent extends AbstractModel {
+public class HotdealEventPick extends AbstractModel {
 
 	private static final long serialVersionUID = 1L;
 

@@ -1,4 +1,4 @@
-package com.kt.persistence.dao;
+package com.kt.persistence.repositories;
 
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;
@@ -7,5 +7,6 @@ import com.kt.persistence.model.CassandraCustomer;
 import com.kt.persistence.model.CassandraCustomerKey;
 
 @Repository
-public interface CustomerCassandraRepository extends CassandraRepository<CassandraCustomer, CassandraCustomerKey> {
+public interface CustomerCassandraRepository
+		extends CassandraRepository<CassandraCustomer, CassandraCustomerKey> {
 }
