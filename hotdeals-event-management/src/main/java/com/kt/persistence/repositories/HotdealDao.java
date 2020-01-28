@@ -1,4 +1,4 @@
-package com.kt.persistence.dao;
+package com.kt.persistence.repositories;
 
 import javax.annotation.Resource;
 

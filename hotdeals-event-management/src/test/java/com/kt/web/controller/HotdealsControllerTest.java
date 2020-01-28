@@ -1,7 +1,5 @@
 package com.kt.web.controller;
 
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,9 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.google.common.collect.Maps;
 import com.kt.Application;
-import com.kthcorp.commons.lang.JsonUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -48,28 +44,24 @@ public class HotdealsControllerTest extends AbstractControllerTest {
 	@Order(1)
 	// @formatter:off
 	public void testPutEventInfo() throws Exception {
-		Map<String, Object> req = Maps.newLinkedHashMap();
-		req.put("event_id", "2020010101");
-		req.put("phone_no", "01011111111");
-		req.put("name", "TEST");
-		req.put("aggrement", true);
-
-
-		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/v1/event/type/{EVENT_TYPE}", 3)
+		mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/event/type/{EVENT_TYPE}", 3)
 				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(JsonUtils.getJson(req)))
+//				.contentType(MediaType.APPLICATION_JSON)
+				.param("event_id", "2020010101")
+				.param("phone_no", "01011111111")
+				.param("name", "홍길동")
+				.param("aggrement", "on"))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(MockMvcResultMatchers.status().isCreated())
 				.andDo(document.document(
 						RequestDocumentation.pathParameters(
 								RequestDocumentation.parameterWithName("EVENT_TYPE").description("이벤트 타입 - 2 : 응모형 이벤트, - 3 : 선착순+응모형 이벤트")
 	                      ),
-						PayloadDocumentation.requestFields(
-								PayloadDocumentation.fieldWithPath("event_id").type(JsonFieldType.STRING).description("이벤트 아이디")
-								  , PayloadDocumentation.fieldWithPath("phone_no").type(JsonFieldType.STRING).description("핸드폰번호")
-								  , PayloadDocumentation.fieldWithPath("name").type(JsonFieldType.STRING).description("이름")
-								  , PayloadDocumentation.fieldWithPath("aggrement").type(JsonFieldType.BOOLEAN).description("동의여부")
+						RequestDocumentation.requestParameters(
+								RequestDocumentation.parameterWithName("event_id").description("이벤트 아이디")
+								  , RequestDocumentation.parameterWithName("phone_no").description("핸드폰번호")
+								  , RequestDocumentation.parameterWithName("name").description("이름")
+								  , RequestDocumentation.parameterWithName("aggrement").description("동의여부")
 						  ),
 						PayloadDocumentation.responseFields(
                         		PayloadDocumentation.fieldWithPath("result_code").type(JsonFieldType.NUMBER).description("Result Code (200 OK)")

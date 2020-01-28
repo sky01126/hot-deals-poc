@@ -1,24 +1,43 @@
 package com.kt.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kt.commons.dto.request.HotdealRequest;
 import com.kt.commons.dto.response.DefaultResponse;
-import com.kt.commons.persistence.model.HotdealEvent;
+import com.kt.commons.persistence.model.HotdealEventPick;
 import com.kt.commons.service.AbstractService;
-import com.kt.persistence.dao.HotdealDao;
+import com.kt.persistence.model.HotdealsEvent;
+import com.kt.persistence.repositories.HotdealDao;
+import com.kt.persistence.repositories.HotdealsEventCassandraRepository;
 import com.kthcorp.commons.lang.BooleanUtils;
 import com.kthcorp.commons.lang.StringUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
-@SuppressWarnings("all")
-@Transactional(readOnly = true)
 public class HotdealService extends AbstractService {
 
 	@Autowired
 	private HotdealDao hotdealDao;
+
+	@Autowired
+	private HotdealsEventCassandraRepository hotdealsEventCassandraRepository;
+
+	/**
+	 * 이벤트 기본 정보 조회.
+	 */
+	public void getEventInfo() {
+		List<HotdealsEvent> list = hotdealsEventCassandraRepository.findAll();
+
+		// Sort.by("date_from").descending()
+		for (HotdealsEvent event : list) {
+			log.debug(event.toJson());
+		}
+	}
 
 	/**
 	 * Hotdeal Event에 등록된 정보 조회
@@ -30,7 +49,7 @@ public class HotdealService extends AbstractService {
 	public DefaultResponse getHotdealEvent(String eventId, String phoneNo) {
 		String name = hotdealDao.getEventFcfs(eventId, phoneNo);
 		if (StringUtils.isNotBlank(name)) {
-			HotdealEvent event = new HotdealEvent();
+			HotdealEventPick event = new HotdealEventPick();
 			event.setEventId(eventId);
 			event.setPhoneNo(phoneNo);
 			event.setName(name);
@@ -47,7 +66,7 @@ public class HotdealService extends AbstractService {
 	 * @return the default response
 	 */
 	public DefaultResponse setHotdealEvent(Integer eventType, HotdealRequest params) {
-		HotdealEvent event = new HotdealEvent();
+		HotdealEventPick event = new HotdealEventPick();
 
 		boolean isCreate = hotdealDao.putEventFcfs(params);
 		event.setDuplicate(BooleanUtils.isFalse(isCreate));
