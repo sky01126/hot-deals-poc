@@ -5,6 +5,9 @@
 > $ docker run --name cassandra -d -p 7000:7000 -p 9042:9042 cassandra
 > ```
 > ```
+> $ CREATE KEYSPACE hotdeals WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor': 3};
+> ```
+> ```
 > $ USE hotdeals;
 > ```
 > ```
@@ -18,9 +21,6 @@
 >     , timestamp     timestamp
 >     , PRIMARY KEY (phone_no, event_id)
 > );
-> ```
-> ```
-> $ datastax Could not load JNR C Library
 > ```
 >
 > #### Cassandra 접속 Spring Boot Project 실행 시 JAVA_OTP 설정 (datastax Could not load JNR C Library 방지)
