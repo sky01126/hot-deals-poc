@@ -38,3 +38,18 @@ spring:
 # 상용 배포
 spring:
   profiles: prod
+  data:
+    cassandra:
+      cluster-name: kt-data-garage
+      contact-points:
+      - cassandra-0.cassandra
+      - cassandra-1.cassandra
+      - cassandra-2.cassandra
+      # username: username
+      # password: password
+      keyspace-name: hotdeals
+      port: 9042
+      pool:
+        max-queue-size: 256
+        pool-timeout: 5000ms
+      schema-action: none
