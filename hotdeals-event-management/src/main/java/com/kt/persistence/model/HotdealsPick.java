@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 //@AllArgsConstructor
-@Table("hotdeals_fcfs")
+@Table("hotdeals_pick")
 public class HotdealsPick extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,7 @@ public class HotdealsPick extends BaseObject {
 	@Getter
 	@Setter
 	@PrimaryKey
-	private HotdealsFcfsKey key;
+	private HotdealsPickKey key;
 
 	@Getter
 	@Setter

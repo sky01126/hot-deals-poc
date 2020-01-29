@@ -7,7 +7,6 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.stereotype.Component;
 
-import com.kthcorp.commons.lang.BooleanUtils;
 import com.kthcorp.commons.web.annotation.RequestParamName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -41,15 +40,12 @@ public class HotdealRequest extends AbstractRequest {
 	private String name;
 
 	@Getter
+	@Setter
 	private boolean aggrement;
 
 	@ApiModelProperty(hidden = true)
 	@Getter
 	@Setter
 	private LocalDateTime timestamp = LocalDateTime.now();
-
-	public void setAggrement(String aggrement) {
-		this.aggrement = BooleanUtils.toBoolean(aggrement);
-	}
 
 }
