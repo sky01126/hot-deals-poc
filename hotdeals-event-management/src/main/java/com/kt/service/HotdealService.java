@@ -1,5 +1,6 @@
 package com.kt.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,14 @@ import com.kt.persistence.model.HotdealsEvent;
 import com.kt.persistence.repositories.HotdealDao;
 import com.kt.persistence.repositories.HotdealsEventRepository;
 import com.kthcorp.commons.lang.BooleanUtils;
-import com.kthcorp.commons.lang.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class HotdealService extends AbstractService {
+
+	public static Hotdeals sHotdeals = null;
 
 	@Autowired
 	private HotdealDao hotdealDao;
@@ -33,37 +35,38 @@ public class HotdealService extends AbstractService {
 	public DefaultResponse getEventInfo() {
 		List<HotdealsEvent> list = hotdealsEventRepository.findAll();
 
-		// Sort.by("date_from").descending()
 		if (!list.isEmpty()) {
-			for (HotdealsEvent event : list) {
-				log.debug(event.toJsonLog());
-				Hotdeals hotdeals = new Hotdeals();
-				hotdeals.setEventId(event.getEventId());
-				hotdeals.setEventType(String.valueOf(event.getEventType()));
-				hotdeals.setClose(false);
-				return new DefaultResponse(hotdeals);
+			HotdealsEvent event = null;
+			for (int i = 0; i < list.size(); i++) {
+				event = list.get(i);
+				DefaultResponse res = getEventInfo(event);
+				if (res != null) {
+					return res;
+				}
+			}
+
+			// 현재시간 이후에 진행 될 예정의 이벤트가 있으면 "이벤트 준비중"
+			if (event != null && event.getDateFrom().isAfter(LocalDateTime.now())) {
+				return new DefaultResponse(511, getResponseMessage(511));
 			}
 		}
-		return new DefaultResponse(511, getResponseMessage(511));
+		// 현재시간 이후에 진행 될 예정의 이벤트가 없으면 "이벤트 종료"
+		return new DefaultResponse(512, getResponseMessage(512));
 	}
 
-	/**
-	 * Hotdeal Event에 등록된 정보 조회
-	 *
-	 * @param eventId the event id
-	 * @param phoneNo the phone number
-	 * @return the default response
-	 */
-	public DefaultResponse getHotdealEvent(String eventId, String phoneNo) {
-		String name = hotdealDao.getEventFcfs(eventId, phoneNo);
-		if (StringUtils.isNotBlank(name)) {
-			Hotdeals event = new Hotdeals();
-			event.setEventId(eventId);
-			event.setPhoneNo(phoneNo);
-			event.setName(name);
-			return new DefaultResponse(event);
+	private DefaultResponse getEventInfo(HotdealsEvent event) {
+		log.debug(event.toJsonLog());
+		LocalDateTime nowDateTime = LocalDateTime.now();
+		if (event.getDateFrom().isEqual(nowDateTime)
+				|| (event.getDateFrom().isAfter(nowDateTime) && event.getDateTo().isBefore(nowDateTime))) {
+			Hotdeals hotdeals = new Hotdeals();
+			hotdeals.setEventId(event.getEventId());
+			hotdeals.setEventType(String.valueOf(event.getEventType()));
+			hotdeals.setClose(false);
+			sHotdeals = hotdeals;
+			return new DefaultResponse(hotdeals);
 		}
-		return new DefaultResponse(204, "이벤트에 등록되지 않았습니다.");
+		return null;
 	}
 
 	/**
@@ -73,7 +76,15 @@ public class HotdealService extends AbstractService {
 	 * @param params the hotdeal request
 	 * @return the default response
 	 */
-	public DefaultResponse setHotdealEvent(Integer eventType, HotdealRequest params) {
+	public DefaultResponse setHotdealEvent(int eventType, HotdealRequest params) {
+		if (sHotdeals == null) {
+			return new DefaultResponse(512, getResponseMessage(512));
+		}
+
+		if (duplicateCheck(sHotdeals.getEventId(), params.getPhoneNo(), params.getName())) {
+			return new DefaultResponse(513, getResponseMessage(513));
+		}
+
 		Hotdeals event = new Hotdeals();
 
 		boolean isCreate = hotdealDao.putEventFcfs(params);

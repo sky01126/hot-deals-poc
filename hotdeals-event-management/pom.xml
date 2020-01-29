@@ -70,7 +70,7 @@
         <!-- <version>${metrics-core.version}</version> -->
         <!-- </dependency> -->
 
-        <!-- SPring Boot Redis -->
+        <!-- Spring Boot Redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>

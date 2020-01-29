@@ -68,14 +68,14 @@ include::{snippets}/hotdeals-controller-test/test-init-event-info/http-response.
 |===
 
 
-[[put-event-info]]
+[[post-event-info]]
 === 이벤트 참여 API
 
-include::{snippets}/hotdeals-controller-test/test-put-event-info/http-request.adoc[]
-include::{snippets}/hotdeals-controller-test/test-put-event-info/path-parameters.adoc[]
-include::{snippets}/hotdeals-controller-test/test-put-event-info/request-fields.adoc[]
-include::{snippets}/hotdeals-controller-test/test-put-event-info/response-fields.adoc[]
-include::{snippets}/hotdeals-controller-test/test-put-event-info/http-response.adoc[]
+include::{snippets}/hotdeals-controller-test/test-post-event-info/http-request.adoc[]
+include::{snippets}/hotdeals-controller-test/test-post-event-info/path-parameters.adoc[]
+include::{snippets}/hotdeals-controller-test/test-post-event-info/request-parameters.adoc[]
+include::{snippets}/hotdeals-controller-test/test-post-event-info/response-fields.adoc[]
+include::{snippets}/hotdeals-controller-test/test-post-event-info/http-response.adoc[]
 
 [cols="2,4,4"]
 |===

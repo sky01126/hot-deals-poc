@@ -1,7 +1,7 @@
 # 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
 spring:
   redis:
-    host: 192.168.219.151
+    host: localhost
     lettuce:
       pool:
         min-idle: 1
@@ -14,7 +14,7 @@ spring:
 spring:
   profiles: dev
   redis:
-    host: redis
+    host: hotdeals-redis-single
     lettuce:
       pool:
         min-idle: 100
