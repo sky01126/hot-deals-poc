@@ -19,6 +19,8 @@ var eventStatus = 0;	// 0: 준비중 , 1: 진행중	, 2: 종료
 var eventImage = document.getElementById("id-event-image");
 var eventId = document.getElementById("id-event-id");
 
+var eventType = 1;
+
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 
@@ -122,7 +124,9 @@ window.addEventListener( "load", function () {
 	    });
 */
 	    // Set up our request
-	    XHR.open( "POST", "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/3" );
+	    
+	    var url = "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
+	    XHR.open( "POST", url );
 	    XHR.setRequestHeader("Accept", "application/json");
 	    XHR.setRequestHeader("Content-Type", "application/json");
 
@@ -191,26 +195,26 @@ function CheckEventStatus() {
 
 					switch(obj.result_code) {
 						case 200:
-							alert(obj.result_msg);
 							eventMessageNo = 0;
 							showEventButton(true);
-							eventId = obj.data.event_id;
+							eventId.value = obj.data.event_id;
+							eventType = obj.data.event_type;
 							eventStatus = 1;
 							break;
 						case 511:
-							alert(obj.result_msg);
+
 							eventMessageNo = 1;
 							showEventButton(false);
 							eventStatus = 0;
 							setTimeout("CheckEventStatus()", 60000);
 							break;
 						case 512:
-							alert(obj.result_msg);
+
 							eventMessageNo = 2;
 							showEventButton(false);
 							eventStatus = 2;
 						default :
-							alert(obj.result_msg);
+
 							eventMessageNo = 5;
 							eventMessageList[eventMessageNo] = obj.result_msg;
 							showEventButton(false);
@@ -218,7 +222,7 @@ function CheckEventStatus() {
 				}
 
 			} else {
-				alert(obj.result_msg);
+
 				eventMessageNo = 4;
 				showEventButton(false);
 				eventStatus = 0;
