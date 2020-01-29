@@ -29,7 +29,6 @@ public abstract class AbstractService extends AbstractObject {
 
 	protected static boolean fcfsClosed = false;
 
-
 	@Resource(name = "stringRedisTemplate")
 	private HashOperations<String, String, String> hashOperations;
 

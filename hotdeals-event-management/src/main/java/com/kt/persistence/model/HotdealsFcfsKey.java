@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-//@PrimaryKeyClass
+// @PrimaryKeyClass
 public class HotdealsFcfsKey extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
