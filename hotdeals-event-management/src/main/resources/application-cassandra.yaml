@@ -21,9 +21,9 @@ spring:
     cassandra:
       cluster-name: kt-data-garage
       contact-points:
-      - cassandra-0.cassandra
-      - cassandra-1.cassandra
-      - cassandra-2.cassandra
+      - cassandra-0.cassandra.default.svc.k8s
+      - cassandra-1.cassandra.default.svc.k8s
+      - cassandra-2.cassandra.default.svc.k8s
       # username: username
       # password: password
       keyspace-name: hotdeals
@@ -42,9 +42,9 @@ spring:
     cassandra:
       cluster-name: kt-data-garage
       contact-points:
-      - cassandra-0.cassandra
-      - cassandra-1.cassandra
-      - cassandra-2.cassandra
+      - cassandra-0.cassandra.default.svc.k8s
+      - cassandra-1.cassandra.default.svc.k8s
+      - cassandra-2.cassandra.default.svc.k8s
       # username: username
       # password: password
       keyspace-name: hotdeals

@@ -62,9 +62,13 @@ public class HotdealsService extends AbstractService {
 		Duration from = Duration.between(nowDateTime, event.getDateFrom());
 		Duration to = Duration.between(event.getDateTo(), nowDateTime);
 		log.debug(">>> {}, {}", from.getNano(), to.getNano());
-		if (from.getNano() > 0 && to.getNano() > 0) {
+		// if (from.getNano() > 0 && to.getNano() > 0) {
+		log.debug(">>> {}, {}", event.getDateFrom().isEqual(nowDateTime), event.getDateTo().isEqual(nowDateTime));
+		log.debug(">>> {}, {}", event.getDateFrom().isBefore(nowDateTime), event.getDateTo().isAfter(nowDateTime));
+		if (event.getDateFrom().isEqual(nowDateTime) || event.getDateTo().isEqual(nowDateTime)
+				|| (event.getDateFrom().isBefore(nowDateTime) && event.getDateTo().isAfter(nowDateTime))) {
 			Hotdeals hotdeals = new Hotdeals();
-			hotdeals.setEventId(event.getEventId());
+			hotdeals.setEventId(event.getKey().getEventId());
 			hotdeals.setEventType(String.valueOf(event.getEventType()));
 			hotdeals.setClose(false);
 			sHotdeals = hotdeals;
