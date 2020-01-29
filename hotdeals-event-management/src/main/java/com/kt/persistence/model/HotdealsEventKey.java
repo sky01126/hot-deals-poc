@@ -2,19 +2,16 @@ package com.kt.persistence.model;
 
 import static org.springframework.data.cassandra.core.cql.PrimaryKeyType.PARTITIONED;
 
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
-
-import com.kthcorp.commons.lang.BaseObject;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-// @PrimaryKeyClass
-public class HotdealsEventKey extends BaseObject {
-
-	private static final long serialVersionUID = 1L;
+@PrimaryKeyClass
+public class HotdealsEventKey {
 
 	@Getter
 	@Setter

@@ -3,4 +3,4 @@
 # Archetype Project Create
 sh mvnw -Dmaven.test.skip=true -Pevent clean install
 
-cd hot-deals-poc-process-manager-webapp
+cd hotdeals-event-management
