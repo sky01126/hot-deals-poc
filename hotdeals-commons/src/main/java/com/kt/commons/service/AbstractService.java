@@ -27,6 +27,9 @@ import com.kt.commons.lang.AbstractObject;
 @Component
 public abstract class AbstractService extends AbstractObject {
 
+	protected static boolean fcfsClosed = false;
+
+
 	@Resource(name = "stringRedisTemplate")
 	private HashOperations<String, String, String> hashOperations;
 
@@ -40,7 +43,7 @@ public abstract class AbstractService extends AbstractObject {
 	 * @param eventId 이벤트 아이디
 	 * @param phoneNo 핸드폰번호
 	 * @param name 이름
-	 * @return true:중복, false:중복아님
+	 * @return true:중복아님, false:중복
 	 */
 	protected boolean duplicateCheck(String eventId, String phoneNo, String name) {
 		return hashOperations.putIfAbsent(eventId, phoneNo, name);

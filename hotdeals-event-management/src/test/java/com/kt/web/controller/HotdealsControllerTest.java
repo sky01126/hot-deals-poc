@@ -71,6 +71,7 @@ public class HotdealsControllerTest extends AbstractControllerTest {
 	                                , PayloadDocumentation.fieldWithPath("data.event_id").type(JsonFieldType.STRING).description("이벤트 아이디")
 	                                , PayloadDocumentation.fieldWithPath("data.event_type").type(JsonFieldType.NUMBER).description("이벤트 타입 (2 : 응모형 이벤트, 3 : 선착순+응모형 이벤트)")
 	                                , PayloadDocumentation.fieldWithPath("data.duplicate_yn").type(JsonFieldType.BOOLEAN).description("이벤트 중복 등록 여부 (true: 중복 등록, false : 최초 등록)")
+	                                , PayloadDocumentation.fieldWithPath("data.close_yn").type(JsonFieldType.BOOLEAN).description("선착순+응모형 이벤트에서 선착순 마감 여부 (true : 선착순 마감, false : 선착순 진행중)")
 	                        )
 					));
 		}

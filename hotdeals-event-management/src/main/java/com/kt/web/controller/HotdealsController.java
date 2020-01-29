@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kt.commons.dto.request.HotdealRequest;
 import com.kt.commons.web.controller.AbstractController;
 import com.kt.commons.web.util.ResponseUtils;
-import com.kt.service.HotdealService;
+import com.kt.service.HotdealsService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -35,7 +35,7 @@ public class HotdealsController extends AbstractController {
 	private HashOperations<String, String, String> hashOperations;
 
 	@Autowired
-	private HotdealService hotdealService;
+	private HotdealsService hotdealsService;
 
 	/**
 	 * 웹페이지 접속 시 처음으로 호출하는 API
@@ -46,7 +46,7 @@ public class HotdealsController extends AbstractController {
 	 */
 	@GetMapping(path = "/event/init")
 	public ResponseEntity<Object> initEventInfo(HttpServletRequest request, HttpServletResponse response) {
-		return ResponseUtils.resultJson(request, hotdealService.getEventInfo());
+		return ResponseUtils.resultJson(request, hotdealsService.getEventInfo());
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class HotdealsController extends AbstractController {
 		// 필수 파라미터가 없는 경우의 에러 처리.
 		checkForErrors(result);
 		log.debug(params.toJson());
-		return resultJson(request, hotdealService.setHotdealEvent(eventType, params));
+		return resultJson(request, hotdealsService.setEventInfo(eventType, params));
 	}
 
 }
