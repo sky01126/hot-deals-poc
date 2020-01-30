@@ -75,7 +75,7 @@ window.addEventListener( "load", function () {
 
 			if (XHR.readyState == XMLHttpRequest.DONE) {
 				//console(XHR.status);
-				if(XHR.status == 200) {
+				if(XHR.status == 200 || XHR.status == 201) {
 					alert(event.target.responseText);
 					/*alert("응모에 성공했습니다 !!");*/
 
@@ -84,6 +84,7 @@ window.addEventListener( "load", function () {
 
 					switch(obj.result_code) {
 						case 200:
+						case 201:
 							alert(obj.result_msg);
 							eventMessageNo = 0;
 							showEventButton(false);
@@ -120,9 +121,15 @@ window.addEventListener( "load", function () {
 					//if (obj.result_code
 					//showEventButton(1);
 					}
+				} else {
+					alert(XHR.status + " ====== " + event.target.responseText);
+					eventMessageNo = 5;
+					eventMessageList[eventMessageNo] = obj.result_msg;
+					showEventButton(false);				
 				}
 
 			} else {
+				alert("Oops, Unknown Error !!");
 				eventMessageNo = 4;
 				showEventButton(false);
 				eventStatus = 0;
