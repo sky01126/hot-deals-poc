@@ -54,7 +54,7 @@ window.addEventListener( "load", function () {
       btn.style.display = "none";
       resultOk.style.display = "block";
 
-	  eventImage.src = "/static/images/penha.jpg";
+	  //eventImage.src = "images/penha.jpg";
 	  eventSuccess = true;
     }
 
@@ -83,18 +83,25 @@ window.addEventListener( "load", function () {
 							eventMessageNo = 0;
 							showEventButton(false);
 							eventStatus = 1;
+							if (obj.data.close_yn == 'undefind' || obj.data.close_yn == false) { // 선착순 마감이 아닌 경우
+								eventImage.src = "/static/images/hotdeals_이벤트.png";
+							} else {
+								eventImage.src = "/static/images/hotdeals_선착순종료.png";
+							}
 							break;
 						case 511:		// 이벤트 준비중입니다.
 							alert(obj.result_msg);
 							eventMessageNo = 1;
 							showEventButton(false);
 							eventStatus = 0;
+							eventImage.src = "/static/images/hotdeals_이벤트.png";
 							break;
 						case 512:		// 이벤트가 종료되었습니다.
 							alert(obj.result_msg);
 							eventMessageNo = 2;
 							showEventButton(false);
 							eventStatus = 1;
+							eventImage.src = "/static/images/hotdeals_이벤트종료.png";
 						case 513:		// 이벤트 중복 오류입니다.
 							alert(obj.result_msg);
 							eventMessageNo = 3;
@@ -126,9 +133,9 @@ window.addEventListener( "load", function () {
 	    // Set up our request
 	    
 	    var url = "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
-	    XHR.open( "POST", url );
+	    XHR.open( "POST", url); // "http://localhost:8080/cassandra/save" );
 	    XHR.setRequestHeader("Accept", "application/json");
-	    XHR.setRequestHeader("Content-Type", "application/json");
+	    //XHR.setRequestHeader("Content-Type", "application/json");
 
 	    // The data sent is what the user provided in the form
 	    XHR.send( FD );
@@ -141,9 +148,9 @@ window.addEventListener( "load", function () {
 	  form.addEventListener( "submit", function ( event ) {
 
 		  if (window.eventSuccess != true) {
-	    event.preventDefault();
-	    sendData();
-		  }
+			event.preventDefault();
+			sendData();
+		}
 	  });
 });
 
@@ -192,29 +199,35 @@ function CheckEventStatus() {
 
 					var json = event.target.responseText;
 					var obj = JSON.parse(json);
+					
+					obj.data.close_yn = true;
 
 					switch(obj.result_code) {
 						case 200:
-							eventMessageNo = 0;
+							eventMessageNo = 0;	
 							showEventButton(true);
 							eventId.value = obj.data.event_id;
 							eventType = obj.data.event_type;
 							eventStatus = 1;
+							if (obj.data.close_yn == 'undefind' || obj.data.close_yn == false) { // 선착순 마감이 아닌 경우
+								eventImage.src = "/static/images/hotdeals_이벤트.png";
+							} else {
+								eventImage.src = "/static/images/hotdeals_선착순종료.png";
+							}
 							break;
-						case 511:
-
+						case 511:			// 이벤트 준비중입니다.
 							eventMessageNo = 1;
 							showEventButton(false);
 							eventStatus = 0;
 							setTimeout("CheckEventStatus()", 60000);
+							eventImage.src = "/static/images/hotdeals_이벤트.png";
 							break;
-						case 512:
-
+						case 512:			// 이벤트가 종료되었습니다.
 							eventMessageNo = 2;
 							showEventButton(false);
 							eventStatus = 2;
+							eventImage.src = "/static/images/hotdeals_이벤트종료.png";
 						default :
-
 							eventMessageNo = 5;
 							eventMessageList[eventMessageNo] = obj.result_msg;
 							showEventButton(false);
