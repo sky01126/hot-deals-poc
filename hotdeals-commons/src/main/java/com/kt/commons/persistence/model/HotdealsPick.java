@@ -1,7 +1,6 @@
-package com.kt.persistence.model;
+package com.kt.commons.persistence.model;
 
-import java.time.LocalDateTime;
-
+import org.joda.time.DateTime;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -41,5 +40,5 @@ public class HotdealsPick extends BaseObject {
 	@Getter
 	@Setter
 	@Column("timestamp")
-	private LocalDateTime timestamp;
+	private DateTime timestamp;
 }

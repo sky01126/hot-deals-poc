@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kt.commons.config.Constants;
-import com.kt.commons.dto.request.HotdealRequest;
+import com.kt.commons.dto.request.HotdealsRequest;
 import com.kt.commons.dto.response.DefaultResponse;
 import com.kt.commons.persistence.model.Hotdeals;
 import com.kt.commons.web.controller.AbstractController;
@@ -37,7 +37,7 @@ public class KafkaController extends AbstractController {
 	 */
 	@GetMapping(path = "fcfs/pub")
 	public ResponseEntity<Object> fcfsPub(HttpServletRequest request, HttpServletResponse response,
-			@Valid HotdealRequest params, BindingResult result) {
+			@Valid HotdealsRequest params, BindingResult result) {
 		// 필수 파라미터가 없는 경우의 에러 처리.
 		checkForErrors(result);
 		log.debug(params.toJson());
@@ -56,7 +56,7 @@ public class KafkaController extends AbstractController {
 	 */
 	@GetMapping(path = "pick/pub")
 	public ResponseEntity<Object> pickPub(HttpServletRequest request, HttpServletResponse response,
-			@Valid HotdealRequest params, BindingResult result) {
+			@Valid HotdealsRequest params, BindingResult result) {
 		// 필수 파라미터가 없는 경우의 에러 처리.
 		checkForErrors(result);
 		log.debug(params.toJson());

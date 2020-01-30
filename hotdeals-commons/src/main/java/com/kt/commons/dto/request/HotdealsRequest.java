@@ -1,12 +1,15 @@
 package com.kt.commons.dto.request;
 
-import java.time.LocalDateTime;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 import com.kthcorp.commons.web.annotation.RequestParamName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Component
-public class HotdealRequest extends AbstractRequest {
+public class HotdealsRequest extends AbstractRequest {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +26,7 @@ public class HotdealRequest extends AbstractRequest {
 	@Setter
 	@RequestParamName("event_id")
 	@NotEmpty(message = "이벤트 아이디는 필수 값입니다.")
+	@Size(min = 10, max = 10, message = "이벤트 아이디 10자리입니다.")
 	private String eventId;
 
 	@ApiModelProperty(value = "핸드폰번호", example = "01012345678")
@@ -46,6 +50,8 @@ public class HotdealRequest extends AbstractRequest {
 	@ApiModelProperty(hidden = true)
 	@Getter
 	@Setter
-	private LocalDateTime timestamp = LocalDateTime.now();
+	@JsonSerialize(using = DateTimeSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	private DateTime timestamp = DateTime.now();
 
 }

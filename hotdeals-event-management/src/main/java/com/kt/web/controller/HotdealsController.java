@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kt.commons.dto.request.HotdealRequest;
+import com.kt.commons.dto.request.HotdealsRequest;
 import com.kt.commons.web.controller.AbstractController;
 import com.kt.commons.web.util.ResponseUtils;
 import com.kt.service.HotdealsService;
@@ -65,7 +65,7 @@ public class HotdealsController extends AbstractController {
 			, HttpServletResponse response //
 			,
 			@ApiParam(value = "이벤트 TYPE (1:선착순, 2:응모형: 3:선착순+이벤트)", example = "3") @PathVariable(name = "EVENT_TYPE") Integer eventType //
-			, @Valid HotdealRequest params //
+			, @Valid HotdealsRequest params //
 			, BindingResult result) {
 		// 필수 파라미터가 없는 경우의 에러 처리.
 		checkForErrors(result);

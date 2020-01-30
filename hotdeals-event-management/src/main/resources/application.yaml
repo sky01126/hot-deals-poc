@@ -94,6 +94,9 @@ server:
   servlet:
     context-path: '/'
 
+# Coupon Server URL
+coupon.server.url: http://localhost:8088/api/v1/event/coupon
+
 ---
 # 개발 배포
 spring:
@@ -115,6 +118,9 @@ server:
 #      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
 #      prefix: access
 
+# Coupon Server URL
+coupon.server.url: http://localhost:8088/api/v1/event/coupon
+
 ---
 # 상용 배포
 spring:
@@ -135,3 +141,6 @@ server:
 #      directory: ${server.logs.home}
 #      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
 #      prefix: access
+
+# Coupon Server URL
+coupon.server.url: http://localhost:8088/api/v1/event/coupon

@@ -48,6 +48,8 @@ spring:
   profiles:
     include:
     - config
+    - redis
+    - cassandra
 
   # thymeleaf
   thymeleaf:

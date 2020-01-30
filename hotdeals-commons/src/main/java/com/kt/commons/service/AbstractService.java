@@ -12,10 +12,17 @@ package com.kt.commons.service;
 
 import javax.annotation.Resource;
 
+import org.joda.time.DateTime;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
+import com.kt.commons.config.Constants;
 import com.kt.commons.lang.AbstractObject;
+import com.kt.commons.persistence.model.Hotdeals;
+import com.kt.commons.persistence.model.HotdealsEvent;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Abstract Service
@@ -24,16 +31,42 @@ import com.kt.commons.lang.AbstractObject;
  * @version 1.0.0
  * @since 8.0
  */
+@Slf4j
 @Component
 public abstract class AbstractService extends AbstractObject {
 
 	protected static boolean fcfsClosed = false;
+
+	@Resource(name = "redisTemplate")
+	private ValueOperations<String, Object> valueOperations;
 
 	@Resource(name = "stringRedisTemplate")
 	private HashOperations<String, String, String> hashOperations;
 
 	public AbstractService() {
 		// ignore...
+	}
+
+	protected Hotdeals getEventInfo(HotdealsEvent event) {
+		log.debug(event.toJsonLog());
+		Hotdeals hotdeals = getCache();
+		if (hotdeals != null) {
+			return hotdeals;
+		}
+
+		DateTime nowDateTime = DateTime.now();
+		log.debug(">>> {}, {}", event.getDateFrom().isEqual(nowDateTime), event.getDateTo().isEqual(nowDateTime));
+		log.debug(">>> {}, {}", event.getDateFrom().isBefore(nowDateTime), event.getDateTo().isAfter(nowDateTime));
+		if (event.getDateFrom().isEqual(nowDateTime) || event.getDateTo().isEqual(nowDateTime)
+				|| (event.getDateFrom().isBefore(nowDateTime) && event.getDateTo().isAfter(nowDateTime))) {
+			hotdeals = new Hotdeals();
+			hotdeals.setEventId(event.getKey().getEventId());
+			hotdeals.setEventType(String.valueOf(event.getEventType()));
+			hotdeals.setFcfsNum(event.getFcfsNum());
+			setCache(hotdeals); // Redis Cache...
+			return hotdeals;
+		}
+		return null;
 	}
 
 	/**
@@ -46,6 +79,14 @@ public abstract class AbstractService extends AbstractObject {
 	 */
 	protected boolean duplicateCheck(String eventId, String phoneNo, String name) {
 		return hashOperations.putIfAbsent(eventId, phoneNo, name);
+	}
+
+	protected void setCache(Hotdeals hotdeals) {
+		valueOperations.set(Constants.HOTDEALS_REDIS_CACHE_KEY, hotdeals);
+	}
+
+	protected Hotdeals getCache() {
+		return (Hotdeals) valueOperations.get(Constants.HOTDEALS_REDIS_CACHE_KEY);
 	}
 
 }
