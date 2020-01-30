@@ -1,4 +1,4 @@
-package com.kt.persistence.model;
+package com.kt.commons.persistence.model;
 
 import static org.springframework.data.cassandra.core.cql.PrimaryKeyType.PARTITIONED;
 
@@ -11,14 +11,19 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @PrimaryKeyClass
-public class HotdealsEventKey {
+public class HotdealsPickKey {
 
 	@Getter
 	@Setter
-	@PrimaryKeyColumn(name = "event_id", type = PARTITIONED)
+	@PrimaryKeyColumn(name = "phone_no", type = PARTITIONED)
+	private String phoneNo;
+
+	@Getter
+	@Setter
+	@PrimaryKeyColumn(name = "event_id", ordinal = 0)
 	private String eventId;
 
-	public HotdealsEventKey() {
+	public HotdealsPickKey() {
 		// ignore..
 	}
 

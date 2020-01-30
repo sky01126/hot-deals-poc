@@ -1,7 +1,6 @@
-package com.kt.persistence.model;
+package com.kt.commons.persistence.model;
 
-import java.time.LocalDateTime;
-
+import org.joda.time.DateTime;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -12,15 +11,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 //@AllArgsConstructor
-@Table("hotdeals_fcfs")
-public class HotdealsFcfs extends BaseObject {
+@Table("hotdeals_pick")
+public class HotdealsPick extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
 	@PrimaryKey
-	private HotdealsFcfsKey key;
+	private HotdealsPickKey key;
 
 	@Getter
 	@Setter
@@ -34,12 +33,11 @@ public class HotdealsFcfs extends BaseObject {
 
 	@Getter
 	@Setter
-	@Column("fcfs_no")
-	private int fcfsNo;
+	@Column("pick_yn")
+	private boolean pickYn;
 
 	@Getter
 	@Setter
 	@Column("timestamp")
-	private LocalDateTime timestamp;
-
+	private DateTime timestamp;
 }

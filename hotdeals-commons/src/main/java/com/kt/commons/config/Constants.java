@@ -20,14 +20,19 @@ package com.kt.commons.config;
 public class Constants {
 
 	/**
+	 * Hot Deals Redis Cache Key
+	 */
+	public static final String HOTDEALS_REDIS_CACHE_KEY = "HOTDEALS";
+
+	/**
 	 * 선착순 Consumer Group ID
 	 */
-	public static final String KAFKA_CONSUMER_FCFS_GROUP_ID = "HOTDEAL_FCFS_GROUP";
+	public static final String KAFKA_CONSUMER_FCFS_GROUP_ID = "HOTDEALS_FCFS_GROUP";
 
 	/**
 	 * 응모형 Consumer Group ID
 	 */
-	public static final String KAFKA_CONSUMER_PICK_GROUP_ID = "HOTDEAL_PICK_GROUP";
+	public static final String KAFKA_CONSUMER_PICK_GROUP_ID = "HOTDEASL_PICK_GROUP";
 
 	/**
 	 * 선착순 Topic

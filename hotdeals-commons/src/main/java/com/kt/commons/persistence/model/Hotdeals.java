@@ -1,12 +1,14 @@
 package com.kt.commons.persistence.model;
 
-import java.time.LocalDateTime;
-
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -60,16 +62,22 @@ public class Hotdeals extends AbstractModel {
 	@Getter
 	@Setter
 	@JsonProperty("date_from")
-	private LocalDateTime dateFrom;
+	private DateTime dateFrom;
 
 	@Getter
 	@Setter
 	@JsonProperty("date_to")
-	private LocalDateTime dateTo;
+	private DateTime dateTo;
 
 	@Getter
 	@Setter
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	private LocalDateTime timestamp;
+	@JsonSerialize(using = DateTimeSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	private DateTime timestamp;
+
+	@Getter
+	@Setter
+	@JsonIgnore
+	private int fcfsNum;
 
 }
