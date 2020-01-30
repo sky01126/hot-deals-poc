@@ -14,9 +14,7 @@ import com.kt.commons.service.AbstractService;
 import com.kt.persistence.model.HotdealsEvent;
 import com.kt.persistence.model.HotdealsPick;
 import com.kt.persistence.model.HotdealsPickKey;
-import com.kt.persistence.repositories.HotdealDao;
 import com.kt.persistence.repositories.HotdealsEventRepository;
-import com.kt.persistence.repositories.HotdealsFcfsRepository;
 import com.kt.persistence.repositories.HotdealsPickRepository;
 import com.kthcorp.commons.lang.NumberUtils;
 
@@ -29,13 +27,7 @@ public class HotdealsService extends AbstractService {
 	private static Hotdeals sHotdeals = null;
 
 	@Autowired
-	private HotdealDao hotdealDao;
-
-	@Autowired
 	private HotdealsEventRepository hotdealsEventRepository;
-
-	@Autowired
-	private HotdealsFcfsRepository hotdealsFcfsRepository;
 
 	@Autowired
 	private HotdealsPickRepository hotdealsPickRepository;
@@ -67,14 +59,16 @@ public class HotdealsService extends AbstractService {
 	private DefaultResponse getEventInfo(HotdealsEvent event) {
 		log.debug(event.toJsonLog());
 		LocalDateTime nowDateTime = LocalDateTime.now();
-		// if (event.getDateFrom().isEqual(nowDateTime) || event.getDateTo().isEqual(nowDateTime)
-		// || (event.getDateFrom().isAfter(nowDateTime) && event.getDateTo().isBefore(nowDateTime))) {
 		Duration from = Duration.between(nowDateTime, event.getDateFrom());
 		Duration to = Duration.between(event.getDateTo(), nowDateTime);
 		log.debug(">>> {}, {}", from.getNano(), to.getNano());
-		if (from.getNano() > 0 && to.getNano() > 0) {
+		// if (from.getNano() > 0 && to.getNano() > 0) {
+		log.debug(">>> {}, {}", event.getDateFrom().isEqual(nowDateTime), event.getDateTo().isEqual(nowDateTime));
+		log.debug(">>> {}, {}", event.getDateFrom().isBefore(nowDateTime), event.getDateTo().isAfter(nowDateTime));
+		if (event.getDateFrom().isEqual(nowDateTime) || event.getDateTo().isEqual(nowDateTime)
+				|| (event.getDateFrom().isBefore(nowDateTime) && event.getDateTo().isAfter(nowDateTime))) {
 			Hotdeals hotdeals = new Hotdeals();
-			hotdeals.setEventId(event.getEventId());
+			hotdeals.setEventId(event.getKey().getEventId());
 			hotdeals.setEventType(String.valueOf(event.getEventType()));
 			hotdeals.setClose(false);
 			sHotdeals = hotdeals;
@@ -99,6 +93,8 @@ public class HotdealsService extends AbstractService {
 				return new DefaultResponse(511, getResponseMessage(511));
 			}
 			sHotdeals = (Hotdeals) res.getResultData();
+		} else if (!duplicateCheck(sHotdeals.getEventId(), params.getPhoneNo(), params.getName())) {
+			return new DefaultResponse(513, getResponseMessage(513));
 		}
 		if (NumberUtils.toInt(sHotdeals.getEventType(), 2) == 3) {
 			// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.

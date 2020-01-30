@@ -8,10 +8,11 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import com.kthcorp.commons.lang.BaseObject;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table("hotdeals_event")
 public class HotdealsEvent extends BaseObject {
 
@@ -21,11 +22,6 @@ public class HotdealsEvent extends BaseObject {
 	@Setter
 	@PrimaryKey
 	private HotdealsEventKey key;
-
-	@Getter
-	@Setter
-	@Column("event_id")
-	private String eventId;
 
 	@Getter
 	@Setter
@@ -51,5 +47,9 @@ public class HotdealsEvent extends BaseObject {
 	@Setter
 	@Column("fcfs_num")
 	private int fcfsNum;
+
+	public HotdealsEvent() {
+		// ignore..
+	}
 
 }

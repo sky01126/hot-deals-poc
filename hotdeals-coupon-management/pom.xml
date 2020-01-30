@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.kt</groupId>
         <artifactId>hotdeals</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.1.RELEASE</version>
         <relativePath>../</relativePath>
     </parent>
     <artifactId>hotdeals-coupon-management</artifactId>
