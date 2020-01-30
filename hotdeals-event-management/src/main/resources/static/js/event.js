@@ -17,6 +17,11 @@ var eventMessageNo = 1;
 var eventStatus = 0;	// 0: 준비중 , 1: 진행중	, 2: 종료
 
 var eventImage = document.getElementById("id-event-image");
+var eventImageNameList = [
+	"/static/images/hotdeals_이벤트.png",
+	"/static/images/hotdeals_선착순종료.png",
+	"/static/images/hotdeals_이벤트종료.png"
+	];
 var eventId = document.getElementById("id-event-id");
 
 var eventType = 1;
@@ -84,9 +89,9 @@ window.addEventListener( "load", function () {
 							showEventButton(false);
 							eventStatus = 1;
 							if (obj.data.close_yn == 'undefind' || obj.data.close_yn == false) { // 선착순 마감이 아닌 경우
-								eventImage.src = "/static/images/hotdeals_이벤트.png";
+								eventImage.src = eventImageNameList[0]; // "/static/images/hotdeals_이벤트.png";
 							} else {
-								eventImage.src = "/static/images/hotdeals_선착순종료.png";
+								eventImage.src = eventImageNameList[1]; //"/static/images/hotdeals_선착순종료.png";
 							}
 							break;
 						case 511:		// 이벤트 준비중입니다.
@@ -94,14 +99,14 @@ window.addEventListener( "load", function () {
 							eventMessageNo = 1;
 							showEventButton(false);
 							eventStatus = 0;
-							eventImage.src = "/static/images/hotdeals_이벤트.png";
+							eventImage.src = eventImageNameList[0]; // "/static/images/hotdeals_이벤트.png";
 							break;
 						case 512:		// 이벤트가 종료되었습니다.
 							alert(obj.result_msg);
 							eventMessageNo = 2;
 							showEventButton(false);
 							eventStatus = 1;
-							eventImage.src = "/static/images/hotdeals_이벤트종료.png";
+							eventImage.src = eventImageNameList[2]; // "/static/images/hotdeals_이벤트종료.png";
 						case 513:		// 이벤트 중복 오류입니다.
 							alert(obj.result_msg);
 							eventMessageNo = 3;
@@ -200,7 +205,7 @@ function CheckEventStatus() {
 					var json = event.target.responseText;
 					var obj = JSON.parse(json);
 					
-					obj.data.close_yn = true;
+					// obj.data.close_yn = true;
 
 					switch(obj.result_code) {
 						case 200:
@@ -210,9 +215,9 @@ function CheckEventStatus() {
 							eventType = obj.data.event_type;
 							eventStatus = 1;
 							if (obj.data.close_yn == 'undefind' || obj.data.close_yn == false) { // 선착순 마감이 아닌 경우
-								eventImage.src = "/static/images/hotdeals_이벤트.png";
+								eventImage.src = eventImageNameList[0]; // "/static/images/hotdeals_이벤트.png";
 							} else {
-								eventImage.src = "/static/images/hotdeals_선착순종료.png";
+								eventImage.src = eventImageNameList[1]; // "/static/images/hotdeals_선착순종료.png";
 							}
 							break;
 						case 511:			// 이벤트 준비중입니다.
@@ -220,13 +225,13 @@ function CheckEventStatus() {
 							showEventButton(false);
 							eventStatus = 0;
 							setTimeout("CheckEventStatus()", 60000);
-							eventImage.src = "/static/images/hotdeals_이벤트.png";
+							eventImage.src = eventImageNameList[0]; // "/static/images/hotdeals_이벤트.png";
 							break;
 						case 512:			// 이벤트가 종료되었습니다.
 							eventMessageNo = 2;
 							showEventButton(false);
 							eventStatus = 2;
-							eventImage.src = "/static/images/hotdeals_이벤트종료.png";
+							eventImage.src = eventImageNameList[2]; // "/static/images/hotdeals_이벤트종료.png";
 						default :
 							eventMessageNo = 5;
 							eventMessageList[eventMessageNo] = obj.result_msg;
