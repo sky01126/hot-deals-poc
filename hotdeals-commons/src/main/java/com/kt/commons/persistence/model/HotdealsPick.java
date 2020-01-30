@@ -7,10 +7,11 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import com.kthcorp.commons.lang.BaseObject;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table("hotdeals_pick")
 public class HotdealsPick extends BaseObject {
 
