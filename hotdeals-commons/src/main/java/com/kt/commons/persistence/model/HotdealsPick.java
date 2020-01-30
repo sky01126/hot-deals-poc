@@ -41,4 +41,8 @@ public class HotdealsPick extends BaseObject {
 	@Setter
 	@Column("timestamp")
 	private DateTime timestamp;
+
+	public HotdealsPick() {
+		// ignore..
+	}
 }
