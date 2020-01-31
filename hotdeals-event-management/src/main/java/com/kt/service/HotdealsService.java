@@ -22,6 +22,7 @@ import com.kt.commons.persistence.model.HotdealsPickKey;
 import com.kt.commons.persistence.repositories.HotdealsEventRepository;
 import com.kt.commons.persistence.repositories.HotdealsPickRepository;
 import com.kt.commons.service.AbstractService;
+import com.kt.kafka.HotdealConsumer;
 import com.kthcorp.commons.lang.JsonUtils;
 import com.kthcorp.commons.lang.NumberUtils;
 import com.kthcorp.commons.lang.StringUtils;
@@ -105,8 +106,11 @@ public class HotdealsService extends AbstractService {
 
 		// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
 		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
-			log.debug("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
-			threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
+			if (HotdealConsumer.hotdealsCoupon == null
+					|| (HotdealConsumer.hotdealsCoupon != null && !HotdealConsumer.hotdealsCoupon.isClosed())) {
+				log.debug("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
+				threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
+			}
 		}
 
 		HotdealsPick pick = new HotdealsPick();

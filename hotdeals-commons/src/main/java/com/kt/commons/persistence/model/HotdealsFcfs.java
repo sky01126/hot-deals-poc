@@ -34,7 +34,7 @@ public class HotdealsFcfs extends BaseObject {
 	@Getter
 	@Setter
 	@Column("fcfs_no")
-	private int fcfsNo;
+	private String fcfsNo;
 
 	@Getter
 	@Setter

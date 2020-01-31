@@ -65,7 +65,7 @@ public class HotdealsCouponController extends AbstractController {
 		// 필수 파라미터가 없는 경우의 에러 처리.
 		checkForErrors(result);
 		log.debug(params.toJson());
-		// hotdealsService.setEventFcfsInfo(params);
+		hotdealsService.setEventFcfsInfo(params);
 		return ResponseUtils.resultJson(request);
 	}
 

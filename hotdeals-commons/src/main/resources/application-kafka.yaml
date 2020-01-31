@@ -2,8 +2,8 @@
 spring:
   kafka:
     bootstrap-servers: localhost:9092
-#    consumer:
-#      group-id: HOTDEALS
+    consumer:
+      group-id: ${random.uuid}
     producer:
       key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -11,10 +11,9 @@ spring:
 ---
 # 개발 배포
 spring:
+  profiles: dev
   kafka:
-    bootstrap-servers: localhost:9092
-#    consumer:
-#      group-id: HOTDEALS
+    bootstrap-servers: hotdeals-kafka:9092
     producer:
       key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -22,10 +21,9 @@ spring:
 ---
 # 상용 배포
 spring:
+  profiles: prod
   kafka:
-    bootstrap-servers: localhost:9092
-#    consumer:
-#      group-id: HOTDEALS
+    bootstrap-servers: hotdeals-kafka:9092
     producer:
       key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
