@@ -35,9 +35,14 @@ public class Constants {
 	public static final String KAFKA_CONSUMER_PICK_GROUP_ID = "HOTDEASL_PICK_GROUP";
 
 	/**
-	 * 선착순 Topic
+	 * Main Topic
 	 */
 	public static final String KAFKA_TOPIC_HOTDEALS = "HOTDEALS";
+
+	/**
+	 * 선착순 Topic
+	 */
+	public static final String KAFKA_TOPIC_HOTDEAL_FCFS_COUPON = KAFKA_TOPIC_HOTDEALS + ".FCFS_COUPON";
 
 	/**
 	 * 선착순 Topic

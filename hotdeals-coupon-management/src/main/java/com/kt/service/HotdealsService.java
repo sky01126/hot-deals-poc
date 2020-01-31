@@ -9,11 +9,17 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import com.kt.commons.config.Constants;
+import com.kt.commons.dto.request.HotdealsRequest;
 import com.kt.commons.persistence.model.Hotdeals;
+import com.kt.commons.persistence.model.HotdealsCoupon;
 import com.kt.commons.persistence.model.HotdealsEvent;
 import com.kt.commons.persistence.model.HotdealsEventKey;
+import com.kt.commons.persistence.model.HotdealsFcfs;
+import com.kt.commons.persistence.model.HotdealsFcfsKey;
 import com.kt.commons.persistence.repositories.HotdealsEventRepository;
 import com.kt.commons.persistence.repositories.HotdealsFcfsRepository;
 import com.kt.commons.service.AbstractService;
@@ -32,6 +38,9 @@ public class HotdealsService extends AbstractService {
 
 	@Autowired
 	private HotdealsFcfsRepository hotdealsFcfsRepository;
+
+	@Autowired
+	private KafkaTemplate<Object, Object> kafkaTemplate;
 
 	@Resource(name = "stringRedisTemplate")
 	private ListOperations<String, String> listOperations;
@@ -53,6 +62,29 @@ public class HotdealsService extends AbstractService {
 			crateCoupon(event, hotdeals);
 		}
 		return hotdeals.getEventId();
+	}
+
+	/**
+	 * 선착순 쿠폰을 발급한다.
+	 *
+	 * @param params the hotdeals request
+	 */
+	public void setEventFcfsInfo(HotdealsRequest params) {
+		String couponNo = getCoupon(params.getEventId());
+		if (StringUtils.isBlank(couponNo)) {
+			// Kafka에 완료 노티 후 종료한다.
+			log.debug("선착순 완료.");
+			this.kafkaTemplate.send(Constants.KAFKA_TOPIC_HOTDEAL_FCFS_COUPON,
+					new HotdealsCoupon(params.getEventId(), true));
+			return;
+		}
+		HotdealsFcfs fcfs = new HotdealsFcfs();
+		fcfs.setKey(new HotdealsFcfsKey(params.getPhoneNo(), params.getEventId()));
+		fcfs.setName(params.getName());
+		fcfs.setAgreement(params.isAggrement());
+		fcfs.setFcfsNo(couponNo);
+		fcfs.setTimestamp(params.getTimestamp());
+		hotdealsFcfsRepository.save(fcfs);
 	}
 
 	private HotdealsEvent save(String prefix, HotdealsEventRequest params) {
@@ -93,9 +125,16 @@ public class HotdealsService extends AbstractService {
 
 	private void crateCoupon(HotdealsEvent event, Hotdeals hotdeals) {
 		for (int i = 0; i < event.getFcfsNum(); i++) {
-			listOperations.leftPush(getCouponKey(hotdeals.getEventId()),
-					hotdeals.getEventId() + "-" + String.format("%010d", i));
+			setCoupon(hotdeals.getEventId(), hotdeals.getEventId() + "-" + String.format("%010d", (i + 1)));
 		}
+	}
+
+	private void setCoupon(String eventId, String value) {
+		listOperations.leftPush(getCouponKey(eventId), value);
+	}
+
+	private String getCoupon(String eventId) {
+		return listOperations.rightPop(getCouponKey(eventId));
 	}
 
 	@Override
