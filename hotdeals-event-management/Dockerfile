@@ -1,14 +1,9 @@
-# Docker 빌드 : mvn dockerfile:build
-# Docker TAG : docker tag hot-deals-poc-process-manager-webapp:1.0.0.RELEASE sky01126/hot-deals-poc-process-manager-webapp:1.0.0.RELEASE
-# Docker RUN : docker run -e JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8 -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dspring.profiles.active=dev -Dserver.logs.home=/logs" -p 8080:8080 -i -t -d hot-deals-poc-process-manager-webapp:1.0.0.RELEASE
-
-#FROM openjdk:8-jdk-slim
 FROM openjdk:8-jdk
 
 ARG TINI_DOWNLOAD_URL="https://github.com/krallin/tini/releases/download/v0.18.0/tini-static-amd64"
 
-ARG JAR_PATH
-ARG JAR_FILE
+ARG JAR_PATH=target
+ARG JAR_FILE=ROOT.jar
 
 RUN set -eux                                                \
     && cd /etc && rm -rf ./localtime                        \
