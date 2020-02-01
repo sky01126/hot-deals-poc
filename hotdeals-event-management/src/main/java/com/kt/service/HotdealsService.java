@@ -108,7 +108,7 @@ public class HotdealsService extends AbstractService {
 		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
 			if (HotdealConsumer.hotdealsCoupon == null
 					|| (HotdealConsumer.hotdealsCoupon != null && !HotdealConsumer.hotdealsCoupon.isClosed())) {
-				log.debug("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
+				log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
 				threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
 			}
 		}

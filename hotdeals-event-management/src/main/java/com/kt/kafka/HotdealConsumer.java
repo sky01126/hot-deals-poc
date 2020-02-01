@@ -21,8 +21,6 @@ public class HotdealConsumer {
 	public void onReceiving(@Header(KafkaHeaders.GROUP_ID) String groupId,
 			@Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) Long offset,
 			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition, HotdealsCoupon coupon) {
-		// log.debug("[ {} ] Topic: {}, Partition: {}, Offset: {}, Payload: {}", groupId, topic, partition, offset,
-		// coupon.toJson());
 		log.info("GroupID: {}, Payload: {}", groupId, coupon.toJson());
 		HotdealConsumer.hotdealsCoupon = coupon;
 	}

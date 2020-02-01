@@ -70,10 +70,11 @@ public class HotdealsService extends AbstractService {
 	 * @param params the hotdeals request
 	 */
 	public void setEventFcfsInfo(HotdealsRequest params) {
+		log.info("선착순 요청 정보 : {}", params.toJsonLog());
 		String couponNo = getCoupon(params.getEventId());
 		if (StringUtils.isBlank(couponNo)) {
 			// Kafka에 완료 노티 후 종료한다.
-			log.debug("선착순 완료.");
+			log.info("선착순 완료.");
 			this.kafkaTemplate.send(Constants.KAFKA_TOPIC_HOTDEAL_FCFS_COUPON,
 					new HotdealsCoupon(params.getEventId(), true));
 			return;
