@@ -28,10 +28,66 @@ podTemplate(label: label,
 
         stage('Build Maven project') {
             container('maven') {
-                sh "echo ${namespace}"
-                sh "echo ${dockerHub}"
-                sh "echo ${dockerRegistry}"
-                sh "echo ${dockerRepository}/${dockerImage}:${dockerVersion}"
+                sh "mvn -Dmaven.test.skip=true -Pevent clean install"
+            }
+        }
+        /*
+        stage('Inspection Code') {
+            container('maven') {
+                sh "mvn sonar:sonar         \
+                      -Dsonar.host.url=     \
+                      -Dsonar.login="
+            }
+        }
+        */
+        stage('Build Docker image') {
+            container('docker') {
+                docker.withRegistry("", "${dockerHub}") {
+                    sh "cd hotdeals-event-management && docker build -t ${dockerRepository}/${dockerImage}:${dockerVersion} ."
+                    sh "docker tag ${dockerRepository}/${dockerImage}:${dockerVersion} ${dockerRepository}/${dockerImage}:latest"
+                    sh "docker images"
+
+                    /* sh "docker push ${dockerRegistry}/${image}:${tag}" */
+                    sh "docker push ${dockerRegistry}/${dockerRepository}/${dockerImage}"
+                }
+            }
+        }
+        /*
+        stage('Image Vulnerability Scanning') {
+            container('docker'){
+                aquaMicroscanner imageName: 'docker.io/${image}:${tag}', notCompliesCmd: '', onDisallowed: 'ignore', outputFormat: 'html'
+            }
+        }
+        */
+        stage( 'Clean Up Existing Deployments' ) {
+            container('kubectl') {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                                credentialsId: "${dockerHub}",
+                                usernameVariable: 'DOCKER_HUB_USER',
+                                passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+                    sh "kubectl delete deployments -n ${namespace} --selector=app=${selector}"
+                }
+            }
+        }
+        /*
+        stage( "Approver" ){
+            input "배포를 승인하시겠습니까?"
+        }
+        */
+        stage( 'Deploy to Cluster' ) {
+            container('kubectl') {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                                    credentialsId: "${dockerHub}",
+                                    usernameVariable: 'DOCKER_HUB_USER',
+                                    passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+                    sh "kubectl apply -n ${namespace} -f ${deployment}"
+                    sh "sleep 1"
+                    sh "kubectl get pods -n ${namespace}"
+
+                    sh "kubectl apply -n ${namespace} -f ${service}"
+                    sh "sleep 1"
+                    sh "kubectl get service -n ${namespace}"
+                }
             }
         }
     }
