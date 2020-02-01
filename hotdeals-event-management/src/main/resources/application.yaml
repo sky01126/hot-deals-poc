@@ -119,7 +119,7 @@ server:
 #      prefix: access
 
 # Coupon Server URL
-coupon.server.url: http://hotdeals-coupon-management-deployment:8080/api/v1/event/coupon
+coupon.server.url: http://hotdeals-coupon-management-service:8080/api/v1/event/coupon
 
 ---
 # 상용 배포
@@ -143,4 +143,4 @@ server:
 #      prefix: access
 
 # Coupon Server URL
-coupon.server.url: http://hotdeals-coupon-management-deployment:8080/api/v1/event/coupon
+coupon.server.url: http://hotdeals-coupon-management-service:8080/api/v1/event/coupon
