@@ -76,12 +76,6 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!-- Spring Boot Security -->
-        <!-- <dependency> -->
-        <!-- <groupId>org.springframework.boot</groupId> -->
-        <!-- <artifactId>spring-boot-starter-security</artifactId> -->
-        <!-- </dependency> -->
-
         <!-- Spring Boot Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -163,7 +157,6 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator-annotation-processor</artifactId>
         </dependency>
-
 
         <!-- Lombok -->
         <dependency>

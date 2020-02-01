@@ -21,7 +21,7 @@ public class HotdealsRequest extends AbstractRequest {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "이벤트 아이디", example = "2020011301")
+	@ApiModelProperty(position = 1, name = "event_id", value = "이벤트 아이디", example = "2020011301")
 	@Getter
 	@Setter
 	@RequestParamName("event_id")
@@ -29,7 +29,7 @@ public class HotdealsRequest extends AbstractRequest {
 	@Size(min = 10, max = 10, message = "이벤트 아이디 10자리입니다.")
 	private String eventId;
 
-	@ApiModelProperty(value = "핸드폰번호", example = "01012345678")
+	@ApiModelProperty(position = 2, name = "phone_no", value = "핸드폰번호", example = "01012345678")
 	@Getter
 	@Setter
 	@NotEmpty(message = "핸드폰번호는 필수 값입니다.")
@@ -37,12 +37,13 @@ public class HotdealsRequest extends AbstractRequest {
 	@RequestParamName("phone_no")
 	private String phoneNo;
 
-	@ApiModelProperty(value = "이름", example = "홍길동")
+	@ApiModelProperty(position = 3, name = "name", value = "이름", example = "홍길동")
 	@Getter
 	@Setter
 	@NotEmpty(message = "이름은 필수 값입니다.")
 	private String name;
 
+	@ApiModelProperty(position = 4, name = "aggrement", value = "동의여부", example = "true")
 	@Getter
 	@Setter
 	private boolean aggrement;

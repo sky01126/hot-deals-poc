@@ -9,8 +9,14 @@
     <logger name="com.kt" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
+    <logger name="com.kthcorp" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
 
     <!-- 3rdparty Loggers -->
+    <logger name="com.datastax" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
     <logger name="io.lettuce" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>

@@ -22,16 +22,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 import com.kt.commons.AbstractWebMvcConfiguration;
 import com.kthcorp.commons.enums.type.EnvTypes;
@@ -131,30 +127,30 @@ public class WebMvcConfiguration extends AbstractWebMvcConfiguration {
 		}
 	}
 
-	/**
-	 * Configure cross origin requests processing.
-	 *
-	 * @param registry the view resolver registry
-	 * @since Spring Framework 4.1
-	 */
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.viewResolver(viewResolver());
-	}
-
-	/**
-	 * Configure View resolver to provide HTML output This is the default format in absence of any type suffix.
-	 *
-	 * @return ViewResolver the internal resource view resolver
-	 */
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
+	// /**
+	// * Configure cross origin requests processing.
+	// *
+	// * @param registry the view resolver registry
+	// * @since Spring Framework 4.1
+	// */
+	// @Override
+	// public void configureViewResolvers(ViewResolverRegistry registry) {
+	// registry.viewResolver(viewResolver());
+	// }
+	//
+	// /**
+	// * Configure View resolver to provide HTML output This is the default format in absence of any type suffix.
+	// *
+	// * @return ViewResolver the internal resource view resolver
+	// */
+	// @Bean
+	// public ViewResolver viewResolver() {
+	// InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+	// viewResolver.setViewClass(JstlView.class);
+	// viewResolver.setPrefix("/WEB-INF/views/");
+	// viewResolver.setSuffix(".jsp");
+	// return viewResolver;
+	// }
 
 	/**
 	 * Http Session Checking Listener 등록.
