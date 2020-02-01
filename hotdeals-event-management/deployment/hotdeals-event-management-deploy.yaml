@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hotdeals-event-management-deployment
-  namespace: hotdeals
   labels:
     app: hotdeals-event-management
 spec:
@@ -23,12 +22,10 @@ spec:
         - name: http
           value: "8080"
         - name: JAVA_OPTS
-          value: >-
-            -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080
-            -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8
-            -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false
-            -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
-            -Dspring.profiles.active=prod
+          valueFrom:
+            configMapKeyRef:
+              name: hotdeals-java-opts-config
+              key: hotdeals-event-management-java-opts
         resources:
           requests:
             cpu: "500m"

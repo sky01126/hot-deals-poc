@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hotdeals-java-opts-config
+  labels:
+    k8s-app: selector
+data:
+  hotdeals-event-management-java-opts: >-
+    -Djava.security.egd=file:/dev/./urandom
+    -Dserver.port=8080
+    -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8
+    -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false
+    -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
+    -Dspring.profiles.active=prod
+    -Dspring.data.cassandra.contact-points=cassandra-0.cassandra.default.svc.k8s,cassandra-1.cassandra.default.svc.k8s,cassandra-2.cassandra.default.svc.k8s
+    -Dspring.kafka.bootstrap-servers=hotdeals-kafka:9092
+  hotdeals-coupon-management-java-opts: >-
+    -Djava.security.egd=file:/dev/./urandom
+    -Dserver.port=8080
+    -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8
+    -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false
+    -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
+    -Dspring.profiles.active=prod
+    -Dspring.data.cassandra.contact-points=cassandra-0.cassandra.default.svc.k8s,cassandra-1.cassandra.default.svc.k8s,cassandra-2.cassandra.default.svc.k8s
+    -Dspring.kafka.bootstrap-servers=hotdeals-kafka:9092
