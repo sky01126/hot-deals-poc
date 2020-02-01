@@ -51,7 +51,6 @@ spring:
     prefix: classpath:templates/
     suffix: .html
 
-
 # ----------------------------------------
 # Application info
 # ----------------------------------------
