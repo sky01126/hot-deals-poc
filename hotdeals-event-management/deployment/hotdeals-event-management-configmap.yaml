@@ -13,6 +13,8 @@ data:
     -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
     -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
     -Dspring.profiles.active=dev
+    -Dspring.redis.host=hotdeals-redis-single-service
+    -Dspring.data.cassandra.contact-points=dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
   hotdeals-coupon-management-java-opts: >-
     -Djava.security.egd=file:/dev/./urandom
     -Dserver.port=8080
@@ -21,3 +23,5 @@ data:
     -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
     -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
     -Dspring.profiles.active=dev
+    -Dspring.redis.host=hotdeals-redis-single-service
+    -Dspring.data.cassandra.contact-points=dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
