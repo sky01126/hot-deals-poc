@@ -48,7 +48,7 @@ podTemplate(label: label,
                     sh "docker images"
 
                     /* sh "docker push ${dockerRegistry}/${image}:${tag}" */
-                    sh "docker push ${dockerRegistry}/${dockerRepository}/${dockerImage}"
+                    sh "docker push ${dockerRepository}/${dockerImage}"
                 }
             }
         }
