@@ -12,8 +12,10 @@ podTemplate(label: label,
             git branch: 'develop', credentialsId: '', url: 'https://github.com/sky01126/hotdeals.git'
         }
 
+        def pom = readMavenPom file: 'pom.xml'
+
         def props           = readProperties  file:'hotdeals-event-management/deployment/pipeline.properties'
-        def tag             = props['version']
+        def tag             = pom.version
         def gitSrc          = props['gitSrc']
         def dockerRegistry  = props['dockerRegistry']
         def image           = props['image']
@@ -24,12 +26,11 @@ podTemplate(label: label,
         def prefix          = props['prefix']
         def dockerHub       = props['dockerHub']
 
-        def pom = readMavenPom file: 'pom.xml'
-        printf("Version: %s", pom.version)
+        printf("Version: %s", tag)
 
         stage('Build Maven project') {
             container('maven') {
-                sh "echo ${pom.version}"
+                sh "echo ${tag}"
             }
         }
     }
