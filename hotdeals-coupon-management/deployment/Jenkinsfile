@@ -28,7 +28,7 @@ podTemplate(label: label,
 
         stage('Build Maven project') {
             container('maven') {
-                sh "mvn -Dmaven.test.skip=true -Pevent clean install"
+                sh "mvn -Dmaven.test.skip=true -Pcoupon clean install"
             }
         }
         /*
