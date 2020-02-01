@@ -14,7 +14,7 @@ spring:
 spring:
   profiles: dev
   redis:
-    host: hotdeals-redis-single
+    host: hotdeals-redis-single-service
     lettuce:
       pool:
         min-idle: 100
@@ -27,7 +27,7 @@ spring:
 spring:
   profiles: prod
   redis:
-    host: hotdeals-redis-single
+    host: hotdeals-redis-single-service
     lettuce:
       pool:
         min-idle: 100

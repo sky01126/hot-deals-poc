@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hotdeals-java-opts-config
+  labels:
+    k8s-app: selector
+data:
+  hotdeals-event-management-java-opts: >-
+    -Djava.security.egd=file:/dev/./urandom
+    -Dserver.port=8080
+    -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8
+    -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false
+    -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
+    -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
+    -Dspring.profiles.active=dev
+    -Dspring.data.cassandra.contact-points=dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
+    -Dspring.kafka.bootstrap-servers=hotdeals-kafka:9092
+    -Dspring.redis.host=hotdeals-redis-single-service
+  hotdeals-coupon-management-java-opts: >-
+    -Djava.security.egd=file:/dev/./urandom
+    -Dserver.port=8080
+    -Dfile.encoding=UTF8 -Dclient.encoding.override=UTF-8
+    -Duser.timezone=GMT+09:00 -Dsun.java2d.opengl=false
+    -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
+    -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
+    -Dspring.profiles.active=dev
+    -Dspring.data.cassandra.contact-points=dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
+    -Dspring.kafka.bootstrap-servers=hotdeals-kafka:9092
+    -Dspring.redis.host=hotdeals-redis-single-service

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotdeals-event-management-deployment
+  labels:
+    app: hotdeals-event-management
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hotdeals-event-management
+  template:
+    metadata:
+      labels:
+        app: hotdeals-event-management
+    spec:
+      containers:
+      - name: hotdeals-event-management
+        image: docker.io/ktdatagarage/hotdeals-event-management:latest
+        env:
+        - name: http
+          value: 8080
+        - name: JAVA_OPTS
+          valueFrom:
+            configMapKeyRef:
+              name: hotdeals-java-opts-config
+              key: hotdeals-event-management-java-opts
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "256Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1024Mi"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: spring-8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 5

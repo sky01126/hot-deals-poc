@@ -1,0 +1,94 @@
+def label = "hotdeals-coupon-management-${UUID.randomUUID().toString()}"
+
+podTemplate(label: label,
+    containers: [
+        containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
+        containerTemplate(name: 'docker', image: 'docker:stable', ttyEnabled: true, command: 'cat'),
+        containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:latest', command: 'cat', ttyEnabled: true)
+    ], volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
+) {
+    node(label) {
+        stage('Get Source') {
+            git branch: 'develop', credentialsId: '', url: 'https://github.com/sky01126/hotdeals.git'
+        }
+
+        def pom                 = readMavenPom file: 'pom.xml'
+        def props               = readProperties file:'hotdeals-coupon-management/deployment/pipeline.properties'
+
+        def namespace           = props['namespace']
+        def dockerHub           = props['dockerHub']
+        def dockerRegistry      = props['dockerRegistry']
+        def dockerRepository    = props['dockerRepository']
+        def dockerImage         = pom.artifactId
+        def dockerVersion       = pom.version
+
+        def service             = props['service']
+        def deployment          = props['deployment']
+        def selector            = pom.artifactId
+
+        stage('Build Maven project') {
+            container('maven') {
+                sh "mvn -Dmaven.test.skip=true -Pevent clean install"
+            }
+        }
+        /*
+        stage('Inspection Code') {
+            container('maven') {
+                sh "mvn sonar:sonar         \
+                      -Dsonar.host.url=     \
+                      -Dsonar.login="
+            }
+        }
+        */
+        stage('Build Docker image') {
+            container('docker') {
+                docker.withRegistry("", "${dockerHub}") {
+                    sh "cd hotdeals-coupon-management && docker build -t ${dockerRepository}/${dockerImage}:${dockerVersion} ."
+                    sh "docker tag ${dockerRepository}/${dockerImage}:${dockerVersion} ${dockerRepository}/${dockerImage}:latest"
+                    sh "docker images"
+
+                    /* sh "docker push ${dockerRegistry}/${image}:${tag}" */
+                    sh "docker push ${dockerRepository}/${dockerImage}"
+                }
+            }
+        }
+        /*
+        stage('Image Vulnerability Scanning') {
+            container('docker'){
+                aquaMicroscanner imageName: 'docker.io/${image}:${tag}', notCompliesCmd: '', onDisallowed: 'ignore', outputFormat: 'html'
+            }
+        }
+        */
+        stage( 'Clean Up Existing Deployments' ) {
+            container('kubectl') {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                                credentialsId: "${dockerHub}",
+                                usernameVariable: 'DOCKER_HUB_USER',
+                                passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+                    sh "kubectl delete deployments -n ${namespace} --selector=app=${selector}"
+                }
+            }
+        }
+        /*
+        stage( "Approver" ){
+            input "배포를 승인하시겠습니까?"
+        }
+        */
+        stage( 'Deploy to Cluster' ) {
+            container('kubectl') {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                                    credentialsId: "${dockerHub}",
+                                    usernameVariable: 'DOCKER_HUB_USER',
+                                    passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+                    sh "kubectl apply -n ${namespace} -f ${deployment}"
+                    sh "sleep 1"
+                    sh "kubectl get pods -n ${namespace}"
+
+                    sh "kubectl apply -n ${namespace} -f ${service}"
+                    sh "sleep 1"
+                    sh "kubectl get service -n ${namespace}"
+                }
+            }
+        }
+    }
+}
