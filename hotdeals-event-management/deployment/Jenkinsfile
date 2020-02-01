@@ -12,25 +12,27 @@ podTemplate(label: label,
             git branch: 'develop', credentialsId: '', url: 'https://github.com/sky01126/hotdeals.git'
         }
 
-        def pom = readMavenPom file: 'pom.xml'
+        def pom                 = readMavenPom file: 'pom.xml'
+        def props               = readProperties file:'hotdeals-event-management/deployment/pipeline.properties'
 
-        def props           = readProperties  file:'hotdeals-event-management/deployment/pipeline.properties'
-        def tag             = pom.version
-        def gitSrc          = props['gitSrc']
-        def dockerRegistry  = props['dockerRegistry']
-        def image           = props['image']
-        def deployment      = props['deployment']
-        def service         = props['service']
-        def selector        = props['selector']
-        def namespace       = props['namespace']
-        def prefix          = props['prefix']
-        def dockerHub       = props['dockerHub']
+        def namespace           = props['namespace']
+        def dockerHub           = props['dockerHub']
+        def dockerRegistry      = props['dockerRegistry']
+        def dockerRepository    = props['dockerRepository']
+        def dockerImage         = pom.artifactId
+        def dockerVersion       = pom.version
 
-        printf("Version: %s", tag)
+        def service             = props['service']
+        def deployment          = props['deployment']
+        def selector            = pom.artifactId
 
         stage('Build Maven project') {
             container('maven') {
                 sh "echo ${tag}"
+                sh "echo ${namespace}"
+                sh "echo ${dockerHub}"
+                sh "echo ${dockerRegistry}"
+                sh "echo ${dockerRepository}/${dockerImage}:${dockerVersion}"
             }
         }
     }
