@@ -20,9 +20,10 @@ spring:
   data:
     cassandra:
       cluster-name: kt-data-garage
-      contact-points: cassandra-0.cassandra.default.svc.k8s,cassandra-1.cassandra.default.svc.k8s,cassandra-2.cassandra.default.svc.k8s
-      # username: username
-      # password: password
+      contact-points:
+      - cassandra-0.cassandra.default.svc.k8s
+      - cassandra-1.cassandra.default.svc.k8s
+      - cassandra-2.cassandra.default.svc.k8s
       keyspace-name: hotdeals
       port: 9042
       pool:
@@ -37,9 +38,10 @@ spring:
   data:
     cassandra:
       cluster-name: kt-data-garage
-      contact-points: cassandra-0.cassandra.default.svc.k8s,cassandra-1.cassandra.default.svc.k8s,cassandra-2.cassandra.default.svc.k8s
-      # username: username
-      # password: password
+      contact-points:
+      - cassandra-0.cassandra.default.svc.k8s
+      - cassandra-1.cassandra.default.svc.k8s
+      - cassandra-2.cassandra.default.svc.k8s
       keyspace-name: hotdeals
       port: 9042
       pool:
