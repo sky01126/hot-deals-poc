@@ -1,30 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hotdeals-event-management-deployment
+  name: hotdeals-coupon-management-deployment
   labels:
-    app: hotdeals-event-management
+    app: hotdeals-coupon-management
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app: hotdeals-event-management
+      app: hotdeals-coupon-management
+  replicas: 2
   template:
     metadata:
       labels:
-        app: hotdeals-event-management
+        app: hotdeals-coupon-management
     spec:
       containers:
-      - name: hotdeals-event-management
-        image: docker.io/ktdatagarage/hotdeals-event-management:latest
+      - name: hotdeals-coupon-management
+        image: docker.io/ktdatagarage/hotdeals-coupon-management:latest
         env:
-        - name: http
-          value: 8080
         - name: JAVA_OPTS
           valueFrom:
             configMapKeyRef:
               name: hotdeals-java-opts-config
-              key: hotdeals-event-management-java-opts
+              key: hotdeals-coupon-management-java-opts
         resources:
           requests:
             cpu: "500m"
