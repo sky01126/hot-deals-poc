@@ -24,12 +24,12 @@ podTemplate(label: label,
         def prefix          = props['prefix']
         def dockerHub       = props['dockerHub']
 
-        def project = new XmlSlurper().parse(new File("pom.xml"))
-        def pomv = project.version.toString()
+        def pom = readMavenPom file: 'pom.xml'
+        printf("Version: %s", pom.version)
 
         stage('Build Maven project') {
             container('maven') {
-                sh "echo ${pomv}"
+                sh "echo ${pom.version}"
             }
         }
     }
