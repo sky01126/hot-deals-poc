@@ -19,12 +19,12 @@ podTemplate(label: label,
         def dockerHub           = props['dockerHub']
         def dockerRegistry      = props['dockerRegistry']
         def dockerRepository    = props['dockerRepository']
-        def dockerImage         = pom.artifactId
+        def dockerImage         = props['dockerImage']
         def dockerVersion       = pom.version
 
         def service             = props['service']
         def deployment          = props['deployment']
-        def selector            = pom.artifactId
+        def selector            = props['selector']
 
         stage('Build Maven project') {
             container('maven') {
