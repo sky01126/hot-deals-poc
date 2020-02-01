@@ -1,0 +1,44 @@
+# 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
+# datastax Could not load JNR C Library 방지 : -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
+spring:
+  data:
+    cassandra:
+      contact-points: localhost
+      # username: username
+      # password: password
+      keyspace-name: hotdeals
+      port: 9042
+      pool:
+        max-queue-size: 256
+        pool-timeout: 5000ms
+      schema-action: none
+
+---
+# 개발 배포
+spring:
+  profiles: dev
+  data:
+    cassandra:
+      cluster-name: kt-data-garage
+      contact-points: dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
+      keyspace-name: hotdeals
+      port: 9042
+      pool:
+        max-queue-size: 256
+        pool-timeout: 5000ms
+      schema-action: none
+
+---
+# 상용 배포
+spring:
+  profiles: prod
+  data:
+    cassandra:
+      cluster-name: kt-data-garage
+      contact-points: dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
+      keyspace-name: hotdeals
+      port: 9042
+      pool:
+        max-queue-size: 256
+        pool-timeout: 5000ms
+      schema-action: none

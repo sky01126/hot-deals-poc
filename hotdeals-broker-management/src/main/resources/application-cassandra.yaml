@@ -20,19 +20,13 @@ spring:
   data:
     cassandra:
       cluster-name: kt-data-garage
-      contact-points:
-      - cassandra-0.cassandra.default.svc.k8s
-      - cassandra-1.cassandra.default.svc.k8s
-      - cassandra-2.cassandra.default.svc.k8s
-      # username: username
-      # password: password
+      contact-points: dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
       keyspace-name: hotdeals
       port: 9042
       pool:
         max-queue-size: 256
         pool-timeout: 5000ms
       schema-action: none
-
 
 ---
 # 상용 배포
@@ -41,12 +35,7 @@ spring:
   data:
     cassandra:
       cluster-name: kt-data-garage
-      contact-points:
-      - cassandra-0.cassandra.default.svc.k8s
-      - cassandra-1.cassandra.default.svc.k8s
-      - cassandra-2.cassandra.default.svc.k8s
-      # username: username
-      # password: password
+      contact-points: dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
       keyspace-name: hotdeals
       port: 9042
       pool:

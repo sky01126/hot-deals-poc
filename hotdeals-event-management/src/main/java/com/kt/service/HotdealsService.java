@@ -106,9 +106,10 @@ public class HotdealsService extends AbstractService {
 
 		// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
 		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
-			if (HotdealConsumer.hotdealsCoupon == null
-					|| (HotdealConsumer.hotdealsCoupon != null && !HotdealConsumer.hotdealsCoupon.isClosed())) {
-				log.debug("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
+			if (HotdealConsumer.hotdealsCoupon == null || (HotdealConsumer.hotdealsCoupon != null
+					&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())
+					&& !HotdealConsumer.hotdealsCoupon.isClosed())) {
+				log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
 				threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
 			}
 		}

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotdeals-coupon-management-service
+  labels:
+    app: hotdeals-coupon-management
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: hotdeals-coupon-management
