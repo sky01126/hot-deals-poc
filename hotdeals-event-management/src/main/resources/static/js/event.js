@@ -145,7 +145,7 @@ window.addEventListener( "load", function () {
 	    // Set up our request
 	    
 	    
-	    var url = "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
+	    //var url = "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
 	    var url = "http://hotdeals-event.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
 	    XHR.open( "POST", url); // "http://localhost:8080/cassandra/save" );
 	    XHR.setRequestHeader("Accept", "application/json");
