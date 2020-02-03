@@ -42,10 +42,10 @@ import springfox.documentation.annotations.ApiIgnore;
 @SuppressWarnings("all")
 public class TestController extends AbstractController {
 
-	@Resource(name = "stringRedisTemplate")
+	@Resource(name = "standaloneRedisTemplate")
 	private HashOperations<String, String, String> hashOperations;
 
-	@Resource(name = "stringRedisTemplate")
+	@Resource(name = "standaloneRedisTemplate")
 	private ListOperations<String, String> listOperations;
 
 	@Autowired

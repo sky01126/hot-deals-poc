@@ -10,12 +10,14 @@
 
 package com.kt;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.ValueOperations;
 
 /**
  * 어플리케이션의 Lift Cycle에 따른 처리.
@@ -31,17 +33,15 @@ public class LifecycleConfiguration implements InitializingBean, DisposableBean 
 
 	private static final Logger log = LoggerFactory.getLogger(LifecycleConfiguration.class);
 
-	@Value("${spring.redis.host}")
-	private String redia;
-
-	@Value("${spring.data.cassandra.contact-points}")
-	private String cassandra;
+	@Resource(name = "clusterStringRedisTemplate")
+	private ValueOperations<String, Object> valueOperations;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		log.info("[ START ] Spring Boot 시작 시 처리할 내용 추가");
-		log.info("Redis Single Server : {}", redia);
-		log.info("Cassandra contact Points : {}", cassandra);
+		System.out.println(">>>>>>>>>> " + valueOperations.get("key1"));
+		System.out.println(">>>>>>>>>> " + valueOperations.get("key2"));
+		System.out.println(">>>>>>>>>> " + valueOperations.get("key3"));
 	}
 
 	@Override
