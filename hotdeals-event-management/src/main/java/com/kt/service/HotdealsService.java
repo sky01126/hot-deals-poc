@@ -123,18 +123,18 @@ public class HotdealsService extends AbstractService {
 		// 쿠폰아이디를 Parameter에 추가한다.
 		params.setEventId(hotdeals.getEventId());
 
-        // 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
-        if (HotdealConsumer.hotdealsCoupon != null) {
-            log.debug("{} : {}", hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId());
-        }
-        // 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
-        if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3 //
-                && (HotdealConsumer.hotdealsCoupon == null
-                        || StringUtils.notEquals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())
-                        || !HotdealConsumer.hotdealsCoupon.isClosed())) {
-            log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
-            threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
-        }
+		// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
+		if (HotdealConsumer.hotdealsCoupon != null) {
+			log.debug("{} : {}", hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId());
+		}
+		// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
+		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3 //
+				&& (HotdealConsumer.hotdealsCoupon == null
+						|| StringUtils.notEquals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())
+						|| !HotdealConsumer.hotdealsCoupon.isClosed())) {
+			log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
+			threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
+		}
 
 		HotdealsPick pick = new HotdealsPick();
 		pick.setKey(new HotdealsPickKey(params.getPhoneNo(), hotdeals.getEventId()));
