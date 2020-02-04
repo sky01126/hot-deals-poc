@@ -54,6 +54,8 @@ public class HotdealsService extends AbstractService {
 		Hotdeals hotdeals = new Hotdeals();
 		hotdeals.setEventId(event.getKey().getEventId());
 		hotdeals.setEventType(String.valueOf(event.getEventType()));
+		hotdeals.setDateFrom(event.getDateFrom());
+		hotdeals.setDateTo(event.getDateTo());
 		hotdeals.setFcfsNum(event.getFcfsNum());
 		setCache(hotdeals); // Redis Cache...
 

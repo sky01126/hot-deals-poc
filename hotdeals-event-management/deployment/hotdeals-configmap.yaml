@@ -13,7 +13,7 @@ data:
     -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true
     -Dcom.datastax.driver.USE_NATIVE_CLOCK=false
     -Dspring.profiles.active=prod
-    -Dspring.data.cassandra.contact-points=dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
+    -Dspring.data.cassandra.contact-points=169.56.115.146,169.56.115.148,169.56.115.151
     -Dspring.kafka.bootstrap-servers=hotdeals-kafka:9092
     -Dspring.redis.host=hotdeals-redis-single-service
   hotdeals-coupon-management-java-opts: >-

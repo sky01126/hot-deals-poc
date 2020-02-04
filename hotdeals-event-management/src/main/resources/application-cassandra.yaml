@@ -3,9 +3,8 @@
 spring:
   data:
     cassandra:
-      contact-points: localhost
-      # username: username
-      # password: password
+      cluster-name: kt-data-garage
+      contact-points: 169.56.115.146,169.56.115.148,169.56.115.151
       keyspace-name: hotdeals
       port: 9042
       pool:
