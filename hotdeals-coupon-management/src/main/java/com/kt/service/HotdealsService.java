@@ -148,7 +148,7 @@ public class HotdealsService extends AbstractService {
 	}
 
 	private String getCouponKey(String eventId) {
-		return "COUPON." + eventId;
+		return String.join(":", "COUPON:", eventId);
 	}
 
 	public static class HotdealsEventSorter implements Comparator<HotdealsEvent> {
