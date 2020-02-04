@@ -54,4 +54,8 @@ public class HotdealsRequest extends AbstractRequest {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
 	private DateTime timestamp = DateTime.now();
 
+	public void setAgrement(boolean agrement) {
+		this.aggrement = agrement;
+	}
+
 }
