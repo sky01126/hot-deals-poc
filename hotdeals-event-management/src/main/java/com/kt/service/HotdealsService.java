@@ -10,9 +10,11 @@ import org.apache.http.util.EntityUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import com.kt.commons.config.Constants;
 import com.kt.commons.dto.request.HotdealsRequest;
 import com.kt.commons.dto.response.DefaultResponse;
 import com.kt.commons.persistence.model.Hotdeals;
@@ -20,7 +22,6 @@ import com.kt.commons.persistence.model.HotdealsEvent;
 import com.kt.commons.persistence.model.HotdealsPick;
 import com.kt.commons.persistence.model.HotdealsPickKey;
 import com.kt.commons.persistence.repositories.HotdealsEventRepository;
-import com.kt.commons.persistence.repositories.HotdealsPickRepository;
 import com.kt.commons.service.AbstractService;
 import com.kt.kafka.HotdealConsumer;
 import com.kthcorp.commons.lang.JsonUtils;
@@ -44,7 +45,7 @@ public class HotdealsService extends AbstractService {
 	private HotdealsEventRepository hotdealsEventRepository;
 
 	@Autowired
-	private HotdealsPickRepository hotdealsPickRepository;
+	private KafkaTemplate<Object, Object> kafkaTemplate;
 
 	@Value("${coupon.server.url}")
 	private String couponServerUrl;
@@ -141,7 +142,9 @@ public class HotdealsService extends AbstractService {
 		pick.setName(params.getName());
 		pick.setAgreement(params.isAggrement());
 		pick.setTimestamp(params.getTimestamp());
-		hotdealsPickRepository.save(pick);
+
+		// Kafka에 Send한다.
+		this.kafkaTemplate.send(Constants.KAFKA_TOPIC_HOTDEAL_PICK, pick);
 
 		if (HotdealConsumer.hotdealsCoupon != null
 				&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {

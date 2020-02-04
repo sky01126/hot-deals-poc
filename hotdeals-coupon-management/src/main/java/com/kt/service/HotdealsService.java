@@ -21,7 +21,6 @@ import com.kt.commons.persistence.model.HotdealsEventKey;
 import com.kt.commons.persistence.model.HotdealsFcfs;
 import com.kt.commons.persistence.model.HotdealsFcfsKey;
 import com.kt.commons.persistence.repositories.HotdealsEventRepository;
-import com.kt.commons.persistence.repositories.HotdealsFcfsRepository;
 import com.kt.commons.service.AbstractService;
 import com.kt.dto.request.HotdealsEventRequest;
 import com.kthcorp.commons.lang.NumberUtils;
@@ -35,9 +34,6 @@ public class HotdealsService extends AbstractService {
 
 	@Autowired
 	private HotdealsEventRepository hotdealsEventRepository;
-
-	@Autowired
-	private HotdealsFcfsRepository hotdealsFcfsRepository;
 
 	@Autowired
 	private KafkaTemplate<Object, Object> kafkaTemplate;
@@ -87,7 +83,9 @@ public class HotdealsService extends AbstractService {
 		fcfs.setAgreement(params.isAggrement());
 		fcfs.setFcfsNo(couponNo);
 		fcfs.setTimestamp(params.getTimestamp());
-		hotdealsFcfsRepository.save(fcfs);
+
+		// Kafka에 Send한다.
+		this.kafkaTemplate.send(Constants.KAFKA_TOPIC_HOTDEAL_FCFS, fcfs);
 	}
 
 	private HotdealsEvent save(String prefix, HotdealsEventRequest params) {

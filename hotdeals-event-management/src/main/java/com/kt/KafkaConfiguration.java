@@ -44,13 +44,33 @@ public class KafkaConfiguration {
 	}
 
 	/**
-	 * 선착순 Topic 생성.
+	 * 쿠폰 Topic 생성.
 	 *
 	 * @return the new topic
 	 */
 	@Bean
 	public NewTopic fcfsCouponTopic() {
 		return new NewTopic(Constants.KAFKA_TOPIC_HOTDEAL_FCFS_COUPON, 1, (short) 1);
+	}
+
+	/**
+	 * 응모 Topic 생성.
+	 *
+	 * @return the new topic
+	 */
+	@Bean
+	public NewTopic pickTopic() {
+		return new NewTopic(Constants.KAFKA_TOPIC_HOTDEAL_PICK, 1, (short) 1);
+	}
+
+	/**
+	 * 선착순 Topic 생성.
+	 *
+	 * @return the new topic
+	 */
+	@Bean
+	public NewTopic fcfsTopic() {
+		return new NewTopic(Constants.KAFKA_TOPIC_HOTDEAL_FCFS, 1, (short) 1);
 	}
 
 }
