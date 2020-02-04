@@ -1,36 +1,35 @@
-# 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
-spring:
-  redis:
-    host: localhost
-    lettuce:
-      pool:
-        min-idle: 1
-        max-idle: 8
-        max-active: 8
-    port: 6379
+redis-standalone:
+  host: localhost
+  jedis:
+    pool:
+      min-idle: 5
+      max-idle: 8
+      max-active: 8
+  port: 6379
 
 ---
 # 개발 배포
 spring:
   profiles: dev
-  redis:
-    host: hotdeals-redis-single-service
-    lettuce:
-      pool:
-        min-idle: 100
-        max-idle: 200
-        max-active: 200
-    port: 6379
+redis-standalone:
+  host: hotdeals-redis-single-service
+  jedis:
+    pool:
+      min-idle: 10
+      max-idle: 50
+      max-active: 100
+  port: 6379
 
 ---
 # 상용 배포
 spring:
   profiles: prod
-  redis:
-    host: hotdeals-redis-single-service
-    lettuce:
-      pool:
-        min-idle: 100
-        max-idle: 200
-        max-active: 200
-    port: 6379
+
+redis-standalone:
+  host: hotdeals-redis-single-service
+  jedis:
+    pool:
+      min-idle: 10
+      max-idle: 50
+      max-active: 100
+  port: 6379

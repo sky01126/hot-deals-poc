@@ -2,8 +2,10 @@ package com.kt.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -17,11 +19,7 @@ import com.kt.commons.dto.request.HotdealsRequest;
 import com.kt.commons.persistence.model.Hotdeals;
 import com.kt.commons.persistence.model.HotdealsCoupon;
 import com.kt.commons.persistence.model.HotdealsEvent;
-import com.kt.commons.persistence.model.HotdealsEventKey;
 import com.kt.commons.persistence.model.HotdealsFcfs;
-import com.kt.commons.persistence.model.HotdealsFcfsKey;
-import com.kt.commons.persistence.repositories.HotdealsEventRepository;
-import com.kt.commons.persistence.repositories.HotdealsFcfsRepository;
 import com.kt.commons.service.AbstractService;
 import com.kt.dto.request.HotdealsEventRequest;
 import com.kthcorp.commons.lang.NumberUtils;
@@ -34,16 +32,10 @@ import lombok.extern.slf4j.Slf4j;
 public class HotdealsService extends AbstractService {
 
 	@Autowired
-	private HotdealsEventRepository hotdealsEventRepository;
-
-	@Autowired
-	private HotdealsFcfsRepository hotdealsFcfsRepository;
-
-	@Autowired
 	private KafkaTemplate<Object, Object> kafkaTemplate;
 
-	@Resource(name = "stringRedisTemplate")
-	private ListOperations<String, String> listOperations;
+	@Resource(name = "standaloneStringRedisTemplate")
+	private ListOperations<String, String> standaloneRedisListOperations;
 
 	public String setEventInfo(HotdealsEventRequest params) {
 		log.debug(params.toJsonPrettify());
@@ -52,8 +44,10 @@ public class HotdealsService extends AbstractService {
 
 		// Redis에 Cache한다.
 		Hotdeals hotdeals = new Hotdeals();
-		hotdeals.setEventId(event.getKey().getEventId());
+		hotdeals.setEventId(event.getEventId());
 		hotdeals.setEventType(String.valueOf(event.getEventType()));
+		hotdeals.setDateFrom(event.getDateFrom());
+		hotdeals.setDateTo(event.getDateTo());
 		hotdeals.setFcfsNum(event.getFcfsNum());
 		setCache(hotdeals); // Redis Cache...
 
@@ -80,34 +74,29 @@ public class HotdealsService extends AbstractService {
 			return;
 		}
 		HotdealsFcfs fcfs = new HotdealsFcfs();
-		fcfs.setKey(new HotdealsFcfsKey(params.getPhoneNo(), params.getEventId()));
+		fcfs.setPhoneNo(params.getPhoneNo());
+		fcfs.setEventId(params.getEventId());
 		fcfs.setName(params.getName());
 		fcfs.setAgreement(params.isAggrement());
 		fcfs.setFcfsNo(couponNo);
 		fcfs.setTimestamp(params.getTimestamp());
-		hotdealsFcfsRepository.save(fcfs);
+		clusterRedisValueOperations.set(getRedisPickKey(fcfs.getEventId(), fcfs.getPhoneNo()), fcfs.toJson());
+		log.debug(">>> {}", clusterRedisValueOperations.get(getRedisPickKey(fcfs.getEventId(), fcfs.getPhoneNo())));
 	}
 
 	private HotdealsEvent save(String prefix, HotdealsEventRequest params) {
+		log.debug("prefix : {}", prefix);
 		HotdealsEvent event = new HotdealsEvent();
-		List<HotdealsEvent> list = hotdealsEventRepository.findAll();
-		if (!list.isEmpty()) {
-			log.debug("1");
-			list.sort(new HotdealsEventSorter());
-			HotdealsEvent hotdealsEvent = list.get(0);
-			if (hotdealsEvent != null && StringUtils.startsWith(hotdealsEvent.getKey().getEventId(), prefix)) {
-				log.debug("2");
-				long id = NumberUtils.toLong(hotdealsEvent.getKey().getEventId(), NumberUtils.toLong(prefix + "01"));
-				event.setKey(new HotdealsEventKey(String.valueOf(id + 1)));
-			} else {
-				log.debug("3");
-				event.setKey(new HotdealsEventKey(prefix + "01"));
-			}
+		Set<String> keys = clusterStringRedisTemplate.keys(prefix + "*");
+		if (keys.isEmpty()) {
+			event.setEventId(prefix + "01");
 		} else {
-			log.debug("4");
-			event.setKey(new HotdealsEventKey(prefix + "01"));
+			List<String> list = new ArrayList<>(keys);
+			Collections.sort(list, Collections.reverseOrder());
+			String oldKey = list.get(0);
+			long id = NumberUtils.toLong(oldKey, NumberUtils.toLong(prefix + "01"));
+			event.setEventId(String.valueOf(id + 1));
 		}
-
 		event.setEventName(params.getEventName());
 
 		if (params.getFcfsNum() > 0) {
@@ -116,11 +105,10 @@ public class HotdealsService extends AbstractService {
 		} else {
 			event.setEventType("2");
 		}
-
 		event.setDateFrom(params.getDateFrom());
 		event.setDateTo(params.getDateTo());
 		log.debug(event.toJsonPrettify());
-		hotdealsEventRepository.save(event);
+		setEvent(event);
 		return event;
 	}
 
@@ -131,31 +119,21 @@ public class HotdealsService extends AbstractService {
 	}
 
 	private void setCoupon(String eventId, String value) {
-		listOperations.leftPush(getCouponKey(eventId), value);
+		standaloneRedisListOperations.leftPush(getCouponKey(eventId), value);
 	}
 
 	private String getCoupon(String eventId) {
-		return listOperations.rightPop(getCouponKey(eventId));
+		return standaloneRedisListOperations.rightPop(getCouponKey(eventId));
 	}
 
-	@Override
 	protected Hotdeals getEventInfo(HotdealsEvent event) {
 		Hotdeals hotdeals = new Hotdeals();
-		hotdeals.setEventId(event.getKey().getEventId());
+		hotdeals.setEventId(event.getEventId());
 		return hotdeals;
 	}
 
 	private String getCouponKey(String eventId) {
 		return "COUPON." + eventId;
-	}
-
-	public static class HotdealsEventSorter implements Comparator<HotdealsEvent> {
-
-		@Override
-		public int compare(HotdealsEvent o1, HotdealsEvent o2) {
-			return o2.getKey().getEventId().compareTo(o1.getKey().getEventId());
-		}
-
 	}
 
 }

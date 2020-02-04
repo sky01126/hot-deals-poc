@@ -41,7 +41,8 @@ spring:
     - config
     - kafka
     - redis
-    - cassandra
+    - redis-cluster
+#    - cassandra
 
   # thymeleaf
   thymeleaf:

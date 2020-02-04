@@ -1,12 +1,12 @@
 package com.kt.web.controller;
 
-import javax.annotation.Resource;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -31,9 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class HotdealsController extends AbstractController {
 
-	@Resource(name = "stringRedisTemplate")
-	private HashOperations<String, String, String> hashOperations;
-
 	@Autowired
 	private HotdealsService hotdealsService;
 
@@ -43,9 +40,11 @@ public class HotdealsController extends AbstractController {
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @return Response DTO(Data Transfer Object)
+	 * @throws IOException
 	 */
 	@GetMapping(path = "/event/init")
-	public ResponseEntity<Object> initEventInfo(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Object> initEventInfo(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		return ResponseUtils.resultJson(request, hotdealsService.getEventInfo());
 	}
 

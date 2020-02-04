@@ -2,7 +2,6 @@ package com.kt.commons.dto.request;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
@@ -25,8 +24,8 @@ public class HotdealsRequest extends AbstractRequest {
 	@Getter
 	@Setter
 	@RequestParamName("event_id")
-	@NotEmpty(message = "이벤트 아이디는 필수 값입니다.")
-	@Size(min = 10, max = 10, message = "이벤트 아이디 10자리입니다.")
+	// @NotEmpty(message = "이벤트 아이디는 필수 값입니다.")
+	// @Size(min = 10, max = 10, message = "이벤트 아이디 10자리입니다.")
 	private String eventId;
 
 	@ApiModelProperty(position = 2, name = "phone_no", value = "핸드폰번호", example = "01012345678")
