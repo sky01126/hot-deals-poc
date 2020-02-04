@@ -60,7 +60,7 @@ public class KafkaConfiguration {
 	 */
 	@Bean
 	public NewTopic pickTopic() {
-		return new NewTopic(Constants.KAFKA_TOPIC_HOTDEAL_PICK, 1, (short) 1);
+		return new NewTopic(Constants.KAFKA_TOPIC_HOTDEAL_PICK, 3, (short) 1);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class KafkaConfiguration {
 	 */
 	@Bean
 	public NewTopic fcfsTopic() {
-		return new NewTopic(Constants.KAFKA_TOPIC_HOTDEAL_FCFS, 1, (short) 1);
+		return new NewTopic(Constants.KAFKA_TOPIC_HOTDEAL_FCFS, 3, (short) 1);
 	}
 
 }
