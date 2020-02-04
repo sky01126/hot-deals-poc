@@ -133,7 +133,7 @@ public class HotdealsService extends AbstractService {
 	}
 
 	private String getCouponKey(String eventId) {
-		return "COUPON." + eventId;
+		return "COUPON:" + eventId;
 	}
 
 }

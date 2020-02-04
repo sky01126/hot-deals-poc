@@ -118,14 +118,16 @@ public class HotdealsService extends AbstractService {
 			return new DefaultResponse(513, getResponseMessage(513));
 		}
 
+		// 쿠폰아이디를 Parameter에 추가한다.
+		params.setEventId(hotdeals.getEventId());
+
 		// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
-		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
-			if (HotdealConsumer.hotdealsCoupon == null || (HotdealConsumer.hotdealsCoupon != null
-					&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())
-					&& !HotdealConsumer.hotdealsCoupon.isClosed())) {
-				log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
-				threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
-			}
+		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3 //
+				&& (HotdealConsumer.hotdealsCoupon == null || //
+						(StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())
+								&& !HotdealConsumer.hotdealsCoupon.isClosed()))) {
+			log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
+			threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
 		}
 
 		HotdealsPick pick = new HotdealsPick();
@@ -143,6 +145,8 @@ public class HotdealsService extends AbstractService {
 		} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
 			hotdeals.setClose(false);
 		}
+		hotdeals.setDateFrom(null);
+		hotdeals.setDateTo(null);
 		return new DefaultResponse(hotdeals);
 	}
 
