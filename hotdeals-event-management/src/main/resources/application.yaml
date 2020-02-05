@@ -105,6 +105,7 @@ spring:
 logging:
   config: classpath:logback-spring-dev.xml
 
+server:
   # Tomcat access logs
   tomcat:
     accesslog:
@@ -124,6 +125,7 @@ spring:
 logging:
   config: classpath:logback-spring-prod.xml
 
+server:
   # Tomcat access logs
   tomcat:
     accesslog:
