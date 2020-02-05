@@ -9,7 +9,7 @@ podTemplate(label: label,
 ) {
     node(label) {
         stage('Get Source') {
-            git branch: 'cassandra', credentialsId: '', url: 'https://github.com/sky01126/hotdeals.git'
+            git branch: 'kafka', credentialsId: '', url: 'https://github.com/sky01126/hotdeals.git'
         }
 
         def pom                 = readMavenPom file: 'pom.xml'
