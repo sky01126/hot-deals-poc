@@ -33,11 +33,6 @@ public class HotdealsRedisClusterProperties {
 	private String password;
 
 	/**
-	 * Redis server port.
-	 */
-	private int port = 6379;
-
-	/**
 	 * Whether to enable SSL support.
 	 */
 	private boolean ssl;
@@ -90,14 +85,6 @@ public class HotdealsRedisClusterProperties {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getPort() {
-		return this.port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
 	}
 
 	public boolean isSsl() {

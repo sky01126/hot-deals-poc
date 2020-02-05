@@ -15,7 +15,6 @@ data:
     -Dspring.profiles.active=prod
     -Dspring.data.cassandra.contact-points=169.56.115.146,169.56.115.148,169.56.115.151
     -Dspring.kafka.bootstrap-servers=hotdeals-kafka:9092
-    -Dspring.redis.host=169.56.115.146
   hotdeals-coupon-management-java-opts: >-
     -Djava.security.egd=file:/dev/./urandom
     -Dserver.port=8080
@@ -26,4 +25,3 @@ data:
     -Dspring.profiles.active=prod
     -Dspring.data.cassandra.contact-points=169.56.115.146,169.56.115.148,169.56.115.151
     -Dspring.kafka.bootstrap-servers=hotdeals-kafka:9092
-    -Dspring.redis.host=169.56.115.146
