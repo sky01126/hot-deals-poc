@@ -3,8 +3,8 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: hotdeals-event-management-deployment-hpa
 spec:
-  minReplicas: 5
-  maxReplicas: 15
+  minReplicas: 10
+  maxReplicas: 20
   scaleTargetRef:
     apiVersion: extensions/v1beta1
     kind: Deployment
