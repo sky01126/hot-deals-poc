@@ -13,6 +13,7 @@ redis-cluster:
       min-idle: 5
       max-idle: 8
       max-active: 8
+  port: 6379
 
 ---
 # 개발 배포
@@ -33,6 +34,7 @@ redis-cluster:
       min-idle: 10
       max-idle: 50
       max-active: 100
+  port: 6379
 
 ---
 # 상용 배포
@@ -53,3 +55,4 @@ redis-cluster:
       min-idle: 10
       max-idle: 50
       max-active: 100
+  port: 6379
