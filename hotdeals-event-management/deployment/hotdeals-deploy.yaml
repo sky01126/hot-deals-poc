@@ -46,3 +46,13 @@ spec:
             port: 8080
           initialDelaySeconds: 30
           timeoutSeconds: 5
+        volumeMounts:
+        - name: tomcat-logs
+          mountPath: /logs
+      volumes:
+      - name: host-sys
+        hostPath:
+          path: /sys
+      - name: tomcat-logs
+        persistentVolumeClaim:
+          claimName: hotdeals-tomcat-logs-pvc

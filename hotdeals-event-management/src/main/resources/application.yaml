@@ -107,17 +107,13 @@ logging:
   config: classpath:logback-spring-dev.xml
 
 server:
-  # "-Dserver.logs.home=/home/server/logs" Java 옵션으로 로그 기록 디렉토리 변경.
-  logs:
-    home: ${catalina.base}
-
   # Tomcat access logs
-#  tomcat:
-#    accesslog:
-#      enabled: true
-#      directory: ${server.logs.home}
-#      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
-#      prefix: access
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /logs
+      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
+      prefix: access
 
 # Coupon Server URL
 coupon.server.url: http://hotdeals-coupon-management-service:8080/api/v1/event/coupon
@@ -131,17 +127,13 @@ logging:
   config: classpath:logback-spring-prod.xml
 
 server:
-  # "-Dserver.logs.home=/home/server/logs" Java 옵션으로 로그 기록 디렉토리 변경.
-  logs:
-    home: ${catalina.base}
-
   # Tomcat access logs
-#  tomcat:
-#    accesslog:
-#      enabled: true
-#      directory: ${server.logs.home}
-#      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
-#      prefix: access
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /logs
+      pattern: '%h %{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss}t] "%{Host}i" "%r" %s %b "%{Referer}i" "%{User-Agent}i" TIME:%T'
+      prefix: access
 
 # Coupon Server URL
 coupon.server.url: http://hotdeals-coupon-management-service:8080/api/v1/event/coupon
