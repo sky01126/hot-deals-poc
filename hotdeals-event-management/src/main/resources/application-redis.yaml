@@ -11,8 +11,9 @@ redis-standalone:
 # 개발 배포
 spring:
   profiles: dev
+
 redis-standalone:
-  host: hotdeals-redis-single-service
+  host: 169.56.115.146
   jedis:
     pool:
       min-idle: 10
@@ -26,7 +27,7 @@ spring:
   profiles: prod
 
 redis-standalone:
-  host: hotdeals-redis-single-service
+  host: 169.56.115.146
   jedis:
     pool:
       min-idle: 10
