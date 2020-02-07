@@ -54,7 +54,7 @@ public class Hotdeals extends AbstractModel {
 
 	@Getter
 	@Setter
-	private Boolean aggrement;
+	private Boolean agrement;
 
 	@Getter
 	@Setter
@@ -86,5 +86,9 @@ public class Hotdeals extends AbstractModel {
 	@Setter
 	@JsonIgnore
 	private int fcfsNum;
+
+	public void setAggrement(boolean agrement) {
+		this.agrement = agrement;
+	}
 
 }
