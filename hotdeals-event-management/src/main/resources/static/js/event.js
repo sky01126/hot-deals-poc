@@ -146,7 +146,7 @@ window.addEventListener( "load", function () {
 
 
 	    //var url = "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
-	    var url = "http://localhost:8080/api/v1/event/type/" + String(eventType);
+	    var url = "http:///api/v1/event/type/" + String(eventType);
 	    XHR.open( "POST", url); // "http://localhost:8080/cassandra/save" );
 	    XHR.setRequestHeader("Accept", "application/json");
 	    //XHR.setRequestHeader("Content-Type", "application/json");
@@ -263,7 +263,7 @@ function CheckEventStatus() {
 	    });
 */
 	    // Set up our request
-	    XHR.open( "GET", "http://localhost:8080/api/v1/event/init");
+	    XHR.open( "GET", "http://hotdeals-event.169.56.115.147.nip.io/api/v1/event/init");
 	    		//"http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/init" );
 	    XHR.setRequestHeader("Accept", "application/json");
 	    // The data sent is what the user provided in the form
