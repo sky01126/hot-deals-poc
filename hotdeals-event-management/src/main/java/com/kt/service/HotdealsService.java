@@ -59,12 +59,12 @@ public class HotdealsService extends AbstractService {
 			if (hotdeals.getDateFrom().isEqual(nowDateTime) || hotdeals.getDateTo().isEqual(nowDateTime)
 					|| (hotdeals.getDateFrom().isBefore(nowDateTime) && hotdeals.getDateTo().isAfter(nowDateTime))) {
 				setCache(hotdeals); // Redis Cache...
-                if (HotdealConsumer.hotdealsCoupon != null
-                        && StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {
-                    hotdeals.setClose(HotdealConsumer.hotdealsCoupon.isClosed());
-                } else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
-                    hotdeals.setClose(false);
-                }
+				if (HotdealConsumer.hotdealsCoupon != null
+						&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {
+					hotdeals.setClose(HotdealConsumer.hotdealsCoupon.isClosed());
+				} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
+					hotdeals.setClose(false);
+				}
 				return new DefaultResponse(hotdeals);
 			} else {
 				// 현재시간 이후에 진행 될 예정의 이벤트가 있으면 "이벤트 준비중"
@@ -84,12 +84,12 @@ public class HotdealsService extends AbstractService {
 				event = list.get(i);
 				hotdeals = getEventInfo(event);
 				if (hotdeals != null) {
-                    if (HotdealConsumer.hotdealsCoupon != null
-                            && StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {
-                        hotdeals.setClose(HotdealConsumer.hotdealsCoupon.isClosed());
-                    } else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
-                        hotdeals.setClose(false);
-                    }
+					if (HotdealConsumer.hotdealsCoupon != null
+							&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {
+						hotdeals.setClose(HotdealConsumer.hotdealsCoupon.isClosed());
+					} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
+						hotdeals.setClose(false);
+					}
 					return new DefaultResponse(hotdeals);
 				}
 			}

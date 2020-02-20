@@ -4,7 +4,7 @@ spring:
   data:
     cassandra:
       cluster-name: kt-data-garage
-      contact-points: 169.56.115.146,169.56.115.148,169.56.115.151
+      contact-points: cassandra-0.cassandra.edu02.svc.cluster.local,cassandra-1.cassandra.edu02.svc.cluster.local,cassandra-2.cassandra.edu02.svc.cluster.local
       keyspace-name: hotdeals
       port: 9042
       pool:
@@ -19,7 +19,7 @@ spring:
   data:
     cassandra:
       cluster-name: kt-data-garage
-      contact-points: dse-0.dse.hotdeals.svc.k8s,dse-1.dse.hotdeals.svc.k8s,dse-2.dse.hotdeals.svc.k8s
+      contact-points: cassandra-0.cassandra.edu02.svc.cluster.local,cassandra-1.cassandra.edu02.svc.cluster.local,cassandra-2.cassandra.edu02.svc.cluster.local
       keyspace-name: hotdeals
       port: 9042
       pool:
@@ -34,7 +34,7 @@ spring:
   data:
     cassandra:
       cluster-name: kt-data-garage
-      contact-points: 169.56.115.146,169.56.115.148,169.56.115.151
+      contact-points: cassandra-0.cassandra.edu02.svc.cluster.local,cassandra-1.cassandra.edu02.svc.cluster.local,cassandra-2.cassandra.edu02.svc.cluster.local
       keyspace-name: hotdeals
       port: 9042
       pool:
