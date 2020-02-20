@@ -50,6 +50,7 @@ public class HotdealsService extends AbstractService {
 	 *
 	 * @throws IOException
 	 */
+<<<<<<< HEAD
 	public DefaultResponse getEventInfo() throws IOException {
 		Hotdeals hotdeals = getCache();
 		if (hotdeals == null) {
@@ -72,6 +73,47 @@ public class HotdealsService extends AbstractService {
 				HotdealsCoupon hotdealsCoupon = HotdealConsumer.hotdealsCoupon;
 				if (hotdealsCoupon != null && StringUtils.equals(hotdeals.getEventId(), hotdealsCoupon.getEventId())) {
 					hotdeals.setClose(hotdealsCoupon.isClosed());
+=======
+	public DefaultResponse getEventInfo() {
+		Hotdeals hotdeals = getCache();
+		if (hotdeals != null) { // Redis Cashe에서 조회된 정보 유효성 체크.
+			DateTime nowDateTime = DateTime.now();
+			if (hotdeals.getDateFrom().isEqual(nowDateTime) || hotdeals.getDateTo().isEqual(nowDateTime)
+					|| (hotdeals.getDateFrom().isBefore(nowDateTime) && hotdeals.getDateTo().isAfter(nowDateTime))) {
+				setCache(hotdeals); // Redis Cache...
+				if (HotdealConsumer.hotdealsCoupon != null
+						&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {
+					hotdeals.setClose(HotdealConsumer.hotdealsCoupon.isClosed());
+				} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
+					hotdeals.setClose(false);
+				}
+				return new DefaultResponse(hotdeals);
+			} else {
+				// 현재시간 이후에 진행 될 예정의 이벤트가 있으면 "이벤트 준비중"
+				if (hotdeals != null && hotdeals.getDateFrom().isAfter(DateTime.now())) {
+					return new DefaultResponse(511, getResponseMessage(511));
+				}
+			}
+		}
+
+		// Cassandra에서 이벤트 정보 조회.
+		List<HotdealsEvent> list = hotdealsEventRepository.findAll();
+		if (!list.isEmpty()) {
+			// 리스트를 Descending으로 정렬한다.
+			list.sort(new HotdealsEventSorter());
+			HotdealsEvent event = null;
+			for (int i = 0; i < list.size(); i++) {
+				event = list.get(i);
+				hotdeals = getEventInfo(event);
+				if (hotdeals != null) {
+					if (HotdealConsumer.hotdealsCoupon != null
+							&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {
+						hotdeals.setClose(HotdealConsumer.hotdealsCoupon.isClosed());
+					} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
+						hotdeals.setClose(false);
+					}
+					return new DefaultResponse(hotdeals);
+>>>>>>> cassandra
 				}
 			}
 		}
@@ -110,7 +152,17 @@ public class HotdealsService extends AbstractService {
 			log.debug(hotdeals.toJsonPrettify());
 		}
 		if (hotdeals == null) {
+<<<<<<< HEAD
 			return new DefaultResponse(511, getResponseMessage(511));
+=======
+			DefaultResponse res = getEventInfo();
+			if (res.getCode() >= 300) {
+				return res;
+			} else if (res.getResultData() == null) {
+				return new DefaultResponse(511, getResponseMessage(511));
+			}
+			hotdeals = (Hotdeals) res.getResultData();
+>>>>>>> cassandra
 			// } else if (StringUtils.notEquals(params.getEventId(), hotdeals.getEventId())) {
 			// // 클라이언트가 보내준 이벤트ID와 Cache된 이벤트ID가 상이한 경우 에러 발생
 			// return new DefaultResponse(412, getResponseMessage(412));
@@ -118,14 +170,20 @@ public class HotdealsService extends AbstractService {
 			return new DefaultResponse(513, getResponseMessage(513));
 		}
 
+		// 쿠폰아이디를 Parameter에 추가한다.
+		params.setEventId(hotdeals.getEventId());
+
 		// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
-		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
-			if (HotdealConsumer.hotdealsCoupon == null || (HotdealConsumer.hotdealsCoupon != null
-					&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())
-					&& !HotdealConsumer.hotdealsCoupon.isClosed())) {
-				log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
-				threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
-			}
+		if (HotdealConsumer.hotdealsCoupon != null) {
+			log.debug("{} : {}", hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId());
+		}
+		// 선착순 / 응모형 이벤트는 Coupon 서버에 등록을 요청한다.
+		if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3 //
+				&& (HotdealConsumer.hotdealsCoupon == null
+						|| StringUtils.notEquals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())
+						|| !HotdealConsumer.hotdealsCoupon.isClosed())) {
+			log.info("선착순 / 응모형 이벤트는 Coupon 서버에 등록 요청.");
+			threadPoolTaskExecutor.execute(new CouponThread(couponServerUrl, params));
 		}
 
 		HotdealsPick pick = new HotdealsPick();
@@ -134,6 +192,7 @@ public class HotdealsService extends AbstractService {
 		pick.setName(params.getName());
 		pick.setAgreement(params.isAggrement());
 		pick.setTimestamp(params.getTimestamp());
+<<<<<<< HEAD
 		clusterRedisValueOperations.set(getRedisPickKey(pick.getEventId(), pick.getPhoneNo()), pick.toJson());
 		log.debug(">>> {}", clusterRedisValueOperations.get(getRedisPickKey(pick.getEventId(), pick.getPhoneNo())));
 
@@ -142,6 +201,26 @@ public class HotdealsService extends AbstractService {
 			hotdeals.setClose(hotdealsCoupon.isClosed());
 		} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
 			hotdeals.setClose(false);
+=======
+		hotdealsPickRepository.save(pick);
+
+		if (HotdealConsumer.hotdealsCoupon != null
+				&& StringUtils.equals(hotdeals.getEventId(), HotdealConsumer.hotdealsCoupon.getEventId())) {
+			hotdeals.setClose(HotdealConsumer.hotdealsCoupon.isClosed());
+		} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
+			hotdeals.setClose(false);
+		}
+		hotdeals.setDateFrom(null);
+		hotdeals.setDateTo(null);
+		return new DefaultResponse(hotdeals);
+	}
+
+	public static class HotdealsEventSorter implements Comparator<HotdealsEvent> {
+
+		@Override
+		public int compare(HotdealsEvent o1, HotdealsEvent o2) {
+			return o2.getKey().getEventId().compareTo(o1.getKey().getEventId());
+>>>>>>> cassandra
 		}
 		return new DefaultResponse(hotdeals);
 	}

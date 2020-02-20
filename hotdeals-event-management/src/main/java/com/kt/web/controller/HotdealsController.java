@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+=======
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.http.HttpStatus;
+>>>>>>> cassandra
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -69,7 +74,7 @@ public class HotdealsController extends AbstractController {
 		// 필수 파라미터가 없는 경우의 에러 처리.
 		checkForErrors(result);
 		log.debug(params.toJson());
-		return resultJson(request, hotdealsService.setEventInfo(eventType, params));
+		return ResponseUtils.resultJson(request, hotdealsService.setEventInfo(eventType, params), HttpStatus.CREATED);
 	}
 
 }

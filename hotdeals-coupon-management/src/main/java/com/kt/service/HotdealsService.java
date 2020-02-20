@@ -11,13 +11,10 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.kt.commons.config.Constants;
 import com.kt.commons.dto.request.HotdealsRequest;
 import com.kt.commons.persistence.model.Hotdeals;
-import com.kt.commons.persistence.model.HotdealsCoupon;
 import com.kt.commons.persistence.model.HotdealsEvent;
 import com.kt.commons.persistence.model.HotdealsFcfs;
 import com.kt.commons.service.AbstractService;
@@ -32,7 +29,17 @@ import lombok.extern.slf4j.Slf4j;
 public class HotdealsService extends AbstractService {
 
 	@Autowired
+<<<<<<< HEAD
 	private KafkaTemplate<Object, Object> kafkaTemplate;
+=======
+	private HotdealsEventRepository hotdealsEventRepository;
+
+	@Autowired
+	private HotdealsFcfsRepository hotdealsFcfsRepository;
+
+	// @Autowired
+	// private KafkaTemplate<Object, Object> kafkaTemplate;
+>>>>>>> cassandra
 
 	@Resource(name = "standaloneStringRedisTemplate")
 	private ListOperations<String, String> standaloneRedisListOperations;
@@ -67,10 +74,10 @@ public class HotdealsService extends AbstractService {
 		log.info("선착순 요청 정보 : {}", params.toJsonLog());
 		String couponNo = getCoupon(params.getEventId());
 		if (StringUtils.isBlank(couponNo)) {
-			// Kafka에 완료 노티 후 종료한다.
-			log.info("선착순 완료.");
-			this.kafkaTemplate.send(Constants.KAFKA_TOPIC_HOTDEAL_FCFS_COUPON,
-					new HotdealsCoupon(params.getEventId(), true));
+			// // Kafka에 완료 노티 후 종료한다.
+			// log.info("선착순 완료.");
+			// this.kafkaTemplate.send(Constants.KAFKA_TOPIC_HOTDEAL_FCFS_COUPON,
+			// new HotdealsCoupon(params.getEventId(), true));
 			return;
 		}
 		HotdealsFcfs fcfs = new HotdealsFcfs();
@@ -133,7 +140,7 @@ public class HotdealsService extends AbstractService {
 	}
 
 	private String getCouponKey(String eventId) {
-		return "COUPON." + eventId;
+		return String.join(":", "COUPON:", eventId);
 	}
 
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 redis-standalone:
   host: localhost
   jedis:
@@ -6,11 +7,25 @@ redis-standalone:
       max-idle: 8
       max-active: 8
   port: 6379
+=======
+# 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#data-properties
+spring:
+  redis:
+    host: redis
+    password: 'qwer1234!'
+    lettuce:
+      pool:
+        min-idle: 1
+        max-idle: 8
+        max-active: 8
+    port: 6379
+>>>>>>> cassandra
 
 ---
 # 개발 배포
 spring:
   profiles: dev
+<<<<<<< HEAD
 redis-standalone:
   host: hotdeals-redis-single-service
   jedis:
@@ -19,11 +34,23 @@ redis-standalone:
       max-idle: 50
       max-active: 100
   port: 6379
+=======
+  redis:
+    host: redis
+    password: 'qwer1234!'
+    lettuce:
+      pool:
+        min-idle: 100
+        max-idle: 200
+        max-active: 200
+    port: 6379
+>>>>>>> cassandra
 
 ---
 # 상용 배포
 spring:
   profiles: prod
+<<<<<<< HEAD
 
 redis-standalone:
   host: hotdeals-redis-single-service
@@ -33,3 +60,14 @@ redis-standalone:
       max-idle: 50
       max-active: 100
   port: 6379
+=======
+  redis:
+    host: redis
+    password: 'qwer1234!'
+    lettuce:
+      pool:
+        min-idle: 100
+        max-idle: 200
+        max-active: 200
+    port: 6379
+>>>>>>> cassandra

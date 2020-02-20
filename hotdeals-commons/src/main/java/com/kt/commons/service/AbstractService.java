@@ -52,6 +52,7 @@ public abstract class AbstractService extends AbstractObject {
 		// ignore...
 	}
 
+<<<<<<< HEAD
 	/**
 	 * JSON String를 Object로 변환.
 	 *
@@ -80,6 +81,29 @@ public abstract class AbstractService extends AbstractObject {
 	private String getRedisKey(String prefix, String eventId, String phoneNo) {
 		return String.join(":", prefix, eventId, phoneNo);
 
+=======
+	protected Hotdeals getEventInfo(HotdealsEvent event) {
+		// log.debug(event.toJsonLog());
+		// Hotdeals hotdeals = getCache();
+		// if (hotdeals != null) {
+		// return hotdeals;
+		// }
+		Hotdeals hotdeals = null;
+		DateTime nowDateTime = DateTime.now();
+		log.debug(">>> {}, {}", event.getDateFrom().isEqual(nowDateTime), event.getDateTo().isEqual(nowDateTime));
+		log.debug(">>> {}, {}", event.getDateFrom().isBefore(nowDateTime), event.getDateTo().isAfter(nowDateTime));
+		if (event.getDateFrom().isEqual(nowDateTime) || event.getDateTo().isEqual(nowDateTime)
+				|| (event.getDateFrom().isBefore(nowDateTime) && event.getDateTo().isAfter(nowDateTime))) {
+			hotdeals = new Hotdeals();
+			hotdeals.setEventId(event.getKey().getEventId());
+			hotdeals.setEventType(String.valueOf(event.getEventType()));
+			hotdeals.setDateFrom(event.getDateFrom());
+			hotdeals.setDateTo(event.getDateTo());
+			hotdeals.setFcfsNum(event.getFcfsNum());
+			setCache(hotdeals); // Redis Cache...
+		}
+		return hotdeals;
+>>>>>>> cassandra
 	}
 
 	/**

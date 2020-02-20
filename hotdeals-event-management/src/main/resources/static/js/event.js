@@ -125,7 +125,7 @@ window.addEventListener( "load", function () {
 					alert(XHR.status + " ====== " + event.target.responseText);
 					eventMessageNo = 5;
 					eventMessageList[eventMessageNo] = obj.result_msg;
-					showEventButton(false);				
+					showEventButton(false);
 				}
 
 			} else {
@@ -143,8 +143,10 @@ window.addEventListener( "load", function () {
 	    });
 */
 	    // Set up our request
-	    
-	    var url = "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
+
+
+	    //var url = "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
+	    var url = "http://hotdeals-event.169.56.115.147.nip.io/api/v1/event/type/" + String(eventType);
 	    XHR.open( "POST", url); // "http://localhost:8080/cassandra/save" );
 	    XHR.setRequestHeader("Accept", "application/json");
 	    //XHR.setRequestHeader("Content-Type", "application/json");
@@ -211,12 +213,12 @@ function CheckEventStatus() {
 
 					var json = event.target.responseText;
 					var obj = JSON.parse(json);
-					
+
 					// obj.data.close_yn = true;
 
 					switch(obj.result_code) {
 						case 200:
-							eventMessageNo = 0;	
+							eventMessageNo = 0;
 							showEventButton(true);
 							eventId.value = obj.data.event_id;
 							eventType = obj.data.event_type;
@@ -261,7 +263,8 @@ function CheckEventStatus() {
 	    });
 */
 	    // Set up our request
-	    XHR.open( "GET", "http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/init" );
+	    XHR.open( "GET", "http://hotdeals-event.169.56.115.147.nip.io/api/v1/event/init");
+	    		//"http://hotdeals-event-dummy-api.169.56.115.147.nip.io/api/v1/event/init" );
 	    XHR.setRequestHeader("Accept", "application/json");
 	    // The data sent is what the user provided in the form
 	    XHR.send(  );
