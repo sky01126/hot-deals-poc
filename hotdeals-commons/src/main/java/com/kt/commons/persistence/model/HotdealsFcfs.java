@@ -1,65 +1,44 @@
 package com.kt.commons.persistence.model;
 
 import org.joda.time.DateTime;
-import org.springframework.stereotype.Component;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy.SnakeCaseStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 import com.kthcorp.commons.lang.BaseObject;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
-@Component
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(SnakeCaseStrategy.class)
+//@AllArgsConstructor
+@Table("hotdeals_fcfs")
 public class HotdealsFcfs extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
-	@JsonProperty("phone_no")
-	private String phoneNo;
+	@PrimaryKey
+	private HotdealsFcfsKey key;
 
 	@Getter
 	@Setter
-	@JsonProperty("event_id")
-	private String eventId;
-
-	@Getter
-	@Setter
-	@JsonProperty("name")
+	@Column("name")
 	private String name;
 
 	@Getter
 	@Setter
-	@JsonProperty("agreement")
+	@Column("agreement")
 	private boolean agreement;
 
 	@Getter
 	@Setter
-	@JsonProperty("fcfs_no")
+	@Column("fcfs_no")
 	private String fcfsNo;
 
 	@Getter
 	@Setter
-	@JsonProperty("timestamp")
-	@JsonSerialize(using = DateTimeSerializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	@Column("timestamp")
 	private DateTime timestamp;
-
-	public HotdealsFcfs() {
-		// ignore...
-	}
 
 }

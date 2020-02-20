@@ -40,6 +40,6 @@ public class HotdealsEventRequest extends AbstractRequest {
 	@Getter
 	@Setter
 	@RequestParamName("date_to")
-	private DateTime dateTo = DateTime.now().plusDays(100);
+	private DateTime dateTo = DateTime.now().plusHours(2);
 
 }

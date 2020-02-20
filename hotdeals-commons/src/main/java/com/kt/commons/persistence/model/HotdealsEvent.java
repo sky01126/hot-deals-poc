@@ -1,16 +1,10 @@
 package com.kt.commons.persistence.model;
 
 import org.joda.time.DateTime;
-import org.springframework.stereotype.Component;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy.SnakeCaseStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 import com.kthcorp.commons.lang.BaseObject;
 
 import lombok.AllArgsConstructor;
@@ -18,52 +12,43 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-@Component
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(SnakeCaseStrategy.class)
+@Table("hotdeals_event")
 public class HotdealsEvent extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
-	@JsonProperty("event_id")
-	private String eventId;
+	@PrimaryKey
+	private HotdealsEventKey key;
 
 	@Getter
 	@Setter
-	@JsonProperty("date_from")
-	@JsonSerialize(using = DateTimeSerializer.class)
-	// @JsonDeserialize(using = DateTimeDeserializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	@Column("date_from")
 	private DateTime dateFrom;
 
 	@Getter
 	@Setter
-	@JsonProperty("date_to")
-	@JsonSerialize(using = DateTimeSerializer.class)
-	// @JsonDeserialize(using = DateTimeDeserializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	@Column("date_to")
 	private DateTime dateTo;
 
 	@Getter
 	@Setter
-	@JsonProperty("event_name")
+	@Column("event_name")
 	private String eventName;
 
 	@Getter
 	@Setter
-	@JsonProperty("event_type")
+	@Column("event_type")
 	private String eventType;
 
 	@Getter
 	@Setter
-	@JsonProperty("fcfs_num")
+	@Column("fcfs_num")
 	private int fcfsNum;
 
 	public HotdealsEvent() {
-		// ignore...
+		// ignore..
 	}
 
 }

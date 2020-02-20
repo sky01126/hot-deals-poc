@@ -2,12 +2,8 @@ package com.kt.service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -20,9 +16,11 @@ import org.springframework.stereotype.Service;
 import com.kt.commons.dto.request.HotdealsRequest;
 import com.kt.commons.dto.response.DefaultResponse;
 import com.kt.commons.persistence.model.Hotdeals;
-import com.kt.commons.persistence.model.HotdealsCoupon;
 import com.kt.commons.persistence.model.HotdealsEvent;
 import com.kt.commons.persistence.model.HotdealsPick;
+import com.kt.commons.persistence.model.HotdealsPickKey;
+import com.kt.commons.persistence.repositories.HotdealsEventRepository;
+import com.kt.commons.persistence.repositories.HotdealsPickRepository;
 import com.kt.commons.service.AbstractService;
 import com.kt.kafka.HotdealConsumer;
 import com.kthcorp.commons.lang.JsonUtils;
@@ -42,38 +40,18 @@ public class HotdealsService extends AbstractService {
 	@Autowired
 	protected ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
+	@Autowired
+	private HotdealsEventRepository hotdealsEventRepository;
+
+	@Autowired
+	private HotdealsPickRepository hotdealsPickRepository;
+
 	@Value("${coupon.server.url}")
 	private String couponServerUrl;
 
 	/**
 	 * 이벤트 기본 정보 조회.
-	 *
-	 * @throws IOException
 	 */
-<<<<<<< HEAD
-	public DefaultResponse getEventInfo() throws IOException {
-		Hotdeals hotdeals = getCache();
-		if (hotdeals == null) {
-			String prefix = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-			Set<String> keys = clusterStringRedisTemplate.keys(prefix + "*");
-			if (keys.isEmpty()) {
-				return new DefaultResponse(511, getResponseMessage(511));
-			} else {
-				List<String> list = new ArrayList<>(keys);
-				Collections.sort(list, Collections.reverseOrder());
-				String key = list.get(0);
-				String value = clusterRedisValueOperations.get(key);
-				HotdealsEvent hotdealsEvent = (HotdealsEvent) jsonToObject(value, HotdealsEvent.class);
-
-				hotdeals = new Hotdeals();
-				hotdeals.setEventId(hotdealsEvent.getEventId());
-				hotdeals.setDateFrom(hotdealsEvent.getDateFrom());
-				hotdeals.setDateTo(hotdealsEvent.getDateTo());
-
-				HotdealsCoupon hotdealsCoupon = HotdealConsumer.hotdealsCoupon;
-				if (hotdealsCoupon != null && StringUtils.equals(hotdeals.getEventId(), hotdealsCoupon.getEventId())) {
-					hotdeals.setClose(hotdealsCoupon.isClosed());
-=======
 	public DefaultResponse getEventInfo() {
 		Hotdeals hotdeals = getCache();
 		if (hotdeals != null) { // Redis Cashe에서 조회된 정보 유효성 체크.
@@ -113,24 +91,12 @@ public class HotdealsService extends AbstractService {
 						hotdeals.setClose(false);
 					}
 					return new DefaultResponse(hotdeals);
->>>>>>> cassandra
 				}
 			}
-		}
-		log.debug(hotdeals.toJsonPrettify());
 
-		// 시간 확인
-		DateTime nowDateTime = DateTime.now();
-		log.debug(">>> {}, {}", hotdeals.getDateFrom().isEqual(nowDateTime), hotdeals.getDateTo().isEqual(nowDateTime));
-		log.debug(">>> {}, {}", hotdeals.getDateFrom().isBefore(nowDateTime),
-				hotdeals.getDateTo().isAfter(nowDateTime));
-		if (hotdeals.getDateFrom().isEqual(nowDateTime) || hotdeals.getDateTo().isEqual(nowDateTime)
-				|| (hotdeals.getDateFrom().isBefore(nowDateTime) && hotdeals.getDateTo().isAfter(nowDateTime))) {
-			setCache(hotdeals); // Redis Cache...
-			return new DefaultResponse(hotdeals);
-		} else {
+			DateTime.now().isAfter(DateTime.now());
 			// 현재시간 이후에 진행 될 예정의 이벤트가 있으면 "이벤트 준비중"
-			if (hotdeals != null && hotdeals.getDateFrom().isAfter(DateTime.now())) {
+			if (event != null && event.getDateFrom().isAfter(DateTime.now())) {
 				return new DefaultResponse(511, getResponseMessage(511));
 			}
 		}
@@ -152,9 +118,6 @@ public class HotdealsService extends AbstractService {
 			log.debug(hotdeals.toJsonPrettify());
 		}
 		if (hotdeals == null) {
-<<<<<<< HEAD
-			return new DefaultResponse(511, getResponseMessage(511));
-=======
 			DefaultResponse res = getEventInfo();
 			if (res.getCode() >= 300) {
 				return res;
@@ -162,7 +125,6 @@ public class HotdealsService extends AbstractService {
 				return new DefaultResponse(511, getResponseMessage(511));
 			}
 			hotdeals = (Hotdeals) res.getResultData();
->>>>>>> cassandra
 			// } else if (StringUtils.notEquals(params.getEventId(), hotdeals.getEventId())) {
 			// // 클라이언트가 보내준 이벤트ID와 Cache된 이벤트ID가 상이한 경우 에러 발생
 			// return new DefaultResponse(412, getResponseMessage(412));
@@ -187,21 +149,10 @@ public class HotdealsService extends AbstractService {
 		}
 
 		HotdealsPick pick = new HotdealsPick();
-		pick.setPhoneNo(params.getPhoneNo());
-		pick.setEventId(hotdeals.getEventId());
+		pick.setKey(new HotdealsPickKey(params.getPhoneNo(), hotdeals.getEventId()));
 		pick.setName(params.getName());
 		pick.setAgreement(params.isAggrement());
 		pick.setTimestamp(params.getTimestamp());
-<<<<<<< HEAD
-		clusterRedisValueOperations.set(getRedisPickKey(pick.getEventId(), pick.getPhoneNo()), pick.toJson());
-		log.debug(">>> {}", clusterRedisValueOperations.get(getRedisPickKey(pick.getEventId(), pick.getPhoneNo())));
-
-		HotdealsCoupon hotdealsCoupon = HotdealConsumer.hotdealsCoupon;
-		if (hotdealsCoupon != null && StringUtils.equals(hotdeals.getEventId(), hotdealsCoupon.getEventId())) {
-			hotdeals.setClose(hotdealsCoupon.isClosed());
-		} else if (NumberUtils.toInt(hotdeals.getEventType(), 2) == 3) {
-			hotdeals.setClose(false);
-=======
 		hotdealsPickRepository.save(pick);
 
 		if (HotdealConsumer.hotdealsCoupon != null
@@ -220,9 +171,8 @@ public class HotdealsService extends AbstractService {
 		@Override
 		public int compare(HotdealsEvent o1, HotdealsEvent o2) {
 			return o2.getKey().getEventId().compareTo(o1.getKey().getEventId());
->>>>>>> cassandra
 		}
-		return new DefaultResponse(hotdeals);
+
 	}
 
 	protected class CouponThread implements Runnable {
